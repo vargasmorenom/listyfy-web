@@ -1,0 +1,10 @@
+@for (item of contenido; track $index) {
+  <div class="twitter-container" id="{{ item.id }}">
+    <app-delete-content [idContent]="item.id" [idpost]="idpost" [session]="session"></app-delete-content>
+    <div class="contentSocial">
+      <blockquote class="twitter-tweet">
+        <a href="https://twitter.com/{{ item.username }}/status/{{ item.id }}?ref_src=twsrc%5Etfw"></a>
+      </blockquote>
+    </div>
+  </div>
+}

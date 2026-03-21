@@ -1,0 +1,76 @@
+{
+  "menu": {
+    "home": "Home",
+    "buscar": "Search",
+    "listan": "New List",
+    "tendencia": "Trending",
+    "perfil": "Profile",
+    "inscripcion": "Register",
+    "ingreso": "Login"
+  },
+  "perfil": {
+    "info": "Information",
+    "contenido": "Content",
+    "editar": "Edit",
+    "cargando": "Loading more...",
+    "seguir": "Follow",
+    "siguiendo": "Following",
+    "me_gusta": "Like",
+    "te_gusta": "Liked",
+    "seguidores": "Followers",
+    "likes": "Likes",
+    "redes": "My Social Networks",
+    "mensajeria": "Instant Messaging",
+    "links": "External Links"
+  },
+  "newlist": {
+    "titulo_pagina": "New Content List",
+    "titulo": "Title",
+    "descripcion": "Description",
+    "tipo": "Content Type",
+    "imagen": "Cover Image",
+    "cargar": "Upload",
+    "tags": "Tags",
+    "acceso": "Access Level",
+    "boton_crear": "Create List",
+    "boton_limpiar": "Clear Form",
+    "publico": "Public",
+    "privado": "Private",
+    "error": {
+      "requerido": "This field is required.",
+      "minlength": "Minimum 8 characters.",
+      "patron": "Invalid format for {{campo}}."
+    }
+  },
+  "login": {
+    "usuario": "Username",
+    "contrasena": "Password",
+    "boton": "Login",
+    "error": {
+      "requerido": "This field is required.",
+      "minlength": "Minimum 8 characters."
+    }
+  },
+  "inscripcion": {
+    "usuario": "Username",
+    "correo": "E-Mail",
+    "pais": "Country",
+    "telefono": "Phone",
+    "contrasena": "Password",
+    "confirmar": "Confirm Password",
+    "terminos": "Terms and Conditions",
+    "boton": "Register",
+    "error": {
+      "requerido": "This field is required.",
+      "minlength": "Minimum 8 characters.",
+      "patron": "Invalid format for {{campo}}.",
+      "no_coinciden": "Fields do not match.",
+      "pass_titulo": "Password requirements",
+      "pass_mayuscula": "One uppercase letter",
+      "pass_minuscula": "One lowercase letter",
+      "pass_numero": "One number",
+      "pass_especial": "One special character",
+      "pass_min": "Minimum 8 characters"
+    }
+  }
+}

@@ -1,0 +1,71 @@
+<div class="menu-header-bg">
+  @for (item of info.profilePic; track $index) {
+    <div class="imagen-container" (click)="session ? mostrarData(info) : null">
+      <img class="perfilimg" [src]="urlBack + item.medium" />
+      @if (session) {
+        <div class="edit-badge">
+          <ion-icon name="image-outline"></ion-icon>
+        </div>
+      }
+    </div>
+  } @empty {
+    <div class="imagen-container" (click)="session ? mostrarData(info) : null">
+      <img class="perfilimg" src="assets/logo/perfil02.png" />
+      @if (session) {
+        <div class="edit-badge">
+          <ion-icon name="image-outline"></ion-icon>
+        </div>
+      }
+    </div>
+  }
+</div>
+<div class="headerInterno">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <h1>{{ info.chanelName }}</h1>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="descriptionperfil">{{ info.description }}</ion-col>
+    </ion-row>
+    @if (!isOwnProfile) {
+      <ion-row>
+        <ion-col>
+          <ion-button
+            expand="block"
+            [class.following-btn]="following"
+            (click)="followToggled.emit()"
+          >
+            <ion-icon [name]="following ? 'people-circle' : 'people'" slot="start"></ion-icon>
+            <strong>{{ following ? ('perfil.siguiendo' | translate) : ('perfil.seguir' | translate) }}</strong>
+          </ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button
+            expand="block"
+            [class.liked-btn]="liked"
+            (click)="likeToggled.emit()"
+          >
+            <ion-icon [name]="liked ? 'heart' : 'heart-outline'" slot="start"></ion-icon>
+            <strong>{{ liked ? ('perfil.te_gusta' | translate) : ('perfil.me_gusta' | translate) }}</strong>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    }
+    <ion-row class="staticDataValue">
+      <ion-col>
+        <strong>{{ followersCount }}</strong>
+        <span class="stat-label">{{ 'perfil.seguidores' | translate }}</span>
+      </ion-col>
+      <ion-col>
+        <strong>{{ likeCount }}</strong>
+        <span class="stat-label">{{ 'perfil.likes' | translate }}</span>
+      </ion-col>
+      <ion-col>
+        <strong>{{ followingCount }}</strong>
+        <span class="stat-label">{{ 'perfil.siguiendo' | translate }}</span>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>

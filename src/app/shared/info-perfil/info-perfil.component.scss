@@ -1,0 +1,38 @@
+.infoPefil {
+  height: auto;
+}
+
+ion-icon,
+strong {
+  margin-right: 8px;
+}
+
+ion-icon {
+  color: rgb(12, 95, 163);
+  font-size: 1.2em;
+}
+
+ion-label {
+  font-size: 0.8em;
+}
+
+a {
+  text-decoration: none;
+  color: #1a73e8;
+}
+
+a:hover {
+  color: #1558b0;
+}
+
+:host-context(.ion-palette-dark) a {
+  color: #82b1ff;
+}
+
+:host-context(.ion-palette-dark) a:hover {
+  color: #b3d1ff;
+}
+
+ion-list-header {
+  font-size: 1.1em;
+}

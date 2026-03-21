@@ -1,0 +1,44 @@
+.twitter-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+.twitter-container:hover {
+  box-shadow: 0 6px 18px rgba(48, 61, 92, 0.25);
+  transform: translateY(-2px);
+}
+
+/* ============================
+   Botón de borrar
+============================ */
+.borrarXtw {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  z-index: 10;
+}
+
+.borrarXtw ion-button {
+  --background: #e74c3c;
+  --color: #ffffff00;
+  --border-radius: 50%;
+  --padding-start: 0.6rem;
+  --padding-end: 0.6rem;
+  --padding-top: 0.4rem;
+  --padding-bottom: 0.4rem;
+    box-shadow: 0 0px 6px rgba(255, 255, 255, 0.2);
+}
+
+.borrarXtw ion-button:hover {
+  --color: #d93025; /* rojo elegante */
+  transform: scale(1.1);
+}
+
+.borrarXtw ion-icon {
+  --color: #ffffff;
+  font-size: 3em;
+}

@@ -1,0 +1,63 @@
+.contenidoapp {
+  width: 90%;
+  margin: 1px auto;
+}
+
+li {
+  list-style: none;
+}
+
+li ion-icon {
+  margin-right: 0.6em;
+}
+
+ion-button {
+  --background: #313e5d;
+  --background-hover: #f8fdfb;
+  --background-activated: #b3f488;
+  --background-focused: #cef488;
+  --color: rgb(247, 247, 250);
+  --border-radius: 5px;
+  --border-color: #000;
+  --border-style: solid;
+  --border-width: 1px;
+  --box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.25);
+  --ripple-color: deeppink;
+  --padding-top: 10px;
+  --padding-bottom: 10px;
+}
+
+.info {
+  width: 100%;
+  font-size: 0.8em;
+  background-color: greenyellow;
+  padding: 0.5em;
+}
+
+.error {
+  width: 100%;
+  font-size: 0.8em;
+  color: white;
+  font-weight: bold;
+  background-color: rgb(189, 49, 49);
+  padding: 0.5em;
+}
+
+.custom-textarea::part(label) {
+  color: #e74c3c;
+  font-size: 1rem;
+}
+
+.custom-textarea::part(textarea) {
+  background: #ffffff;
+  border: 1px solid #bdc3c7;
+  min-height: 150px;
+}
+
+.upload-btn {
+  width: 100%;
+}
+
+.galeria {
+  padding-bottom: 1em;
+}

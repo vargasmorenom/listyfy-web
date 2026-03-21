@@ -1,0 +1,140 @@
+// .urlexterna {
+//   text-align: center;
+//   width: 100%;
+//   height: 2em;
+//   background-color: #303d5c;
+//   border-radius: 5px;
+// }
+
+// .urlexterna a {
+//   color: white;
+//   font-weight: bold;
+//   line-height: 2em;
+//   text-decoration: none;
+//   display: block;
+// }
+// ion-content {
+//   --background: transparent;
+//   text-align: center;
+//   width: 100%;
+//   height: 2em;
+// }
+
+// .loading-container {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: center;
+//   height: 580px;
+
+//   ion-spinner {
+//     width: 48px;
+//     height: 48px;
+//     color: var(--ion-color-primary);
+//   }
+
+//   p {
+//     margin-top: 12px;
+//     color: var(--ion-color-medium);
+//   }
+// }
+
+// iframe.hidden {
+//   display: none;
+// }
+ion-header {
+  ion-toolbar {
+    --background: #ffffff;
+    --border-color: transparent;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+
+  ion-title {
+    font-weight: 600;
+    font-size: 18px;
+    color: #1f2a44;
+  }
+
+  ion-button {
+    font-size: 20px;
+    color: #1f2a44;
+  }
+}
+
+/* Fondo general */
+
+ion-content {
+  --background: #f6f8fc;
+}
+
+/* Loader */
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  gap: 12px;
+}
+
+.loading-container p {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* Iframe */
+
+iframe {
+  display: block;
+  margin: 0 auto;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+}
+
+/* Ocultar mientras carga */
+
+.hidden {
+  opacity: 0;
+}
+
+/* Link externo */
+
+.urlexterna {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.urlexterna a {
+  display: inline-block;
+  padding: 10px 18px;
+  background: linear-gradient(45deg, #ff0050, #00f2ea);
+  color: white;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
+.video-header ion-toolbar {
+  --background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(10px);
+  --border-color: transparent;
+}
+
+.video-header ion-title {
+  text-align: center;
+  font-weight: 600;
+  font-size: 16px;
+  color: #1f2a44;
+}
+
+.video-header ion-button {
+  --color: #1f2a44;
+}
+
+.video-header ion-icon {
+  font-size: 22px;
+}

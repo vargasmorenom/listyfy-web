@@ -1,0 +1,29 @@
+{"es":[
+    {
+        "menu":{
+            "buscar": "Buscar",
+            "listan": "Nueva Lista",
+            "tendencia": "tendencia",
+            "perfil": "Perfil",
+            "inscripcion": "Inscripcion",
+            "ingreso": "Ingreso"
+
+        },
+        "menunoloueado":{
+            "inscripcion": "inscripcion",
+            "ingreso": "ingreso"
+        },
+        "inscripcion":{
+            "usuario":"Usuario",
+            "correo" : "Correo Electronico",
+            "pais" : "Pais",
+            "telefono" : "Telefono",
+            "contrasena" : "Contraseña",
+            "confirmar" : "Confirmas Contraseña",
+            "Terminos" : "Termino y Condiciones",
+            "boton" : "Inscripćion" 
+        }
+    }    
+
+]
+}

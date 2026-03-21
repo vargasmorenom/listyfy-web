@@ -1,0 +1,76 @@
+{
+  "menu": {
+    "home": "Inicio",
+    "buscar": "Buscar",
+    "listan": "Nueva Lista",
+    "tendencia": "Tendencia",
+    "perfil": "Perfil",
+    "inscripcion": "Inscripción",
+    "ingreso": "Ingresar"
+  },
+  "perfil": {
+    "info": "Información",
+    "contenido": "Contenido",
+    "editar": "Editar",
+    "cargando": "Cargando más...",
+    "seguir": "Seguir",
+    "siguiendo": "Siguiendo",
+    "me_gusta": "Me Gusta",
+    "te_gusta": "Te Gusta",
+    "seguidores": "Seguidores",
+    "likes": "Likes",
+    "redes": "Mis Redes Sociales",
+    "mensajeria": "Mensajería Instantánea",
+    "links": "Links Externos"
+  },
+  "newlist": {
+    "titulo_pagina": "Lista de Contenido",
+    "titulo": "Título",
+    "descripcion": "Descripción",
+    "tipo": "Tipo de Contenido",
+    "imagen": "Imagen de portada",
+    "cargar": "Cargar",
+    "tags": "Tags",
+    "acceso": "Nivel de Acceso",
+    "boton_crear": "Crear Lista",
+    "boton_limpiar": "Limpiar Formulario",
+    "publico": "Público",
+    "privado": "Privado",
+    "error": {
+      "requerido": "Este campo es obligatorio.",
+      "minlength": "Mínimo 8 caracteres.",
+      "patron": "Formato inválido de {{campo}}."
+    }
+  },
+  "login": {
+    "usuario": "Usuario",
+    "contrasena": "Contraseña",
+    "boton": "Ingresar",
+    "error": {
+      "requerido": "Este campo es obligatorio.",
+      "minlength": "Mínimo 8 caracteres."
+    }
+  },
+  "inscripcion": {
+    "usuario": "Usuario",
+    "correo": "Correo Electrónico",
+    "pais": "País",
+    "telefono": "Teléfono",
+    "contrasena": "Contraseña",
+    "confirmar": "Confirmar Contraseña",
+    "terminos": "Términos y Condiciones",
+    "boton": "Inscribirse",
+    "error": {
+      "requerido": "Este campo es obligatorio.",
+      "minlength": "Mínimo 8 caracteres.",
+      "patron": "Formato inválido de {{campo}}.",
+      "no_coinciden": "Los campos no son iguales.",
+      "pass_titulo": "Requisitos de la contraseña",
+      "pass_mayuscula": "Una Mayúscula",
+      "pass_minuscula": "Una Minúscula",
+      "pass_numero": "Un Número",
+      "pass_especial": "Un Carácter Especial",
+      "pass_min": "Mínimo 8 Caracteres"
+    }
+  }
+}

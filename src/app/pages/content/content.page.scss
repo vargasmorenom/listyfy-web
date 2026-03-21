@@ -1,0 +1,83 @@
+// .card-container {
+//   width: 90%;/* Ajusta el ancho según necesites */
+//   margin: 2px auto;
+//   position: relative;
+//   padding-bottom: 5px;
+// }
+// .card-container:hover {
+//  padding: 1px;
+//  border: 3px solid rgba(171, 171, 184, 0.39);
+//  border-radius: 15px;
+// }
+
+// .card-background {
+//   position: relative;
+//   width: 100%;
+//   height: auto; /* Altura fija o ajustable */
+//   overflow: hidden;
+//   border-radius: 8px; /* Bordes redondeados */
+//   box-shadow: 0 4px 8px rgba(155, 165, 185, 0.2); /* Sombra opcional */
+// }
+// .card-usuario{
+//   position: absolute;
+//   width: 60%;
+//   display: flex;
+//   border-radius: .5em;
+//   align-items: center;
+//   margin-top: 1em;
+//   margin-left: 1em;
+//   height: auto;
+//   background-color: rgba(115, 127, 231, 0.452);
+//   z-index: 100;
+
+// }
+// .card-usuario img{
+//   width: 40px;
+//   border-radius: 50%;
+//   border:2px solid rgb(195, 197, 188);
+// }
+
+// .card-usuario strong{
+//   margin-left: 1em;
+//   color: white;
+// }
+
+// .card-image {
+//   width: 100%;
+//   height: 100%;
+//   object-fit: cover; /* Ajusta la imagen para cubrir el espacio */
+//   display: block;
+// }
+
+// .card-content {
+//   position: absolute;
+//   display: flex;
+//   justify-content: space-between;
+//   line-height: 1px;
+//   bottom: 0;
+//   left: 0;
+//   right: 0;
+//   padding: 20px;
+//   background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent); /* Degradado para mejor legibilidad */
+//   color: white; /* Color del texto */
+//   text-align: center; /* Alineación del texto */
+// }
+
+// .card-title {
+//   margin: 0;
+//   font-size: 1em;
+//   font-weight: bold;
+// }
+
+// .card-description {
+//   margin: 10px 0;
+//   font-size: .7em;
+// }
+// .card-items{
+//   display: flex;
+//   flex-flow: column wrap;
+
+// }
+// .card-items ion-icon,strong{
+//   padding: 5px;
+// }

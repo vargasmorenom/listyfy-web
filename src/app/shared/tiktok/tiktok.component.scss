@@ -1,0 +1,126 @@
+// //
+// .contentTiktok {
+//   position: relative;
+//   width: 340px; /* Ajusta según necesites */
+//   border: 3px solid #e0e0e0; /* Marco gris claro */
+//   border-radius: 12px; /* Esquinas redondeadas */
+//   overflow: hidden;
+//   cursor: pointer;
+//   transition: all 0.3s ease;
+// }
+
+// .contentTiktok:hover {
+//   border-color: #ff0050; /* Color de TikTok al hacer hover */
+//   transform: scale(1.02); /* Efecto de zoom sutil */
+// }
+
+// .imgtiktok {
+//   width: 100%;
+//   height: 200px; /* Ajusta la altura según necesites */
+//   overflow: hidden;
+// }
+
+// .imgtiktok img {
+//   width: 100%;
+//   height: 100%;
+//   object-fit: cover;
+//   border-radius: 9px; /* Redondeado interno (12px del contenedor - 3px del borde) */
+// }
+
+// .descript {
+//   padding: 12px;
+//   background: linear-gradient(transparent, rgba(0, 0, 0, 0.7)); /* Degradado para mejor legibilidad */
+//   color: white;
+//   position: absolute;
+//   bottom: 0;
+//   width: 100%;
+//   box-sizing: border-box;
+// }
+
+// .tiktok-title {
+//   display: block;
+//   font-size: 16px;
+//   margin-bottom: 4px;
+// }
+
+// .tiktok-creator { /* Clase adicional para el nuevo campo */
+//   display: block;
+//   font-size: 12px;
+//   opacity: 0.9;
+// }
+
+// .play-icon {
+//   position: absolute;
+//   display: none;
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
+//   font-size: 48px;
+//   color: white;
+//   opacity: 0;
+//   transition: opacity 0.3s ease;
+//   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+// }
+
+// .contentTiktok:hover .play-icon {
+//   opacity: 1; /* Aparece al hacer hover */
+// }/*  */
+
+.tiktok {
+  // display: flex;
+  // flex-wrap: wrap;
+  // gap: 10px;
+  // width: 90%;
+  // margin: 10px auto;
+  // text-align: center;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  width: 95%;
+  margin: 2px auto;
+}
+.tiktok:hover {
+  box-shadow: 0 6px 18px rgba(48, 61, 92, 0.25);
+  transform: translateY(-2px);
+}
+
+.contentTiktok {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+ion-icon {
+  position: absolute;
+  display: none;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  font-size: 3rem; /* tamaño base */
+  color: rgba(255, 255, 255, 0.7); /* color inicial */
+  transition: all 0.3s ease-in-out;
+  pointer-events: none; /* para que no bloquee el click */
+}
+
+ion-card ion-icon {
+  display: inline;
+  transform: translate(-50%, -50%) scale(1.5); /* se agranda */
+  font-size: 6em;
+  color: red; /* se vuelve rojo */
+  opacity: 1;
+  z-index: 100;
+}
+
+ion-card-content {
+  height: 9em;
+  background-color: rgb(215, 218, 233);
+}
+ion-card-content .titulo {
+  font-size: 0.9em;
+  text-align: justify;
+}
+ion-card-content .creador a {
+  font-size: 1em;
+  text-decoration: none;
+  cursor: pointer;
+}

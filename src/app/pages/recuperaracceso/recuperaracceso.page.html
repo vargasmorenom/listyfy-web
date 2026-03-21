@@ -1,0 +1,48 @@
+<ion-content [fullscreen]="true">
+  <div class="{{currentBackgroundClass}} background-container">
+    <ion-card class="logoCard">
+      <img alt="Listyfy" src="{{logo}}" />
+    </ion-card>
+
+    <form [formGroup]="form">
+      @for (item of formCreate; track $index; ) {
+
+      <div class="input-group">
+        <ion-item>
+          <ion-input
+            type="{{item.type}}"
+            name="{{item.name}}"
+            placeholder="{{item.label}}"
+            formControlName="{{item.name}}"
+          >
+            @if(item.type === 'password'){
+            <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+            }
+          </ion-input>
+        </ion-item>
+
+        @if(form.get(item.name)?.touched){ @if(form.get(item.name)?.errors?.['required']){
+        <ion-item>
+          <div class="error">
+            <span>Este campo es obligatorio.</span>
+          </div>
+        </ion-item>
+        } @if(form.get(item.name)?.errors?.['minlength']){
+        <ion-item>
+          <div class="error">
+            <span>Mínimo 8 caracteres.</span>
+          </div>
+        </ion-item>
+        } }
+      </div>
+      }
+      <div class="input-group">
+        <ion-item>
+          <ion-button (click)="enviar()" [disabled]="form.invalid">
+            <ion-icon name="arrow-forward-outline" style="margin-right: 5px"></ion-icon>Enviar Datos
+          </ion-button>
+        </ion-item>
+      </div>
+    </form>
+  </div>
+</ion-content>

@@ -1,0 +1,33 @@
+ion-button {
+  --background: #313e5d;
+  --background-hover: #f8fdfb;
+  --background-activated: #b3f488;
+  --background-focused: #cef488;
+  --color: rgb(247, 247, 250);
+  --border-radius: 5px;
+  --border-color: #000;
+  --border-style: solid;
+  --border-width: 1px;
+
+  --box-shadow: 0 2px 6px 0 rgb(0, 0, 0, 0.25);
+
+  --ripple-color: deeppink;
+  --padding-top: 10px;
+  --padding-bottom: 10px;
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}
+ion-input {
+  --background: #f8fdfb;
+  --color: #000;
+  --placeholder-color: #a0a0a0;
+  --border-radius: 5px;
+  --border-color: #000;
+  --border-style: solid;
+  --border-width: 1px;
+  --padding-start: 10px;
+}

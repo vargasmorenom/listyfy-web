@@ -1,0 +1,138 @@
+:host {
+  --profile-size: 190px;
+  --profile-border-color: rgb(82, 95, 95);
+  --btn-bg: #313e5d;
+  --btn-color: rgb(247, 247, 250);
+  --description-bg: #dee1e9;
+  --description-border: #cfcfd1;
+  --description-color: #1a1a1a;
+  --h1-color: inherit;
+}
+
+:host-context(.ion-palette-dark) {
+  --description-bg: #1e2a3a;
+  --description-border: #3a4a5a;
+  --description-color: #e0e0e0;
+}
+
+.menu-header-bg {
+  height: 260px;
+  width: 100%;
+  position: relative;
+  text-align: center;
+  border-radius: 0 0 40% 40%;
+  margin-top: -60px;
+  margin-bottom: 80px;
+}
+
+.imagen-container {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 20px;
+  width: var(--profile-size);
+  height: var(--profile-size);
+  border-radius: 50%;
+  z-index: 20;
+  cursor: pointer;
+}
+
+.edit-badge {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--app-color-primario);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+  z-index: 21;
+
+  ion-icon {
+    font-size: 18px;
+    color: #fff;
+  }
+}
+
+.perfilimg {
+  position: absolute;
+  left: 50%;
+  top: 30%;
+  transform: translateX(-50%);
+  width: var(--profile-size);
+  height: auto;
+  border-radius: 50%;
+  border: 4px solid var(--profile-border-color);
+  background: none;
+}
+
+.headerInterno {
+  margin-top: -95px;
+  text-align: center;
+
+  h1 {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 2em;
+  }
+
+  .descriptionperfil {
+    font-size: 1em;
+    text-align: left;
+    background-color: var(--description-bg);
+    border: 2px solid var(--description-border);
+    color: var(--description-color);
+    margin: .5em;
+    border-radius: 0.5em;
+    padding: .7em;
+  }
+}
+
+.staticDataValue {
+  font-size: 1.1em;
+  text-align: center;
+
+  ion-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .stat-label {
+    font-size: 0.7em;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+}
+
+ion-button.following-btn {
+  --background: #1565c0;
+  --background-hover: #1976d2;
+  --background-activated: #0d47a1;
+}
+
+ion-button.liked-btn {
+  --background: #c62828;
+  --background-hover: #e53935;
+  --background-activated: #b71c1c;
+}
+
+ion-button {
+  --background: var(--btn-bg);
+  --background-hover: #f8fdfb;
+  --background-activated: #b3f488;
+  --background-focused: #cef488;
+  --color: var(--btn-color);
+  --border-radius: 5px;
+  --border-color: #000;
+  --border-style: solid;
+  --border-width: 1px;
+  --box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.25);
+  --ripple-color: deeppink;
+  --padding-top: 10px;
+  --padding-bottom: 10px;
+}

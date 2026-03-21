@@ -1,0 +1,11 @@
+<div class="like-container" [class.liked]="liked" (click)="toggleLike()">
+  <div class="likesSection">
+    <ion-icon [name]="liked ? 'heart' : 'heart-outline'" class="like-icon"></ion-icon>
+  <span class="like-count">{{ count }}</span>
+  </div>
+  <div class="viewSection">
+    <ion-icon [name]="'eye-outline'" class="view-icon"></ion-icon>
+  <span class="view-count">{{ countview }}</span>
+  </div>
+  
+</div>

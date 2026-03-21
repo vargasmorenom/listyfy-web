@@ -1,0 +1,22 @@
+<ion-content [fullscreen]="true">
+  <ion-card>
+    @if (estado === 'loading') {
+      <div class="loading-container">
+        <ion-spinner name="bubbles"></ion-spinner>
+        <p>Verificando tu cuenta...</p>
+      </div>
+    }
+    @if (estado !== 'loading') {
+      <img alt="estado activacion" src="../../../assets/imagenes/{{ imagen }}" />
+      <ion-card-header>
+        <ion-card-title>{{ estado === 'success' ? '¡Cuenta activada!' : 'Error de activación' }}</ion-card-title>
+        <ion-card-subtitle>{{ mensaje }}</ion-card-subtitle>
+      </ion-card-header>
+    }
+    @if (estado === 'error') {
+      <div class="action-container">
+        <ion-button (click)="irAlLogin()">Ir al login</ion-button>
+      </div>
+    }
+  </ion-card>
+</ion-content>

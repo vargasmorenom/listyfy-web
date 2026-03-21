@@ -1,0 +1,9 @@
+<ion-header>
+  <ion-img [src]="logoHeader" alt="LystyFy app"> </ion-img>
+
+  @if (isLoggedIn) {
+    <ion-button expand="block" (click)="mostrarOpciones()">
+      <ion-icon name="menu-outline"></ion-icon>
+    </ion-button>
+  }
+</ion-header>

@@ -1,0 +1,117 @@
+<ion-content [fullscreen]="true">
+  <div class="{{currentBackgroundClass}} background-container">
+    <ion-card class="logoCard">
+      <img alt="Listyfy" src="{{logo}}" />
+    </ion-card>
+
+    <form [formGroup]="form">
+      @for (item of formCreate; track $index; ) { @if(item.type !== 'select' && item.type !=='textarea' && item.type
+      !=='checkbox' && item.type !=='file' && item.type !=='custom'){
+      <div class="input-group">
+        <ion-item>
+          <ion-input
+            type="{{item.type}}"
+            name="{{item.name}}"
+            [placeholder]="item.label | translate"
+            formControlName="{{item.name}}"
+            autocomplete="off"
+            autocorrect="off"
+          >
+            @if(item.type === 'password'){
+            <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+            }
+          </ion-input>
+        </ion-item>
+      </div>
+      } @if(item.type ==='custom'){
+      <div class="input-group">
+        <ion-item>
+          <ion-input
+            type="text"
+            autocomplete="off"
+            name="{{item.name}}"
+            [placeholder]="item.label | translate"
+            (ionInput)="onSearchChange($event)"
+            clearInput
+            autocomplete="one-time-code"
+            formControlName="{{item.name}}"
+          >
+          </ion-input>
+        </ion-item>
+      </div>
+
+      @if(filtered.length){
+      <div class="input-group">
+        <ion-list class="listasCountys">
+          @for(itemCountry of filtered; track $index;){
+          <ion-item (click)="selectCountry(itemCountry)"> {{ itemCountry.nameES }} ({{ itemCountry.iso2 }}) </ion-item>
+          }
+        </ion-list>
+      </div>
+      } } @if(item.type === 'checkbox'){
+      <div class="input-group">
+        <ion-item>
+          <ion-checkbox
+            fill="outline"
+            formControlName="{{item.name}}"
+            [indeterminate]="false"
+            errorText="este campo debe estar check"
+            labelPlacement="start"
+          >
+            <a href="{{item.link}}">{{ item.label | translate }}</a></ion-checkbox
+          >
+        </ion-item>
+      </div>
+      } @if(form.get(item.name)?.touched){ @if(form.get(item.name)?.errors?.['required']){
+      <ion-item>
+        <div class="error">
+          <span>{{ 'inscripcion.error.requerido' | translate }}</span>
+        </div>
+      </ion-item>
+
+      } @if(form.get(item.name)?.errors?.['minlength']){
+      <ion-item>
+        <div class="error">
+          <span>{{ 'inscripcion.error.minlength' | translate }}</span>
+        </div>
+      </ion-item>
+      } @if(form.get(item.name)?.errors?.['pattern']){
+      <ion-item>
+        <div class="error">
+          <span>{{ 'inscripcion.error.patron' | translate: { campo: item.name } }}</span>
+        </div>
+      </ion-item>
+      } @if(item.name === 'password'){ @if(form.get(item.name)?.errors?.['pattern']){
+      <ion-item>
+        <div class="error">
+          <ol class="pass">
+            <ul>
+              <strong>{{ 'inscripcion.error.pass_titulo' | translate }}</strong>
+              <li>{{ 'inscripcion.error.pass_mayuscula' | translate }}</li>
+              <li>{{ 'inscripcion.error.pass_minuscula' | translate }}</li>
+              <li>{{ 'inscripcion.error.pass_numero' | translate }}</li>
+              <li>{{ 'inscripcion.error.pass_especial' | translate }}</li>
+              <li>{{ 'inscripcion.error.pass_min' | translate }}</li>
+            </ul>
+          </ol>
+        </div>
+      </ion-item>
+      } } @if(item.name === 'confirmPassword'){ @if(form.errors?.['passwordMismatch']){
+      <ion-item>
+        <ion-text>{{ 'inscripcion.error.no_coinciden' | translate }}</ion-text>
+      </ion-item>
+      } } } }
+      <app-recaptcha #recaptchaRef (resolved)="onRecaptchaResolved($event)"></app-recaptcha>
+
+      <div class="input-group">
+        <ion-item>
+          <ion-button (click)="enviar()" [disabled]="form.invalid">
+            <ion-icon name="arrow-forward-outline" style="margin-right: 5px"></ion-icon>
+            {{ 'inscripcion.boton' | translate }}
+          </ion-button>
+        </ion-item>
+      </div>
+    </form>
+  </div>
+</ion-content>
+<app-menubajo [estado]="isMenuHidden"></app-menubajo>

@@ -1,0 +1,15 @@
+@for (item of contenido; track $index) {
+  <div class="youtube" id="{{ item.id }}">
+    <app-delete-content [idContent]="item.id" [idpost]="idpost" [session]="session"></app-delete-content>
+    <iframe
+      width="350"
+      height="196"
+      [attr.src]="item.urlfinal"
+      title="YouTube video player"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      referrerpolicy="strict-origin-when-cross-origin"
+      allowfullscreen
+    ></iframe>
+  </div>
+}

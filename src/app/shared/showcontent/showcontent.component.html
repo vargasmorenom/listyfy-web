@@ -1,0 +1,27 @@
+@if (typecontent === 4) {
+  <app-tiktok [contenido]="content" [idpost]="idpost" [session]="isOwner"></app-tiktok>
+}
+
+@if (typecontent === 5) {
+  <app-youtube [contenido]="content" [idpost]="idpost" [session]="isOwner"></app-youtube>
+}
+
+@if (typecontent === 2) {
+  <app-facebook [contenido]="content" [idpost]="idpost" [session]="isOwner"></app-facebook>
+}
+
+@if (typecontent === 6) {
+  <app-linkedln [contenido]="content" [idpost]="idpost"></app-linkedln>
+}
+
+@if (typecontent === 3) {
+  <app-instagram [contenido]="content" [idpost]="idpost" [session]="isOwner"></app-instagram>
+}
+
+@if (typecontent === 1) {
+  <app-x-twitter [contenido]="content" [idpost]="idpost" [session]="isOwner"></app-x-twitter>
+}
+
+@if (typecontent === 7) {
+  <app-telegram [contenido]="content" [idpost]="idpost" [session]="isOwner"></app-telegram>
+}

@@ -1,0 +1,82 @@
+<div class="infoPefil">
+  <ion-list>
+    @if (perfilSession.chanelName) {
+      <ion-item>
+        <ion-icon aria-hidden="true" name="person-circle-outline" slot="start"></ion-icon>
+        <ion-label>{{ perfilSession.chanelName }}</ion-label>
+      </ion-item>
+    }
+    @if (perfilSession.firstname) {
+      <ion-item>
+        <ion-icon aria-hidden="true" name="man" slot="start"></ion-icon>
+        <ion-label>{{ perfilSession.firstname }} {{ perfilSession.lastname || '' }}</ion-label>
+      </ion-item>
+    }
+    @if (perfilSession.email) {
+      <ion-item>
+        <ion-icon aria-hidden="true" name="mail" slot="start"></ion-icon>
+        <ion-label>{{ perfilSession.email }}</ion-label>
+      </ion-item>
+    }
+    @if (perfilSession.phoneNumber) {
+      <ion-item>
+        <ion-icon aria-hidden="true" name="call" slot="start"></ion-icon>
+        <ion-label>{{ perfilSession.phoneNumber }}</ion-label>
+      </ion-item>
+    }
+    @if (perfilSession.location) {
+      <ion-item>
+        <ion-icon aria-hidden="true" name="location" slot="start"></ion-icon>
+        <ion-label>{{ perfilSession.location }}</ion-label>
+      </ion-item>
+    }
+  </ion-list>
+
+  @if (perfilSession.socialMedia?.length) {
+    <ion-list>
+      <ion-list-header>
+        <ion-label>{{ 'perfil.redes' | translate }}</ion-label>
+      </ion-list-header>
+      @for (item of perfilSession.socialMedia; track $index) {
+        <ion-item>
+          <ion-icon name="logo-{{ item.t }}" slot="start"></ion-icon>
+          <ion-label
+            ><a href="{{ item.r }}" target="_blank">{{ item.r }}</a></ion-label
+          >
+        </ion-item>
+      }
+    </ion-list>
+  }
+
+  @if (perfilSession.instantMessages?.length) {
+    <ion-list>
+      <ion-list-header>
+        <ion-label>{{ 'perfil.mensajeria' | translate }}</ion-label>
+      </ion-list-header>
+      @for (item of perfilSession.instantMessages; track $index) {
+        <ion-item>
+          <ion-icon name="reader-outline" slot="start"></ion-icon>
+          <ion-label
+            ><a href="{{ item.r }}" target="_blank">{{ item.r }}</a></ion-label
+          >
+        </ion-item>
+      }
+    </ion-list>
+  }
+
+  @if (perfilSession.links?.length) {
+    <ion-list>
+      <ion-list-header>
+        <ion-label>{{ 'perfil.links' | translate }}</ion-label>
+      </ion-list-header>
+      @for (item of perfilSession.links; track $index) {
+        <ion-item>
+          <ion-icon name="earth-outline" slot="start"></ion-icon>
+          <ion-label
+            ><a href="{{ item }}" target="_blank">{{ item }}</a></ion-label
+          >
+        </ion-item>
+      }
+    </ion-list>
+  }
+</div>

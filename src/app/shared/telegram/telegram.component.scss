@@ -1,0 +1,14 @@
+.telegram-container {
+  margin: 8px 0;
+  position: relative;
+}
+
+.telegram-embed {
+  width: 100%;
+  min-height: 80px;
+
+  iframe {
+    border-radius: 8px;
+    width: 100% !important;
+  }
+}

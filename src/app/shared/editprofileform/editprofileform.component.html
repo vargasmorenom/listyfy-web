@@ -1,0 +1,130 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>{{ title }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">✖</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+<form [formGroup]="form" class="form-container">
+
+  <!-- IMAGEN DE PERFIL -->
+  <div class="avatar-section">
+    <label class="avatar-wrapper" for="profile-pic-input" title="Cambiar foto">
+      <img class="avatar-img" [src]="imagenCarga || currentImageUrl" alt="Foto de perfil" />
+      <div class="avatar-overlay">
+        <ion-icon name="camera-outline"></ion-icon>
+      </div>
+    </label>
+    <input id="profile-pic-input" type="file" accept="image/*" (change)="onFile($event)" hidden />
+  </div>
+
+  @for (item of formCreate; track item.name) {
+
+    <div class="form-field">
+
+      <!-- TEXT -->
+      @if (item.type === 'text') {
+        <ion-item lines="none" class="input-item">
+          <ion-input
+            [type]="item.type"
+            [label]="item.label"
+            labelPlacement="stacked"
+            [formControlName]="item.name">
+          </ion-input>
+        </ion-item>
+      }
+
+      <!-- TEXTAREA -->
+      @if (item.type === 'textarea') {
+        <ion-item lines="none" class="input-item">
+          <ion-textarea
+            [label]="item.label"
+            labelPlacement="stacked"
+            autoGrow="true"
+            [formControlName]="item.name">
+          </ion-textarea>
+        </ion-item>
+      }
+
+      <!-- ARRAY (links, redes, mensajería) -->
+      @if (item.type === 'array') {
+        <div class="array-field">
+
+          <div class="array-header">
+            <span class="array-label">{{ item.label }}</span>
+            @if ((itemsMap[item.name]?.length ?? 0) < 3) {
+              <button type="button" class="add-icon-btn" (click)="addItem(item.name)" title="Agregar">
+                <ion-icon name="add-circle-outline"></ion-icon>
+              </button>
+            }
+          </div>
+
+          @for (entry of itemsMap[item.name]; track $index; let i = $index) {
+            <div class="array-row">
+              <ion-item lines="none" class="input-item array-input-item"
+                [class.item-error]="getItemError(item.name, entry, i)">
+                <ion-input
+                  [value]="entry"
+                  [placeholder]="item.placeholder || ''"
+                  (ionInput)="updateItem(item.name, i, $event)"
+                  (ionBlur)="markTouched(item.name, i)">
+                </ion-input>
+              </ion-item>
+              @if (itemsMap[item.name].length > 1) {
+                <button type="button" class="remove-icon-btn" (click)="removeItem(item.name, i)" title="Eliminar">
+                  <ion-icon name="close-circle-outline"></ion-icon>
+                </button>
+              }
+            </div>
+            @if (getItemError(item.name, entry, i); as err) {
+              <div class="error-message item-error-msg">{{ err }}</div>
+            }
+          }
+
+        </div>
+      }
+
+      <!-- MENSAJES INFORMATIVOS -->
+      @if (form.get(item.name)?.touched && item.explicacion) {
+        <div class="info-message">
+          {{ item.explicacion }}
+        </div>
+      }
+
+      <!-- ERRORES -->
+      @if (form.get(item.name)?.touched && form.get(item.name)?.invalid) {
+        <div class="error-message">
+
+          @if (form.get(item.name)?.errors?.['required']) {
+            <span>Este campo es obligatorio</span>
+          }
+
+          @if (form.get(item.name)?.errors?.['minlength']) {
+            <span>Mínimo 8 caracteres</span>
+          }
+
+          @if (form.get(item.name)?.errors?.['pattern']) {
+            <span>Formato inválido</span>
+          }
+
+        </div>
+      }
+
+    </div>
+  }
+
+  <ion-button expand="block"
+              type="submit"
+              (click)="enviar()"
+              [disabled]="form.invalid || hasArrayErrors()"
+              class="submit-btn">
+    <ion-icon name="save-outline"></ion-icon>
+    Guardar Cambios
+  </ion-button>
+
+</form>
+
+</ion-content>

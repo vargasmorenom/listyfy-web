@@ -1,0 +1,106 @@
+
+
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>Configuracion de Cuenta</ion-card-title>
+  </ion-card-header>
+</ion-card>
+<div class="configuracion">
+  <ion-accordion-group>
+  <ion-accordion value="first">
+    <ion-item slot="header" color="light">
+      <ion-label>Cambio De contraseña</ion-label>
+    </ion-item>
+    <div class="ion-padding" slot="content">
+    <form [formGroup]="form" autocomplete="off">
+      @for (item of formCreate; track $index; ) {
+
+      <div class="input-group">
+        <ion-item>
+          <ion-input
+            type="{{item.type}}"
+            name="{{item.name}}"
+            placeholder="{{item.label}}"
+            formControlName="{{item.name}}"
+            autocomplete="new-password"
+          >
+            @if(item.type === 'password'){
+            <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+            }
+          </ion-input>
+        </ion-item>
+
+        @if(form.get(item.name)?.touched){ @if(form.get(item.name)?.errors?.['required']){
+        <ion-item>
+          <div class="error">
+            <span>Este campo es obligatorio.</span>
+          </div>
+        </ion-item>
+        } @if(form.get(item.name)?.errors?.['minlength']){
+        <ion-item>
+          <div class="error">
+            <span>Mínimo 8 caracteres.</span>
+          </div>
+        </ion-item>
+        } }
+      </div>
+      }
+      <div class="input-group">
+        <ion-item>
+          <ion-button (click)="enviar()" [disabled]="form.invalid">
+            <ion-icon name="arrow-forward-outline" style="margin-right: 5px"></ion-icon>Enviar Datos
+          </ion-button>
+        </ion-item>
+      </div>
+    </form>
+    </div>
+  </ion-accordion>
+  <ion-accordion value="second">
+    <ion-item slot="header" color="light">
+      <ion-label>Idioma</ion-label>
+    </ion-item>
+    <div class="ion-padding" slot="content">
+    <form [formGroup]="langua" autocomplete="off">
+      @for (item of language; track $index; ) {
+      <div class="input-group">
+        <ion-list class="optioconten">
+          <ion-label>{{ item.label }}</ion-label>
+          <ion-radio-group formControlName="{{item.name}}">
+            @for(itema of item.content; track $index;){
+            <ion-item>
+              <ion-icon name="{{itema.icono}}" slot="start"></ion-icon>
+              <ion-label>{{ itema.dato }}</ion-label>
+              <ion-radio slot="end" value="{{itema.id}}"></ion-radio>
+            </ion-item>
+            }
+          </ion-radio-group>
+        </ion-list>
+      </div>
+    }
+
+      <div class="input-group">
+        <ion-item>
+          <ion-button (click)="guardarIdioma()" [disabled]="langua.invalid">
+            <ion-icon name="arrow-forward-outline" style="margin-right: 5px"></ion-icon>
+            @if(languageSaved){ Guardado } @else { Guardar Idioma }
+          </ion-button>
+        </ion-item>
+      </div>
+    </form>
+
+    </div>
+  </ion-accordion>
+  <ion-accordion value="third">
+    <ion-item slot="header" color="light">
+      <ion-label>Apariencia</ion-label>
+    </ion-item>
+    <div class="ion-padding" slot="content">
+      <ion-item>
+        <ion-icon name="moon-outline" slot="start"></ion-icon>
+        <ion-label>Modo oscuro</ion-label>
+        <ion-toggle slot="end" [checked]="isDark" (ionChange)="toggleTheme()"></ion-toggle>
+      </ion-item>
+    </div>
+  </ion-accordion>
+</ion-accordion-group>
+</div>

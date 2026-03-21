@@ -1,0 +1,29 @@
+{"en":[
+    {
+        "menuloueado":{
+            "buscar": "Searcher",
+            "listan": "New List",
+            "tendencia": "Tendencies",
+            "perfil": "Profile",
+            "inscripcion": "Inscription",
+            "ingreso": "login"
+
+        },
+        "menunoloueado":{
+            "inscripcion": "Inscription",
+            "ingreso": "login"
+        },
+        "inscripcion":{
+            "usuario":"User",
+            "correo" : "E - Mail",
+            "pais" : "Country",
+            "telefono" : "Phone",
+            "contrasena" : "Password",
+            "confirmar" : "Confirm Password",
+            "Terminos" : "Terms and Conditions",
+            "boton" : "Registration" 
+        }
+    }    
+
+]
+}

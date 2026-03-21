@@ -1,0 +1,6 @@
+@for (item of contenido; track $index) {
+  <div class="telegram-container" id="{{ item.id }}">
+    <app-delete-content [idContent]="item.id" [idpost]="idpost" [session]="session"></app-delete-content>
+    <div class="telegram-embed" [attr.data-post]="item.id"></div>
+  </div>
+}

@@ -1,0 +1,39 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>{{ title }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">✖</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="form" class="textForm">
+    @for (item of content; track $index) {
+      @if (item.type === 'text') {
+        <div class="input-group">
+          <ion-item>
+            <ion-input
+              type="{{ item.type }}"
+              name="{{ item.name }}"
+              labelPlacement="stacked"
+              label="{{ item.label }}"
+              formControlName="{{ item.name }}"
+            >
+            </ion-input>
+          </ion-item>
+        </div>
+      }
+      @if (form.get(item.name)?.touched) {
+        @if (form.get(item.name)?.errors?.['required']) {
+          <div class="error-message">
+            <span>Campo Obligatorio</span>
+          </div>
+        }
+      }
+    }
+    <ion-button expand="block" (click)="enviar()" [disabled]="form.invalid">
+      <strong>{{ message }}</strong>
+    </ion-button>
+  </form>
+</ion-content>

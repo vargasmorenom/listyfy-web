@@ -1,0 +1,69 @@
+.contentFacebook {
+  // display: flex;
+  // flex-wrap: wrap;
+  // gap: 10px;
+  // width: 90%;
+  // margin: 10px auto;
+  // text-align: center;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  width: 95%;
+  margin: 2px auto;
+}
+.contentFacebook:hover {
+  box-shadow: 0 6px 18px rgba(48, 61, 92, 0.25);
+  transform: translateY(-2px);
+}
+
+.photo {
+  text-align: center;
+  width: 100%;
+}
+.photo > .fb-post {
+  display: inline-block; /* necesario para que el centrado funcione */
+}
+// iframe {
+//   display: block;       /* Elimina espacios fantasma */
+//   border: none !important; /* Eliminar bordes */
+//   overflow: hidden !important;
+//   width: 90% !important;
+//   margin: 1px auto;/* Ajusta la altura */
+//   margin-bottom: -4em;
+// }
+
+// .contentFacebook{
+//   display: flex;
+//   flex-direction: column; /* apila los hijos en columna */
+//   gap: 10px; /* espacio entre .b y .c */
+
+// }
+.photo,
+.reel,
+.video,
+.post {
+  position: relative;
+}
+.video {
+  padding: 10px;
+  background: #f0f0f0; /* solo para que se vean */
+  border: 1px solid #ccc;
+  width: 95%;
+  margin: 1px auto;
+  text-align: center;
+}
+.reel {
+  padding: 10px;
+  background: #f0f0f0; /* solo para que se vean */
+  border: 1px solid #ccc;
+  width: 95%;
+  margin: 1px auto;
+  text-align: center;
+}
+.photo {
+  padding: 10px;
+  background: #f0f0f0; /* solo para que se vean */
+  border: 1px solid #ccc;
+  width: 95%;
+  margin: 1px auto;
+}

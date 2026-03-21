@@ -1,0 +1,11 @@
+.youtube {
+  position: relative;
+  flex-wrap: wrap;
+  text-align: center;
+  width: 95%;
+  margin: 2px auto;
+}
+.youtube:hover {
+  box-shadow: 0 6px 18px rgba(48, 61, 92, 0.25);
+  transform: translateY(-2px);
+}

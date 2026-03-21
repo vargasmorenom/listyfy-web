@@ -1,0 +1,31 @@
+@for (item of entityNames; track $index) {
+  <div class="card-container" [id]="item._id">
+    @if (typeof item.profileId === 'object') {
+      <div class="card-usuario" (click)="perfil(item.postedBy)">
+        <img class="imagenPefil" [src]="urlfiles + item.profileId.profilePic[0].small" />
+        <span>{{ item.profileId.chanelName }}</span>
+      </div>
+    }
+
+    <div class="card-background" (click)="seeContent(item._id)">
+      @for (itemA of item.imagen; track $index) {
+        <img [src]="urlfiles + itemA.small" />
+      }
+      <div class="card-content">
+        <div class="card-info">
+          <h2 class="card-title">{{ item.name }}</h2>
+          <p class="card-tipo">{{ item.tipo }}</p>
+        </div>
+        <div class="card-items">
+          <ion-icon name="heart-outline"></ion-icon>
+           <span>{{ item.likeNumber }}</span>
+          <span class="content-count">
+            <ion-icon name="layers-outline"></ion-icon>
+            {{ item.content?.length ?? 0 }}/10
+          </span>
+          <span class="tipo">{{ item.typePostName }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+}

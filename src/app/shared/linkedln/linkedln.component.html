@@ -1,0 +1,15 @@
+<div class="linkedln">
+  @for (item of contenido; track $index) {
+    <iframe
+      [attr.src]="item.urlfinal"
+      height="450"
+      width="360"
+      frameborder="0"
+      allowfullscreen
+      title="Publicación integrada"
+    >
+    </iframe>
+  }
+  <!-- <iframe
+ src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7376324633526104065?compact=1" height="399" width="504" frameborder="0" allowfullscreen="" title="Publicación integrada"></iframe> -->
+</div>

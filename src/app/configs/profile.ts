@@ -1,0 +1,45 @@
+export const profile = [
+  {
+    name: 'chanelName',
+    label: 'Nombre del Canal',
+    type: 'text',
+    validations: [{ type: 'required' }, { type: 'pattern', value: /^[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ,:.\/@#\s-]{6,300}$/ }],
+  },
+  {
+    name: 'description',
+    label: 'descripción',
+    type: 'textarea',
+    validations: [{ type: 'required' }, { type: 'pattern', value: /^[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ,:.\/@#\s-]{6,300}$/ }],
+  },
+  { name: 'firstname', label: 'Nombres', type: 'text', validations: [] },
+  { name: 'lastname', label: 'Apellidos', type: 'text', validations: [] },
+  { name: 'email', label: 'Correo Electronico', type: 'text', validations: [] },
+  { name: 'phoneNumber', label: 'Telefono', type: 'text', validations: [] },
+  {
+    name: 'location',
+    label: 'Ubicacion',
+    type: 'text',
+    validations: [{ type: 'pattern', value: /^[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ,:.\/@#\s-]{6,300}$/ }],
+  },
+  {
+    name: 'linksString',
+    label: 'Links Externos',
+    type: 'array',
+    placeholder: 'https://ejemplo.com',
+    validations: [],
+  },
+  {
+    name: 'socialMediaString',
+    label: 'Redes Sociales',
+    type: 'array',
+    placeholder: 'https://instagram.com/usuario',
+    validations: [],
+  },
+  {
+    name: 'instantMessagesString',
+    label: 'Mensajería Instantánea',
+    type: 'array',
+    placeholder: 'whatsapp:3201234567',
+    validations: [],
+  },
+];

@@ -1,0 +1,86 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+ion-card {
+  text-align: center;
+  width: 90%;
+  margin: 1em auto;
+}
+ion-card img {
+  width: 600px;
+  height: auto;
+}
+
+.background-1 {
+  background-image: url('./../../../assets/fondos/fondo1.jpeg');
+  background-size: cover;
+  background-position: center;
+}
+
+.background-2 {
+  background-image: url('./../../../assets/fondos/fondo2.png');
+  background-size: cover;
+  background-position: center;
+}
+
+.background-3 {
+  background-image: url('./../../../assets/fondos/fondo3.png');
+  background-size: cover;
+  background-position: center;
+}
+
+.input-group {
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+
+.input-group-color-red {
+  border-top: 6px red solid;
+}
+
+.input-group-color-green {
+  border-top: 6px rgb(38, 236, 81) solid;
+}
+
+.errors {
+  font-size: small;
+  color: #fff;
+  background: var(--ion-color-danger);
+  padding-left: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.logoCard {
+  background-color: rgba(49, 49, 59, 0.5);
+}
+.logoCard img {
+  width: 100%;
+  height: auto;
+}
+form {
+  width: 90%;
+  margin: 1px auto;
+}
+ion-button {
+  width: 100%;
+  --background: var(--app-btn-bg);
+  --color: var(--app-btn-text);
+  --background-disabled: var(--app-btn-bg-disabled);
+  --color-disabled: var(--app-btn-text-disabled);
+}
+ion-item {
+  background-color: rgb(199, 202, 245);
+}
+
+.background-container {
+  height: 100vh;
+  width: 100vw;
+  transition: background-image 1s ease-in-out;
+}
+
+.listasCountys {
+  max-height: 200px;
+}

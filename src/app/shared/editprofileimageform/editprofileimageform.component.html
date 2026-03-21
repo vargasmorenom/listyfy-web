@@ -1,0 +1,60 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>{{ title }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close(perfilId)">✖</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="formImg" enctype="multipart/form-data">
+    @for (itema of formCreateImg; track $index) {
+      @if (itema.type === 'file') {
+        <div class="upload-area" (click)="fileInput.click()">
+          <ion-icon name="image-outline"></ion-icon>
+          <span>{{ imagenCarga ? 'Cambiar imagen' : 'Seleccionar imagen' }}</span>
+        </div>
+        <input
+          #fileInput
+          type="file"
+          accept="image/*"
+          hidden
+          (change)="onfile($event)"
+        />
+        @if (imagenCarga) {
+          <div class="img-preview">
+            <img src="{{ imagenCarga }}" id="realiceImage" />
+          </div>
+        }
+      }
+      <!-- 
+              @if(formImg.get(itema.name)?.touched){
+                @if(form.get(itema.name)?.errors?.['required']){
+
+                      <div class="error">
+                        <span>Campo Obligatorio</span>
+                      </div>
+
+                }
+                @if(formImg.get(itema.name)?.errors?.['minlength']){
+                    <ion-item>
+                      <div class="error">
+                        <span>Mínimo 8 caracteres.</span>
+                      </div>
+                    </ion-item>
+                }
+                @if(formImg.get(itema.name)?.errors?.['pattern']){
+                    <ion-item>
+                      <div class="error">
+                        <span>Formato inválido de {{itema.name}}.</span>
+                      </div>
+                    </ion-item>
+                }
+              } -->
+    }
+    <ion-button expand="block" (click)="enviarImagen()" [disabled]="formImg.invalid">
+      <ion-icon name="arrow-forward-outline" style="margin-right: 5px"></ion-icon>Editar Imagen
+    </ion-button>
+  </form>
+</ion-content>
