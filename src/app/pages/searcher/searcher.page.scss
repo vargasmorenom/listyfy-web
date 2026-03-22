@@ -1,56 +1,61 @@
-ion-content {
-  --background: #f6f8fc;
+:host {
+  display: block;
+  height: 100%;
+  overflow: hidden;
 }
 
-/* Searchbar */
+.home-layout {
+  display: flex;
+  gap: 16px;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 16px;
+  height: 100%;
+  overflow: hidden;
+}
+
+.sidebar {
+  width: 300px;
+  flex-shrink: 0;
+  overflow-y: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.feed-center {
+  flex: 1;
+  min-width: 0;
+}
+
+@media (max-width: 1024px) {
+  .sidebar-right { display: none; }
+}
+
+@media (max-width: 768px) {
+  .sidebar-left { display: none; }
+  .home-layout { padding: 0; }
+}
 
 ion-searchbar {
   padding: 12px 16px;
   --background: #ffffff;
   --border-radius: 14px;
-  --box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  --box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
   --placeholder-color: #9aa3b2;
   --color: #1f2a44;
 }
 
-/* Icono lupa */
-
-ion-searchbar::part(search-icon) {
-  color: #6b7280;
-}
-
-/* Input */
-
-ion-searchbar::part(input) {
-  font-size: 14px;
-  font-weight: 500;
-}
-
-/* Cuando está enfocado */
-
-ion-searchbar.searchbar-has-focus {
-  --box-shadow: 0 10px 25px rgba(0,0,0,0.12);
-}
-
-/* ── Modo oscuro ── */
+ion-searchbar::part(search-icon) { color: #6b7280; }
+ion-searchbar::part(input) { font-size: 14px; font-weight: 500; }
+ion-searchbar.searchbar-has-focus { --box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12); }
 
 :host-context(.ion-palette-dark) {
-  ion-content {
-    --background: #121212;
-  }
-
   ion-searchbar {
     --background: #2a2a2a;
     --color: #ffffff;
     --placeholder-color: #888888;
-    --box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+    --box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
   }
-
-  ion-searchbar::part(search-icon) {
-    color: #aaaaaa;
-  }
-
-  ion-searchbar.searchbar-has-focus {
-    --box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-  }
+  ion-searchbar::part(search-icon) { color: #aaaaaa; }
+  ion-searchbar.searchbar-has-focus { --box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); }
 }

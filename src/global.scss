@@ -109,6 +109,12 @@ button.alert-button.alert-button-confirm {
   justify-content: center !important;
 }
 
+/* ── Scrollbar invisible ── */
+ion-content::part(scroll) {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
 /* ── Popover submenu ── */
 ion-popover.submenu ion-item {
   --background: #ffffff;
@@ -118,4 +124,37 @@ ion-popover.submenu ion-item {
 .ion-palette-dark ion-popover.submenu ion-item {
   --background: #1e2c40;
   --color: #e8f0fb;
+}
+
+/* ── Popup / Modal TikTok ── */
+.tiktok-popup-modal {
+  --width: min(420px, 95%);
+  --height: 92vh;
+  --border-radius: 20px;
+  --box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.2);
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Popup / Modal dinámico ── */
+.custom-popup-modal {
+  --width: 90%;
+  --height: 100%;
+  --border-radius: 16px 16px 0 0;
+  --box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.15);
+  align-items: flex-end;
+
+  ion-buttons[slot="end"] ion-button {
+    --color: #ffffff;
+    --background: #e53935;
+    --background-hover: #c62828;
+    --border-radius: 50%;
+    --padding-start: 0;
+    --padding-end: 0;
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-right: 8px;
+  }
 }

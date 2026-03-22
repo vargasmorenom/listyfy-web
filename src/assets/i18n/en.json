@@ -6,7 +6,9 @@
     "tendencia": "Trending",
     "perfil": "Profile",
     "inscripcion": "Register",
-    "ingreso": "Login"
+    "ingreso": "Login",
+    "config": "Settings",
+    "salir": "Logout"
   },
   "perfil": {
     "info": "Information",

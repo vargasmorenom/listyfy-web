@@ -1,120 +1,129 @@
-<ion-content [fullscreen]="true">
-  <app-back></app-back>
-  <div class="contenidoapp">
-    <form [formGroup]="form" enctype="multipart/form-data">
-      <div class="tituloConten">
-        <h1>{{ 'newlist.titulo_pagina' | translate }}</h1>
-      </div>
-      @for (item of formCreate; track $index; ) { @if(item.type !== 'select' && item.type !=='textarea' && item.type
-      !=='checkbox' && item.type !=='file'&& item.type !=='radio') {
-      <div class="input-group">
-        <ion-item>
-          <ion-input
-            type="{{item.type}}"
-            name="{{item.name}}"
-            labelPlacement="stacked"
-            [label]="item.label | translate"
-            formControlName="{{item.name}}"
-          >
-          </ion-input>
-        </ion-item>
-      </div>
-      } @if(item.type === 'file'){
-      <ion-item class="cargasUp">
-        <ion-input
-          id="cargas"
-          class="upload-btn"
-          type="{{item.type}}"
-          labelPlacement="floating"
-          (change)="onfile($event)"
-          formControlName="{{item.name}}"
-          accept="images/*"
-        >
-        </ion-input>
-        <ion-label class="cargarData">{{ 'newlist.cargar' | translate }}</ion-label>
-      </ion-item>
-      @if(imagenCarga){
-      <ion-item lines="none">
-        <div class="crop-container">
-          <img [src]="imagenCarga" id="realiceImage" />
-        </div>
-      </ion-item>
-      } } @if(item.type === 'radio'){
-      <div class="input-group">
-        <ion-list class="optioconten">
-          <ion-label>{{ item.label | translate }}</ion-label>
-          <ion-radio-group formControlName="{{item.name}}">
-            @for(itema of item.content; track $index;){
-            <ion-item>
-              <ion-icon name="{{itema.icono}}" slot="start"></ion-icon>
-              <ion-label>{{ itema.dato | translate }}</ion-label>
-              <ion-radio slot="end" value="{{itema.id}}"></ion-radio>
-            </ion-item>
+<div class="home-layout">
+
+  <aside class="sidebar sidebar-left">
+    <app-sidebar-left></app-sidebar-left>
+  </aside>
+
+  <ion-content class="feed-center" [fullscreen]="true">
+    <app-back></app-back>
+      <div class="contenidoapp">
+        <form [formGroup]="form" enctype="multipart/form-data">
+          <div class="tituloConten">
+            <h1>{{ 'newlist.titulo_pagina' | translate }}</h1>
+          </div>
+          @for (item of formCreate; track $index; ) {
+            @if(item.type !== 'select' && item.type !=='textarea' && item.type !=='checkbox' && item.type !=='file' && item.type !=='radio') {
+              <div class="input-group">
+                <ion-item>
+                  <ion-input
+                    type="{{item.type}}"
+                    name="{{item.name}}"
+                    labelPlacement="stacked"
+                    [label]="item.label | translate"
+                    formControlName="{{item.name}}"
+                  ></ion-input>
+                </ion-item>
+              </div>
             }
-          </ion-radio-group>
-        </ion-list>
-      </div>
-      } @if(item.type === 'textarea'){
-      <div class="input-group">
-        <ion-item>
-          <ion-textarea
-                labelPlacement="stacked"
-                [attr.ol]="true"
-                [label]="(item.label | translate) + ':'"
-                formControlName="{{ item.name }}"
-                [maxlength]="300"
-                [counter]="true"
-                counterFormatter="remaining"
-                [autoGrow]="true"
-                [rows]="6">
-          </ion-textarea>
-        </ion-item>
-      </div>
-      } @if(item.type === 'select'){
-      <div class="input-group">
-        <ion-item>
-          <ion-select
-            [label]="item.label | translate"
-            formControlName="{{item.name}}"
-            labelPlacement="stacked"
-            [placeholder]="item.label | translate"
-          >
-            @for(itema of item.content; track $index;){
-            <ion-select-option value="{{itema.id}}">{{itema.dato}}</ion-select-option>
+            @if(item.type === 'file'){
+              <ion-item class="cargasUp">
+                <ion-input
+                  id="cargas"
+                  class="upload-btn"
+                  type="{{item.type}}"
+                  labelPlacement="floating"
+                  (change)="onfile($event)"
+                  formControlName="{{item.name}}"
+                  accept="images/*"
+                ></ion-input>
+                <ion-label class="cargarData">{{ 'newlist.cargar' | translate }}</ion-label>
+              </ion-item>
+              @if(imagenCarga){
+                <ion-item lines="none">
+                  <div class="crop-container">
+                    <img [src]="imagenCarga" id="realiceImage" />
+                  </div>
+                </ion-item>
+              }
             }
-          </ion-select>
-        </ion-item>
-      </div>
-      } @if(form.get(item.name)?.touched){ @if(form.get(item.name)?.errors?.['required']){
+            @if(item.type === 'radio'){
+              <div class="input-group">
+                <ion-list class="optioconten">
+                  <ion-label>{{ item.label | translate }}</ion-label>
+                  <ion-radio-group formControlName="{{item.name}}">
+                    @for(itema of item.content; track $index;){
+                      <ion-item>
+                        <ion-icon name="{{itema.icono}}" slot="start"></ion-icon>
+                        <ion-label>{{ itema.dato | translate }}</ion-label>
+                        <ion-radio slot="end" value="{{itema.id}}"></ion-radio>
+                      </ion-item>
+                    }
+                  </ion-radio-group>
+                </ion-list>
+              </div>
+            }
+            @if(item.type === 'textarea'){
+              <div class="input-group">
+                <ion-item>
+                  <ion-textarea
+                    labelPlacement="stacked"
+                    [attr.ol]="true"
+                    [label]="(item.label | translate) + ':'"
+                    formControlName="{{ item.name }}"
+                    [maxlength]="300"
+                    [counter]="true"
+                    counterFormatter="remaining"
+                    [autoGrow]="true"
+                    [rows]="6"
+                  ></ion-textarea>
+                </ion-item>
+              </div>
+            }
+            @if(item.type === 'select'){
+              <div class="input-group">
+                <ion-item>
+                  <ion-select
+                    [label]="item.label | translate"
+                    formControlName="{{item.name}}"
+                    labelPlacement="stacked"
+                    [placeholder]="item.label | translate"
+                  >
+                    @for(itema of item.content; track $index;){
+                      <ion-select-option value="{{itema.id}}">{{itema.dato}}</ion-select-option>
+                    }
+                  </ion-select>
+                </ion-item>
+              </div>
+            }
+            @if(form.get(item.name)?.touched){
+              @if(form.get(item.name)?.errors?.['required']){
+                <div class="error"><span>{{ 'newlist.error.requerido' | translate }}</span></div>
+              }
+              @if(form.get(item.name)?.errors?.['minlength']){
+                <ion-item><div class="error"><span>{{ 'newlist.error.minlength' | translate }}</span></div></ion-item>
+              }
+              @if(form.get(item.name)?.errors?.['pattern']){
+                <ion-item><div class="error"><span>{{ 'newlist.error.patron' | translate: { campo: item.name } }}</span></div></ion-item>
+              }
+            }
+          }
 
-      <div class="error">
-        <span>{{ 'newlist.error.requerido' | translate }}</span>
+          <div class="botones-accion">
+            <ion-button expand="block" fill="outline" (click)="resetForm()">
+              <ion-icon name="refresh-outline" style="margin-right: 5px"></ion-icon>
+              {{ 'newlist.boton_limpiar' | translate }}
+            </ion-button>
+            <ion-button expand="block" (click)="enviar()" [disabled]="form.invalid">
+              <ion-icon name="arrow-forward-outline" style="margin-right: 5px"></ion-icon>
+              {{ 'newlist.boton_crear' | translate }}
+            </ion-button>
+          </div>
+        </form>
       </div>
+  </ion-content>
 
-      } @if(form.get(item.name)?.errors?.['minlength']){
-      <ion-item>
-        <div class="error">
-          <span>{{ 'newlist.error.minlength' | translate }}</span>
-        </div>
-      </ion-item>
-      } @if(form.get(item.name)?.errors?.['pattern']){
-      <ion-item>
-        <div class="error">
-          <span>{{ 'newlist.error.patron' | translate: { campo: item.name } }}</span>
-        </div>
-      </ion-item>
-      } } }
+  <aside class="sidebar sidebar-right">
+    <app-sidebar-right></app-sidebar-right>
+  </aside>
 
-      <div class="botones-accion">
-        <ion-button expand="block" fill="outline" (click)="resetForm()">
-          <ion-icon name="refresh-outline" style="margin-right: 5px"></ion-icon>
-          {{ 'newlist.boton_limpiar' | translate }}
-        </ion-button>
-        <ion-button expand="block" (click)="enviar()" [disabled]="form.invalid">
-          <ion-icon name="arrow-forward-outline" style="margin-right: 5px"></ion-icon>
-          {{ 'newlist.boton_crear' | translate }}
-        </ion-button>
-      </div>
-    </form>
-  </div>
-</ion-content>
+</div>

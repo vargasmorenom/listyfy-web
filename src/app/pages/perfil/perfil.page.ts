@@ -16,28 +16,18 @@ import { InfoPerfilComponent } from 'src/app/shared/info-perfil/info-perfil.comp
 import { ContentListComponent } from 'src/app/shared/content-list/content-list.component';
 import { PopupService } from 'src/app/services/popup.service';
 import { EditprofileformComponent } from 'src/app/shared/editprofileform/editprofileform.component';
+import { SidebarRightComponent } from 'src/app/shared/sidebar-right/sidebar-right.component';
 import {
-  IonContent,
-  IonButton,
-  IonSegment,
-  IonSegmentButton,
-  IonLabel,
-  IonInfiniteScroll,
-  IonInfiniteScrollContent,
+  IonContent, IonButton, IonSegment, IonSegmentButton,
+  IonLabel, IonInfiniteScroll, IonInfiniteScrollContent,
 } from '@ionic/angular/standalone';
 import { TranslatePipe } from '@ngx-translate/core';
 import { addIcons } from 'ionicons';
 import {
-  person,
-  mail,
-  location,
-  arrowForwardOutline,
-  close,
-  people,
-  heart,
-  images,
-  call,
+  person, mail, location, arrowForwardOutline, close, people, heart, images, call,
+  peopleOutline, personAddOutline, heartOutline, homeOutline, listOutline, settingsOutline,
 } from 'ionicons/icons';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-perfil',
@@ -45,26 +35,14 @@ import {
   styleUrls: ['./perfil.page.scss'],
   standalone: true,
   imports: [
-    IonInfiniteScrollContent,
-    IonInfiniteScroll,
-    IonButton,
-    IonContent,
-    CommonModule,
-    FormsModule,
-    BackComponent,
-    ContentListComponent,
-    InfoPerfilComponent,
-    IonLabel,
-    ReactiveFormsModule,
-    ProfileComponent,
-    IonSegment,
-    IonSegmentButton,
-    TranslatePipe,
+    IonInfiniteScrollContent, IonInfiniteScroll, IonButton, IonContent,
+    CommonModule, FormsModule, BackComponent, ContentListComponent,
+    InfoPerfilComponent, IonLabel, ReactiveFormsModule, ProfileComponent,
+    IonSegment, IonSegmentButton, TranslatePipe, SidebarRightComponent,
   ],
 })
 export class PerfilPage implements OnInit, OnDestroy {
   public name!: string;
-
   public selectedTab: string = 'info';
   public listasPerfil: any;
   public perfileData: any;
@@ -80,6 +58,7 @@ export class PerfilPage implements OnInit, OnDestroy {
   public idConsult!: string;
   public ini = 1;
   public fin = 3;
+  public urlfiles = environment.servicio[0].urlfiles;
   private destroy$ = new Subject<void>();
 
   constructor(
@@ -93,7 +72,7 @@ export class PerfilPage implements OnInit, OnDestroy {
     private posted: PostedsService,
     private authService: AuthService
   ) {
-    addIcons({ person, mail, location, call, close, arrowForwardOutline, images, people, heart });
+    addIcons({ person, mail, location, call, close, arrowForwardOutline, images, people, heart, peopleOutline, personAddOutline, heartOutline, homeOutline, listOutline, settingsOutline });
   }
 
   ngOnInit() {
@@ -124,24 +103,7 @@ export class PerfilPage implements OnInit, OnDestroy {
 
   showWelcome(id: any) {
     this.popUp.showPopupDinamic(
-      {
-        title: 'Editor de Perfil',
-        message: 'Nuevo Contenido',
-        confirmText: '',
-        id: id,
-      },
-      EditprofileformComponent
-    );
-  }
-
-  showimage(id: any) {
-    this.popUp.showPopupDinamic(
-      {
-        title: 'Administracion de Contenido',
-        message: 'Nuevo Contenido',
-        confirmText: '',
-        id: id,
-      },
+      { title: 'Editor de Perfil', message: 'Nuevo Contenido', confirmText: '', id: id },
       EditprofileformComponent
     );
   }

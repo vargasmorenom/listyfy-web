@@ -1,42 +1,51 @@
-<ion-content [fullscreen]="true">
-  <app-back></app-back>
-  <app-profile
-    [info]="perfilSession"
-    [session]="session"
-    [isOwnProfile]="isOwnProfile"
-    [liked]="liked"
-    [likeCount]="likeCount"
-    [following]="following"
-    [followersCount]="followersCount"
-    [followingCount]="followingCount"
-    (likeToggled)="onLikeToggled()"
-    (followToggled)="onFollowToggled()"
-  ></app-profile>
-  <div class="contenidoapp">
-    <ion-segment [(ngModel)]="selectedTab" value="info">
-      <ion-segment-button value="info">
-        <ion-label>{{ 'perfil.info' | translate }}</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="galeria">
-        <ion-label>{{ 'perfil.contenido' | translate }}</ion-label>
-      </ion-segment-button>
-    </ion-segment>
+<div class="home-layout">
 
-    <div *ngIf="selectedTab === 'info'">
-      <app-info-perfil [perfilSession]="perfilSession"></app-info-perfil>
-     @if(session){
-      <ion-button (click)="showWelcome(perfilSession)" expand="block">{{ 'perfil.editar' | translate }}</ion-button>
-     }
-    </div>
+  <ion-content class="feed-center" [fullscreen]="true">
+    <app-back></app-back>
+      <app-profile
+        [info]="perfilSession"
+        [session]="session"
+        [isOwnProfile]="isOwnProfile"
+        [liked]="liked"
+        [likeCount]="likeCount"
+        [following]="following"
+        [followersCount]="followersCount"
+        [followingCount]="followingCount"
+        (likeToggled)="onLikeToggled()"
+        (followToggled)="onFollowToggled()"
+      ></app-profile>
 
-    <div class="galeria" *ngIf="selectedTab === 'galeria'">
-      <br />
-      <app-content-list [entityNames]="items"></app-content-list>
+      <div class="contenidoapp">
+        <ion-segment [(ngModel)]="selectedTab" value="info">
+          <ion-segment-button value="info">
+            <ion-label>{{ 'perfil.info' | translate }}</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="galeria">
+            <ion-label>{{ 'perfil.contenido' | translate }}</ion-label>
+          </ion-segment-button>
+        </ion-segment>
 
-      <ion-infinite-scroll (ionInfinite)="loadMore($event)">
-        <ion-infinite-scroll-content loadingSpinner="bubbles" [loadingText]="'perfil.cargando' | translate">
-        </ion-infinite-scroll-content>
-      </ion-infinite-scroll>
-    </div>
-  </div>
-</ion-content>
+        <div *ngIf="selectedTab === 'info'">
+          <app-info-perfil [perfilSession]="perfilSession"></app-info-perfil>
+          @if (session) {
+            <ion-button (click)="showWelcome(perfilSession)" expand="block">
+              {{ 'perfil.editar' | translate }}
+            </ion-button>
+          }
+        </div>
+
+        <div class="galeria" *ngIf="selectedTab === 'galeria'">
+          <app-content-list [entityNames]="items"></app-content-list>
+          <ion-infinite-scroll (ionInfinite)="loadMore($event)">
+            <ion-infinite-scroll-content loadingSpinner="bubbles" [loadingText]="'perfil.cargando' | translate">
+            </ion-infinite-scroll-content>
+          </ion-infinite-scroll>
+        </div>
+      </div>
+  </ion-content>
+
+  <aside class="sidebar sidebar-right">
+    <app-sidebar-right></app-sidebar-right>
+  </aside>
+
+</div>

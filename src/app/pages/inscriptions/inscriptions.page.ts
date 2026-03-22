@@ -6,7 +6,6 @@ import { ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import * as CryptoJS from 'crypto-js';
-import { MenubajoComponent } from './../../shared/menubajo/menubajo.component';
 import { DynamicFormService } from 'src/app/services/dynamicFormService';
 import { inscription } from '../../configs/inscription';
 import { InscriptionService } from '../../services/inscription.service';
@@ -44,7 +43,6 @@ import { TranslatePipe } from '@ngx-translate/core';
     IonCheckbox,
     IonInputPasswordToggle,
     IonList,
-    MenubajoComponent,
     TranslatePipe,
     RecaptchaComponent,
   ],
@@ -70,9 +68,20 @@ export class InscriptionsPage implements OnInit, OnDestroy {
   filtered: any[] = [];
   pp: any = [];
 
+  get passwordChecks() {
+    const v = this.form.get('password')?.value ?? '';
+    return {
+      uppercase: /[A-Z]/.test(v),
+      lowercase: /[a-z]/.test(v),
+      number:    /[0-9]/.test(v),
+      special:   /[#?!@$ %^_/()&*\-]/.test(v),
+      minlength: v.length >= 8,
+    };
+  }
+
   constructor(
     private countrys: CountrysService,
-    private router: Router,
+    public router: Router,
     public formUl: DynamicFormService,
     public messToast: ToastrService,
     public register: InscriptionService

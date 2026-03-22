@@ -7,10 +7,10 @@ import { ToastrService } from 'ngx-toastr';
 import { SearcherPageService } from 'src/app/services/search.service';
 import { BackComponent } from 'src/app/shared/back/back.component';
 import { ContentListComponent } from 'src/app/shared/content-list/content-list.component';
+import { SidebarLeftComponent } from 'src/app/shared/sidebar-left/sidebar-left.component';
+import { SidebarRightComponent } from 'src/app/shared/sidebar-right/sidebar-right.component';
 import {
-  IonContent,
-  IonSearchbar,
-  IonInfiniteScrollContent,
+  IonContent, IonSearchbar, IonInfiniteScrollContent,
   IonInfiniteScroll,
 } from '@ionic/angular/standalone';
 
@@ -20,27 +20,22 @@ import {
   styleUrls: ['./searcher.page.scss'],
   standalone: true,
   imports: [
-    IonContent,
-    CommonModule,
-    FormsModule,
-    BackComponent,
-    IonSearchbar,
-    IonInfiniteScrollContent,
-    IonInfiniteScroll,
-    ContentListComponent,
+    IonContent, CommonModule, FormsModule, BackComponent,
+    IonSearchbar, IonInfiniteScrollContent, IonInfiniteScroll,
+    ContentListComponent, SidebarLeftComponent, SidebarRightComponent,
   ],
 })
 export class SearcherPage implements OnInit, OnDestroy {
   items: any[] = [];
   ini = 1;
   fin = 3;
-  isMenuHidden = false;
   private destroy$ = new Subject<void>();
 
   constructor(
     private searcherPageService: SearcherPageService,
-    private messToast: ToastrService
+    private messToast: ToastrService,
   ) {}
+
   ionViewWillEnter() {
     this.onSearch({ detail: { value: '' } });
   }
@@ -52,30 +47,11 @@ export class SearcherPage implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  lastScrollTop = 0;
-
-  onScroll(event: CustomEvent) {
-    const scrollTop = event.detail.scrollTop;
-
-    if (scrollTop > this.lastScrollTop + 1) {
-      // 👇 Desplazándose hacia abajo → ocultar menú
-
-      this.isMenuHidden = true;
-    } else if (scrollTop < this.lastScrollTop - 1) {
-      this.isMenuHidden = false;
-    }
-
-    this.lastScrollTop = scrollTop;
-  }
-
   loadMore(event: any) {
     this.ini += 3;
     this.fin += 3;
-
     this.searcherPageService.searchForTags(event, this.ini, this.fin).pipe(takeUntil(this.destroy$)).subscribe((results) => {
-      if (results?.length) {
-        this.items = [...this.items, ...results];
-      }
+      if (results?.length) this.items = [...this.items, ...results];
       event.target.complete();
     });
   }
@@ -87,19 +63,15 @@ export class SearcherPage implements OnInit, OnDestroy {
     this.fin = 3;
     this.items = [];
 
-    if (query && query.trim() !== '') {
-      this.searcherPageService.searchForTags(query, this.ini, this.fin).pipe(takeUntil(this.destroy$)).subscribe({
-        next: (results) => {
-          if (results?.length) {
-            this.items = results;
-          } else {
-            this.messToast.success('No se encontró contenido relacionado con la búsqueda', 'Sin resultados');
-          }
-        },
-        error: () => {
-          this.messToast.error('Ocurrió un error al realizar la búsqueda', 'Error');
-        },
-      });
-    }
+    this.searcherPageService.searchForTags(query, this.ini, this.fin).pipe(takeUntil(this.destroy$)).subscribe({
+      next: (results) => {
+        if (results?.length) {
+          this.items = results;
+        } else {
+          this.messToast.success('No se encontró contenido relacionado con la búsqueda', 'Sin resultados');
+        }
+      },
+      error: () => this.messToast.error('Ocurrió un error al realizar la búsqueda', 'Error'),
+    });
   }
 }

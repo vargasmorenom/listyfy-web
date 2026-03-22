@@ -2,13 +2,13 @@
 <ion-header class="video-header">
   <ion-toolbar>
 
-    <ion-buttons slot="start">
-      <ion-button fill="clear" (click)="close()">
+    <ion-title>{{ title }}</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button class="close-btn" (click)="close()">
         <ion-icon name="close-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
-
-    <ion-title>{{ title }}</ion-title>
 
   </ion-toolbar>
 </ion-header>
@@ -22,18 +22,18 @@
     </div>
   }
 
-  <iframe
-    [src]="safeTikTokUrl"
-    [class.hidden]="loading"
-    width="325"
-    height="580"
-    frameborder="0"
-    allowfullscreen
-    scrolling="no"
-    allow="encrypted-media;"
-    title="TikTok video"
-    (load)="onIframeLoad()">
-  </iframe>
+  <div class="iframe-wrapper">
+    <iframe
+      [src]="safeTikTokUrl"
+      [class.hidden]="loading"
+      frameborder="0"
+      allowfullscreen
+      scrolling="no"
+      allow="encrypted-media;"
+      title="TikTok video"
+      (load)="onIframeLoad()">
+    </iframe>
+  </div>
 
   <div class="urlexterna">
     <a href="https://www.tiktok.com/@{{ autor }}/video/{{ tiktokId }}?is_from_webapp=1&sender_device=pc" target="_blank"> ver video en tiktok</a>

@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { addIcons } from 'ionicons';
-import { Router } from '@angular/router';
-import { heart, heartOutline, apps, settingsOutline, logOutOutline, homeOutline, createOutline, personOutline } from 'ionicons/icons';
-import { ActionSheetServiceService } from 'src/app/services/action-sheet-service.service';
+import { menuOutline } from 'ionicons/icons';
 import { AuthService } from 'src/app/services/auth.service';
+import { MenuStateService } from 'src/app/services/menu-state.service';
 import { IonHeader, IonImg, IonIcon, IonButton } from '@ionic/angular/standalone';
+import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -12,89 +12,29 @@ import { environment } from 'src/environments/environment';
   selector: 'app-session',
   templateUrl: './session.component.html',
   styleUrls: ['./session.component.scss'],
-  imports: [IonHeader, IonImg, IonIcon, IonButton],
+  imports: [CommonModule, IonHeader, IonImg, IonIcon, IonButton],
 })
 export class SessionComponent implements OnInit, OnDestroy {
-  isLoggedIn = false;
   logoHeader = environment.servicio[0].logoHeader;
+  isLoggedIn = false;
   private sub!: Subscription;
 
   constructor(
-    private actionSheet: ActionSheetServiceService,
     private authService: AuthService,
-    private router: Router
+    private menuState: MenuStateService,
   ) {
-    addIcons({ heartOutline, heart, apps, settingsOutline, logOutOutline, homeOutline, createOutline, personOutline });
+    addIcons({ menuOutline });
   }
 
   ngOnInit() {
-    this.sub = this.authService.isLoggedIn$.subscribe(logged => {
-      this.isLoggedIn = logged;
-    });
+    this.sub = this.authService.isLoggedIn$.subscribe(val => this.isLoggedIn = val);
   }
 
   ngOnDestroy() {
     this.sub?.unsubscribe();
   }
 
-  mostrarOpciones() {
-    if (this.isLoggedIn) {
-      this.actionSheet.present({
-        header: 'Menú',
-        buttons: [
-          {
-            text: 'Configuración',
-            icon: 'settings-outline',
-            handler: () => {
-              this.router.navigate(['/config']);
-            },
-          },
-          {
-            text: 'Salir',
-            role: 'destructive',
-            icon: 'log-out-outline',
-            handler: () => {
-              this.authService.logout();
-              this.router.navigate(['/login']);
-            },
-          },
-          {
-            text: 'Cancelar',
-            role: 'cancel',
-          },
-        ],
-      });
-    } else {
-      this.actionSheet.present({
-        header: 'Menú',
-        buttons: [
-          {
-            text: 'Inicio',
-            icon: 'home-outline',
-            handler: () => {
-              this.router.navigate(['/']);
-            },
-          },
-          {
-            text: 'Inscribirse',
-            icon: 'create-outline',
-            handler: () => {
-              this.router.navigate(['/register']);
-            },
-          },
-          {
-            text: 'Iniciar sesión',
-            icon: 'person-outline',
-            handler: () => {
-              this.router.navigate(['/login']);
-            },
-          },
-          {
-            text: 'Cancelar',
-            role: 'cancel',
-          },
-        ],
-      });
-    }
+  abrirMenu() {
+    this.menuState.toggleSideMenu();
   }
 }

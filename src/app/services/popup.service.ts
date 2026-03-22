@@ -14,7 +14,7 @@ export class PopupService {
       message?: string;
       confirmText?: string;
     },
-    popUp: any = null
+    _popUp: any = null
   ) {
     const modal = await this.modalCtrl.create({
       component: MenuappComponent,
@@ -37,6 +37,7 @@ export class PopupService {
       confirmText?: string;
       id: any | null;
       onComplete?: (postId: string) => void | null;
+      cssClass?: string;
     },
     popUp: any = null
   ): Promise<any> {
@@ -58,7 +59,7 @@ export class PopupService {
           id: options.id || null,
           onComplete: options.onComplete || null,
         },
-        cssClass: 'custom-popup-modal',
+        cssClass: options.cssClass || 'custom-popup-modal',
         backdropDismiss: true,
       });
 

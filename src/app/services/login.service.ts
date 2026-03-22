@@ -20,4 +20,16 @@ export class LoginService {
       observe: 'response',
     });
   }
+
+  recoveryRequest(email: string, recaptchaToken: string): Observable<HttpResponse<any>> {
+    return this.http.post<any>(this.url + 'api/v1/recovery', { email, recaptchaToken }, {
+      observe: 'response',
+    });
+  }
+
+  recoveryReset(email: string, code: string, password: string): Observable<HttpResponse<any>> {
+    return this.http.put<any>(this.url + 'api/v1/recovery', { email, code, password }, {
+      observe: 'response',
+    });
+  }
 }

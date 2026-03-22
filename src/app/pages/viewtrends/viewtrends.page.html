@@ -1,11 +1,23 @@
-<ion-content (ionScroll)="onScroll($event)" [scrollEvents]="true">
-  <app-back></app-back>
-  <div class="trend-banner">
-    <span class="tag-name">#{{ tagName }}</span>
-  </div>
-  <app-content-list [entityNames]="items"></app-content-list>
-  <ion-infinite-scroll (ionInfinite)="loadMore($event)">
-    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Cargando más contenido...">
-    </ion-infinite-scroll-content>
-  </ion-infinite-scroll>
-</ion-content>
+<div class="home-layout">
+
+  <aside class="sidebar sidebar-left">
+    <app-sidebar-left></app-sidebar-left>
+  </aside>
+
+  <ion-content class="feed-center" [fullscreen]="true" (ionScroll)="onScroll($event)" [scrollEvents]="true">
+    <app-back></app-back>
+    <div class="trend-banner">
+      <span class="tag-name">#{{ tagName }}</span>
+    </div>
+    <app-content-list [entityNames]="items"></app-content-list>
+    <ion-infinite-scroll (ionInfinite)="loadMore($event)">
+      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Cargando más contenido...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ion-content>
+
+  <aside class="sidebar sidebar-right">
+    <app-sidebar-right></app-sidebar-right>
+  </aside>
+
+</div>

@@ -1,91 +1,104 @@
-html,
-body {
-  height: 100%;
-  margin: 0;
-}
-ion-card {
-  text-align: center;
-  width: 90%;
-  margin: 1em auto;
-}
-ion-card img {
-  width: 600px;
-  height: auto;
-}
-
-.background-1 {
-  background-image: url('./../../../assets/fondos/fondo1.jpeg');
-  background-size: cover;
-  background-position: center;
-}
-
-.background-2 {
-  background-image: url('./../../../assets/fondos/fondo2.png');
-  background-size: cover;
-  background-position: center;
-}
-
-.background-3 {
-  background-image: url('./../../../assets/fondos/fondo3.png');
-  background-size: cover;
-  background-position: center;
-}
-
-.input-group {
-  border-radius: 10px;
-  overflow: hidden;
-  margin-bottom: 15px;
-}
-
-.input-group-color-red {
-  border-top: 6px red solid;
-}
-
-.input-group-color-green {
-  border-top: 6px rgb(38, 236, 81) solid;
-}
-
-.errors {
-  font-size: small;
-  color: #fff;
-  background: var(--ion-color-danger);
-  padding-left: 15px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-}
-.logoCard {
-  background-color: rgba(49, 49, 59, 0.5);
-}
-.logoCard img {
-  width: 100%;
-  height: auto;
-}
-form {
-  width: 90%;
-  margin: 1px auto;
-}
-ion-button {
-  width: 100%;
-  --background: var(--app-btn-bg);
-  --color: var(--app-btn-text);
-  --background-disabled: var(--app-btn-bg-disabled);
-  --color-disabled: var(--app-btn-text-disabled);
-}
-ion-item {
-  background-color: rgb(199, 202, 245);
-}
-
 .background-container {
   height: 100vh;
   width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+  background-position: center;
   transition: background-image 1s ease-in-out;
 }
 
-.error {
+.background-1 { background-image: url('./../../../assets/fondos/fondo1.jpeg'); }
+.background-2 { background-image: url('./../../../assets/fondos/fondo2.png'); }
+.background-3 { background-image: url('./../../../assets/fondos/fondo3.png'); }
+
+.login-card {
   width: 100%;
+  max-width: 400px;
+  margin: 0 16px;
+  padding: 32px 28px 24px;
+  border-radius: 20px;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+}
+
+.logo-wrapper {
   text-align: center;
-  padding: 4px 10px;
-  color: red;
-  font-size: small;
-  border-radius: 8px;
+  margin-bottom: 28px;
+
+  img {
+    max-width: 200px;
+    height: auto;
+  }
+}
+
+.field-group {
+  margin-bottom: 16px;
+}
+
+.custom-input {
+  --background: rgba(255, 255, 255, 0.88);
+  --color: #1a1a2e;
+  --placeholder-color: #6b7280;
+  --border-color: rgba(255, 255, 255, 0.5);
+  --highlight-color-focused: var(--ion-color-primary);
+  --border-radius: 10px;
+  --padding-start: 14px;
+  --padding-end: 14px;
+  font-size: 0.95rem;
+}
+
+.error-msg {
+  margin: 4px 4px 0;
+  font-size: 0.78rem;
+  color: #ffcdd2;
+}
+
+.submit-btn {
+  margin-top: 8px;
+  --border-radius: 10px;
+  --background: var(--ion-color-primary);
+  --background-activated: var(--ion-color-primary-shade);
+  --background-disabled: rgba(255, 255, 255, 0.2);
+  --color-disabled: rgba(255, 255, 255, 0.5);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.home-link {
+  text-align: center;
+  margin-top: 12px;
+
+  a {
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    transition: color 0.15s;
+
+    &:hover { color: #fff; text-decoration: underline; }
+  }
+}
+
+.login-links {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+
+  a {
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.85);
+    cursor: pointer;
+    transition: color 0.15s;
+
+    &:hover {
+      color: #fff;
+      text-decoration: underline;
+    }
+  }
 }

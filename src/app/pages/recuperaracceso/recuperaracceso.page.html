@@ -1,48 +1,120 @@
-<ion-content [fullscreen]="true">
-  <div class="{{currentBackgroundClass}} background-container">
-    <ion-card class="logoCard">
-      <img alt="Listyfy" src="{{logo}}" />
-    </ion-card>
+<ion-content [fullscreen]="true" [scrollY]="false">
+  <div class="{{ currentBackgroundClass }} background-container">
 
-    <form [formGroup]="form">
-      @for (item of formCreate; track $index; ) {
+    <div class="recovery-card">
+      <div class="logo-wrapper">
+        <img [src]="logo" alt="Listyfy" />
+      </div>
 
-      <div class="input-group">
-        <ion-item>
-          <ion-input
-            type="{{item.type}}"
-            name="{{item.name}}"
-            placeholder="{{item.label}}"
-            formControlName="{{item.name}}"
-          >
-            @if(item.type === 'password'){
-            <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+      <!-- Paso 1: Email -->
+      @if (step === 1) {
+        <p class="step-title">Recuperar acceso</p>
+        <p class="step-desc">Ingresa tu correo y te enviaremos un código de 6 dígitos.</p>
+
+        <form [formGroup]="emailForm">
+          <div class="field-group">
+            <ion-input
+              class="custom-input"
+              type="email"
+              formControlName="email"
+              placeholder="Correo electrónico"
+              fill="outline"
+            >
+              <ion-icon name="mail-outline" slot="start"></ion-icon>
+            </ion-input>
+            @if (emailForm.get('email')?.touched) {
+              @if (emailForm.get('email')?.errors?.['required']) {
+                <p class="error-msg">El correo es obligatorio.</p>
+              }
+              @if (emailForm.get('email')?.errors?.['email']) {
+                <p class="error-msg">Ingresa un correo válido.</p>
+              }
             }
-          </ion-input>
-        </ion-item>
+          </div>
 
-        @if(form.get(item.name)?.touched){ @if(form.get(item.name)?.errors?.['required']){
-        <ion-item>
-          <div class="error">
-            <span>Este campo es obligatorio.</span>
-          </div>
-        </ion-item>
-        } @if(form.get(item.name)?.errors?.['minlength']){
-        <ion-item>
-          <div class="error">
-            <span>Mínimo 8 caracteres.</span>
-          </div>
-        </ion-item>
-        } }
-      </div>
-      }
-      <div class="input-group">
-        <ion-item>
-          <ion-button (click)="enviar()" [disabled]="form.invalid">
-            <ion-icon name="arrow-forward-outline" style="margin-right: 5px"></ion-icon>Enviar Datos
+          <app-recaptcha #recaptchaRef (resolved)="onRecaptchaResolved($event)"></app-recaptcha>
+
+          <ion-button class="submit-btn" expand="block" (click)="enviarEmail()" [disabled]="loading">
+            @if (loading) {
+              <ion-spinner name="crescent"></ion-spinner>
+            } @else {
+              <ion-icon name="arrow-forward-outline" slot="start"></ion-icon>
+              Enviar código
+            }
           </ion-button>
-        </ion-item>
+        </form>
+      }
+
+      <!-- Paso 2: Código + nueva contraseña -->
+      @if (step === 2) {
+        <p class="step-title">Restablecer contraseña</p>
+        <p class="step-desc">Ingresa el código enviado a <strong>{{ emailSent }}</strong> y tu nueva contraseña.</p>
+
+        <form [formGroup]="resetForm">
+          <div class="field-group">
+            <ion-input
+              class="custom-input"
+              type="text"
+              formControlName="code"
+              placeholder="Código de 6 dígitos"
+              fill="outline"
+              inputmode="numeric"
+              maxlength="6"
+            >
+              <ion-icon name="key-outline" slot="start"></ion-icon>
+            </ion-input>
+            @if (resetForm.get('code')?.touched) {
+              @if (resetForm.get('code')?.errors?.['required']) {
+                <p class="error-msg">El código es obligatorio.</p>
+              }
+              @if (resetForm.get('code')?.errors?.['minlength'] || resetForm.get('code')?.errors?.['maxlength']) {
+                <p class="error-msg">El código debe tener 6 dígitos.</p>
+              }
+            }
+          </div>
+
+          <div class="field-group">
+            <ion-input
+              class="custom-input"
+              type="password"
+              formControlName="password"
+              placeholder="Nueva contraseña"
+              fill="outline"
+            >
+              <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+              <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+            </ion-input>
+            @if (resetForm.get('password')?.touched) {
+              @if (resetForm.get('password')?.errors?.['required']) {
+                <p class="error-msg">La contraseña es obligatoria.</p>
+              }
+              @if (resetForm.get('password')?.errors?.['minlength']) {
+                <p class="error-msg">Mínimo 8 caracteres.</p>
+              }
+            }
+          </div>
+
+          <ion-button class="submit-btn" expand="block" (click)="restablecerPassword()" [disabled]="loading">
+            @if (loading) {
+              <ion-spinner name="crescent"></ion-spinner>
+            } @else {
+              <ion-icon name="arrow-forward-outline" slot="start"></ion-icon>
+              Restablecer contraseña
+            }
+          </ion-button>
+        </form>
+      }
+
+      <div class="bottom-links">
+        @if (step === 2) {
+          <a (click)="volverPaso1()">
+            <ion-icon name="arrow-back-outline"></ion-icon>
+            Cambiar correo
+          </a>
+        }
+        <a (click)="router.navigate(['/login'])">Iniciar sesión</a>
       </div>
-    </form>
+    </div>
+
   </div>
 </ion-content>

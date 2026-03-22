@@ -44,20 +44,15 @@
 // }
 ion-header {
   ion-toolbar {
-    --background: #ffffff;
+    --background: #303d5c;
     --border-color: transparent;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    --color: #ffffff;
   }
 
   ion-title {
     font-weight: 600;
     font-size: 18px;
-    color: #1f2a44;
-  }
-
-  ion-button {
-    font-size: 20px;
-    color: #1f2a44;
+    color: #ffffff;
   }
 }
 
@@ -65,6 +60,11 @@ ion-header {
 
 ion-content {
   --background: #f6f8fc;
+}
+
+/* ── Modo oscuro ── */
+:host-context(.ion-palette-dark) ion-content {
+  --background: #121212;
 }
 
 /* Loader */
@@ -83,11 +83,18 @@ ion-content {
   font-size: 14px;
 }
 
-/* Iframe */
+/* Iframe wrapper */
+
+.iframe-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
 
 iframe {
   display: block;
-  margin: 0 auto;
+  width: min(325px, 100%);
+  height: clamp(500px, 72vh, 720px);
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0,0,0,0.12);
@@ -119,8 +126,7 @@ iframe {
 }
 
 .video-header ion-toolbar {
-  --background: rgba(255,255,255,0.85);
-  backdrop-filter: blur(10px);
+  --background: #303d5c;
   --border-color: transparent;
 }
 
@@ -128,13 +134,22 @@ iframe {
   text-align: center;
   font-weight: 600;
   font-size: 16px;
-  color: #1f2a44;
+  color: #ffffff;
 }
 
-.video-header ion-button {
-  --color: #1f2a44;
-}
+.video-header .close-btn {
+  --background: #e53935;
+  --background-hover: #c62828;
+  --color: #ffffff;
+  --border-radius: 50%;
+  --padding-start: 0;
+  --padding-end: 0;
+  width: 36px;
+  height: 36px;
+  margin-right: 8px;
 
-.video-header ion-icon {
-  font-size: 22px;
+  ion-icon {
+    font-size: 20px;
+    font-weight: 700;
+  }
 }

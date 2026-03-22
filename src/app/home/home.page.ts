@@ -2,15 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { ContentListComponent } from 'src/app/shared/content-list/content-list.component';
-
+import { SidebarLeftComponent } from 'src/app/shared/sidebar-left/sidebar-left.component';
+import { SidebarRightComponent } from 'src/app/shared/sidebar-right/sidebar-right.component';
 import { PostedsService } from '../services/posteds.service';
 import { MenuStateService } from '../services/menu-state.service';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
-
-import { addIcons } from 'ionicons';
-import { heart, heartOutline } from 'ionicons/icons';
-
 import { IonInfiniteScroll, IonInfiniteScrollContent, IonContent } from '@ionic/angular/standalone';
 
 @Component({
@@ -23,6 +20,8 @@ import { IonInfiniteScroll, IonInfiniteScrollContent, IonContent } from '@ionic/
     ContentListComponent,
     IonContent,
     CommonModule,
+    SidebarLeftComponent,
+    SidebarRightComponent,
   ],
 })
 export class HomePage implements OnInit, OnDestroy {
@@ -36,10 +35,8 @@ export class HomePage implements OnInit, OnDestroy {
   constructor(
     private posted: PostedsService,
     private menuState: MenuStateService,
-    private router: Router
-  ) {
-    addIcons({ heartOutline, heart });
-  }
+    private router: Router,
+  ) {}
 
   ngOnInit() {
     this.loadItems();
@@ -85,9 +82,7 @@ export class HomePage implements OnInit, OnDestroy {
   onScroll(event: CustomEvent) {
     const scrollTop = event.detail.scrollTop;
 
-    if (this.scrollTimeout) {
-      clearTimeout(this.scrollTimeout);
-    }
+    if (this.scrollTimeout) clearTimeout(this.scrollTimeout);
 
     if (scrollTop > this.lastScrollTop + 1) {
       this.menuState.setMenuHidden(true);
@@ -101,17 +96,5 @@ export class HomePage implements OnInit, OnDestroy {
 
     this.lastScrollTop = scrollTop;
     localStorage.setItem('lastScrollPosition', String(scrollTop));
-  }
-
-  obtenerInfoDispositivo() {
-    const nav = navigator;
-    return {
-      userAgent: nav.userAgent,
-      language: nav.language,
-      platform: (navigator as any).userAgentData?.platform ?? nav.userAgent,
-      viewport: { width: window.innerWidth, height: window.innerHeight },
-      screen: { width: screen.width, height: screen.height, orientation: screen.orientation?.type || null },
-      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-    };
   }
 }

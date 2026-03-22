@@ -2,30 +2,40 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
-import { NavController, InfiniteScrollCustomEvent } from '@ionic/angular'
+import { NavController, InfiniteScrollCustomEvent } from '@ionic/angular';
 import { BackComponent } from 'src/app/shared/back/back.component';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
-import {TendenciesService} from '../../services/tendencies.service';
-import { IonContent, IonBadge, IonLabel, IonItem, IonList, IonInfiniteScroll, IonInfiniteScrollContent } from '@ionic/angular/standalone';
+import { TendenciesService } from '../../services/tendencies.service';
+import { SidebarLeftComponent } from 'src/app/shared/sidebar-left/sidebar-left.component';
+import { SidebarRightComponent } from 'src/app/shared/sidebar-right/sidebar-right.component';
+import {
+  IonContent, IonBadge, IonLabel, IonItem, IonList,
+  IonInfiniteScroll, IonInfiniteScrollContent,
+} from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-tendencies',
   templateUrl: './tendencies.page.html',
   styleUrls: ['./tendencies.page.scss'],
   standalone: true,
-  imports: [IonContent, BackComponent, CommonModule, FormsModule, IonBadge, IonLabel, IonItem, IonList, IonInfiniteScroll, IonInfiniteScrollContent],
+  imports: [
+    IonContent, BackComponent, CommonModule, FormsModule,
+    IonBadge, IonLabel, IonItem, IonList,
+    IonInfiniteScroll, IonInfiniteScrollContent,
+    SidebarLeftComponent, SidebarRightComponent,
+  ],
 })
 export class TendenciesPage implements OnInit, OnDestroy {
-   isMenuHidden!: true;
-
   allTendencias: any[] = [];
   tendencias: any[] = [];
   pageSize = 20;
   allLoaded = false;
   private destroy$ = new Subject<void>();
 
-  constructor(private TendenciesService: TendenciesService, private router: Router, private navCtrl: NavController) {}
+  constructor(
+    private TendenciesService: TendenciesService,
+    private navCtrl: NavController,
+  ) {}
 
   ngOnInit() {
     this.getTrendingTags();

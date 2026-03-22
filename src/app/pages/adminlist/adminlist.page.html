@@ -1,65 +1,86 @@
-<ion-content [fullscreen]="true">
-  <app-back></app-back>
-  <div class="userVal">
-    <ion-card class="linkprofile" (click)="profileview(data.postedBy)">
-      <img [src]="urlfiles + data.profilepic" alt="Avatar" />
-      <ion-card-header>
-        <ion-card-title>{{data.chanelName}}</ion-card-title>
-      </ion-card-header>
-    </ion-card>
-  </div>
-  <ion-card class="content-card">
-    @if (usuario?.id == data.postedBy) {
-    <div class="card-usuario">
-      <ion-button id="click-trigger" fill="outline">
-        <ion-icon name="menu-outline"></ion-icon>
-      </ion-button>
-      <ion-popover class="submenu" trigger="click-trigger" triggerAction="click">
-        <ng-template>
-          <ion-list>
-            <ion-item button (click)="editarContenido(data)">Editar Contenido</ion-item>
-            <ion-item button (click)="borrarContent(data._id)">Borrar Contenido</ion-item>
-          </ion-list>
-        </ng-template>
-      </ion-popover>
-    </div>
-    } @for (itema of data.imagen; track $index; ) {
-    <ion-img class="shadow-img" [src]="urlfiles + itema.medium " alt="Imagen destacada"></ion-img>
-    }
-     <div class="tipocontent">Tipo de Contenido : <strong>{{data.typePostName}}</strong></div>
-    <app-likescount [count]="likeCount" [liked]="liked" [countview]="viewCount" (likeToggled)="toggleLike()"></app-likescount>
+<div class="home-layout">
 
-    <ion-card-header>
-      <ion-card-title>{{data.name}}</ion-card-title>
-    </ion-card-header>
+  <aside class="sidebar sidebar-left">
+    <app-sidebar-left></app-sidebar-left>
+  </aside>
 
-    <ion-card-content>
-      <p>{{data.description}}</p>
-      @for (item of data.tags; track $index; ) {
-      <ion-chip color="tertiary">
-        <a (click)="searcherPost(data.id)"><strong>#{{item.name}}</strong></a>
-      </ion-chip>
-      }
-    </ion-card-content>
+  <!-- Center: detalle del post -->
+  <ion-content class="feed-center" [fullscreen]="true">
+    <app-back></app-back>
 
-    <ion-grid>
-      <ion-row>
-        <ion-col size="12" class="social-buttons">
-          <app-socialmedia [red]="1" [postId]="data._id" [postTitle]="data.name"></app-socialmedia>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-    @if(usuario?.id == data.postedBy) {
-    <div class="masContent" (click)="Addcontent(data)" [class.disabled]="(data.content?.length ?? 0) >= 10">
-      <ion-icon slot="icon-only" name="add-circle"></ion-icon>
-      <strong>{{ (data.content?.length ?? 0) >= 10 ? 'Límite de 10 artículos alcanzado' : 'Agregar Contenido' }}</strong>
-      <span class="content-counter">
-        <ion-icon name="layers-outline"></ion-icon>
-        {{ data.content?.length ?? 0 }}/10
-      </span>
-    </div>
-    }
-  </ion-card>
+      <div class="userVal">
+        <ion-card class="linkprofile" (click)="profileview(data.postedBy)">
+          <img [src]="urlfiles + data.profilepic" alt="Avatar" />
+          <ion-card-header>
+            <ion-card-title>{{data.chanelName}}</ion-card-title>
+          </ion-card-header>
+        </ion-card>
+      </div>
 
-  <app-showcontent [content]="data.content" [idpost]="data._id" [typecontent]="data.typePost" [isOwner]="usuario?.id == data.postedBy"></app-showcontent>
-</ion-content>
+      <ion-card class="content-card">
+        @if (usuario?.id == data.postedBy) {
+          <div class="card-usuario">
+            <ion-button id="click-trigger" fill="outline">
+              <ion-icon name="menu-outline"></ion-icon>
+            </ion-button>
+            <ion-popover class="submenu" trigger="click-trigger" triggerAction="click">
+              <ng-template>
+                <ion-list>
+                  <ion-item button (click)="editarContenido(data)">Editar Contenido</ion-item>
+                  <ion-item button (click)="borrarContent(data._id)">Borrar Contenido</ion-item>
+                </ion-list>
+              </ng-template>
+            </ion-popover>
+          </div>
+        }
+
+        @for (itema of data.imagen; track $index) {
+          <ion-img class="shadow-img" [src]="urlfiles + itema.medium" alt="Imagen destacada"></ion-img>
+        }
+
+        <div class="tipocontent">Tipo de Contenido: <strong>{{data.typePostName}}</strong></div>
+        <app-likescount [count]="likeCount" [liked]="liked" [countview]="viewCount" (likeToggled)="toggleLike()"></app-likescount>
+
+        <ion-card-header>
+          <ion-card-title>{{data.name}}</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+          <p>{{data.description}}</p>
+          @for (item of data.tags; track $index) {
+            <ion-chip color="tertiary">
+              <a (click)="searcherPost(data.id)"><strong>#{{item.name}}</strong></a>
+            </ion-chip>
+          }
+        </ion-card-content>
+
+        @if (usuario) {
+          <ion-grid>
+            <ion-row>
+              <ion-col size="12" class="social-buttons">
+                <app-socialmedia [red]="1" [postId]="data._id" [postTitle]="data.name"></app-socialmedia>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        }
+
+        @if (usuario?.id == data.postedBy) {
+          <div class="masContent" (click)="Addcontent(data)" [class.disabled]="(data.content?.length ?? 0) >= 10">
+            <ion-icon slot="icon-only" name="add-circle"></ion-icon>
+            <strong>{{ (data.content?.length ?? 0) >= 10 ? 'Límite de 10 artículos alcanzado' : 'Agregar Contenido' }}</strong>
+            <span class="content-counter">
+              <ion-icon name="layers-outline"></ion-icon>
+              {{ data.content?.length ?? 0 }}/10
+            </span>
+          </div>
+        }
+      </ion-card>
+
+      <app-showcontent [content]="data.content" [idpost]="data._id" [typecontent]="data.typePost" [isOwner]="usuario?.id == data.postedBy"></app-showcontent>
+  </ion-content>
+
+  <aside class="sidebar sidebar-right">
+    <app-sidebar-right></app-sidebar-right>
+  </aside>
+
+</div>

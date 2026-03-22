@@ -6,7 +6,9 @@
     "tendencia": "Tendencia",
     "perfil": "Perfil",
     "inscripcion": "Inscripción",
-    "ingreso": "Ingresar"
+    "ingreso": "Ingresar",
+    "config": "Configuración",
+    "salir": "Salir"
   },
   "perfil": {
     "info": "Información",

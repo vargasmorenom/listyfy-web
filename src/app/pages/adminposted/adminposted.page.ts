@@ -10,20 +10,15 @@ import { posted } from '../../configs/posted';
 import { BackComponent } from 'src/app/shared/back/back.component';
 import { PostedsService } from 'src/app/services/posteds.service';
 import { StorageService } from 'src/app/services/storage.service';
-
+import { CommonModule } from '@angular/common';
+import { SidebarLeftComponent } from 'src/app/shared/sidebar-left/sidebar-left.component';
+import { SidebarRightComponent } from 'src/app/shared/sidebar-right/sidebar-right.component';
+import { addIcons } from 'ionicons';
+import { refreshOutline, arrowForwardOutline } from 'ionicons/icons';
 import {
-  IonContent,
-  IonItem,
-  IonInput,
-  IonButton,
-  IonIcon,
-  IonSelect,
-  IonLabel,
-  IonSelectOption,
-  IonTextarea,
-  IonRadio,
-  IonRadioGroup,
-  IonList,
+  IonContent, IonItem, IonInput, IonButton, IonIcon,
+  IonSelect, IonLabel, IonSelectOption, IonTextarea,
+  IonRadio, IonRadioGroup, IonList,
 } from '@ionic/angular/standalone';
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -33,28 +28,15 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrls: ['./adminposted.page.scss'],
   standalone: true,
   imports: [
-    IonContent,
-    IonItem,
-    IonInput,
-    IonButton,
-    IonLabel,
-    IonIcon,
-    FormsModule,
-    ReactiveFormsModule,
-    IonSelect,
-    IonSelectOption,
-    IonTextarea,
-    BackComponent,
-    IonRadioGroup,
-    IonRadio,
-    IonList,
-    TranslatePipe,
+    IonContent, IonItem, IonInput, IonButton, IonLabel, IonIcon,
+    FormsModule, ReactiveFormsModule, IonSelect, IonSelectOption,
+    IonTextarea, BackComponent, IonRadioGroup, IonRadio, IonList,
+    TranslatePipe, CommonModule, SidebarLeftComponent, SidebarRightComponent,
   ],
 })
 export class AdminpostedPage implements OnInit, OnDestroy {
   public formCreate: any;
   public form: FormGroup;
-  private url!: string;
   private destroy$ = new Subject<void>();
   public logo: string;
   public fileData: any;
@@ -65,12 +47,12 @@ export class AdminpostedPage implements OnInit, OnDestroy {
     public formUl: DynamicFormService,
     public messToast: ToastrService,
     public adminPosted: PostedsService,
-    private storage: StorageService
+    private storage: StorageService,
   ) {
     this.formCreate = posted;
-    // this.url = environment.servicio[0].key;
     this.form = this.formUl.createForm(this.formCreate);
     this.logo = environment.servicio[0].logosmall;
+    addIcons({ refreshOutline, arrowForwardOutline });
   }
 
   ngOnInit() {}
@@ -94,8 +76,7 @@ export class AdminpostedPage implements OnInit, OnDestroy {
         this.fileData = file;
         const reader = new FileReader();
         reader.readAsDataURL(file);
-
-        reader.onload = (e) => {
+        reader.onload = () => {
           this.imagenCarga = reader.result;
         };
       }
@@ -104,13 +85,14 @@ export class AdminpostedPage implements OnInit, OnDestroy {
 
   resetForm() {
     this.form.reset();
+    this.imagenCarga = null;
+    this.fileData = null;
   }
 
   enviar() {
     const profile = this.dataStorage();
 
     const dataForm = new FormData();
-
     dataForm.append('name', this.form.value.name);
     dataForm.append('description', this.form.value.description);
     dataForm.append('typePost', this.form.value.typePost);

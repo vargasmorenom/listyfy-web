@@ -63,4 +63,14 @@ export class PostedsService {
     const params = new HttpParams().set('contentId', id.toString()).set('postId', idpost.toString());
     return this.http.delete<any>(this.url + 'deletecontent', { params });
   }
+
+  getTopLiked(limit: number): Observable<any> {
+    const params = new HttpParams().set('limit', limit.toString()).set('sort', 'likes');
+    return this.http.get<any>(this.url + 'getpost', { params });
+  }
+
+  getTopViewed(limit: number): Observable<any> {
+    const params = new HttpParams().set('limit', limit.toString()).set('sort', 'views');
+    return this.http.get<any>(this.url + 'getpost', { params });
+  }
 }
