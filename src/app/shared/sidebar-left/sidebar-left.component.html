@@ -1,7 +1,7 @@
 <ng-container *ngIf="userSession">
 
   <!-- Card: avatar -->
-  <div class="sidebar-card profile-hero">
+  <div class="sidebar-card profile-hero" (click)="navigate('/perfil')" style="cursor:pointer">
     <div class="avatar-wrapper">
       <img class="avatar" [src]="profilePic" />
     </div>
@@ -41,17 +41,33 @@
   <div class="sidebar-card">
     <p class="card-section-title">Accesos</p>
     <nav class="sidebar-nav">
-      <a (click)="navigate('/perfil')">
-        <ion-icon name="person-circle-outline"></ion-icon>
-        Perfil
+      <a *ngIf="currentUrl !== '/' && currentUrl !== '/home'" (click)="navigate('/')">
+        <ion-icon name="home-outline"></ion-icon>
+        Inicio
       </a>
-      <a (click)="navigate('/adminlist')">
+      <a *ngIf="!currentUrl.startsWith('/searcher')" (click)="navigate('/searcher')">
+        <ion-icon name="search-outline"></ion-icon>
+        Buscar
+      </a>
+      <a *ngIf="!currentUrl.startsWith('/newlist')" (click)="navigate('/newlist')">
+        <ion-icon name="add-circle-outline"></ion-icon>
+        Nueva Lista
+      </a>
+      <a *ngIf="!currentUrl.startsWith('/tendencies')" (click)="navigate('/tendencies')">
+        <ion-icon name="analytics-outline"></ion-icon>
+        Tendencias
+      </a>
+      <a *ngIf="!currentUrl.startsWith('/adminlist')" (click)="navigate('/adminlist')">
         <ion-icon name="list-outline"></ion-icon>
         Administración
       </a>
-      <a (click)="navigate('/config')">
+      <a *ngIf="!currentUrl.startsWith('/config')" (click)="navigate('/config')">
         <ion-icon name="settings-outline"></ion-icon>
         Configuración
+      </a>
+      <a class="logout" (click)="logout()">
+        <ion-icon name="log-out-outline"></ion-icon>
+        Salir
       </a>
     </nav>
   </div>
@@ -60,5 +76,5 @@
 
 <div class="sidebar-card guest-card" *ngIf="!userSession">
   <a (click)="navigate('/login')">Iniciar sesión</a>
-  <a (click)="navigate('/inscriptions')">Registrarse</a>
+  <a (click)="navigate('/register')">Registrarse</a>
 </div>

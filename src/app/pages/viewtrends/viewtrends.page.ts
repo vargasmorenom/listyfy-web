@@ -6,6 +6,8 @@ import { ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { BackComponent } from 'src/app/shared/back/back.component';
 import { ContentListComponent } from 'src/app/shared/content-list/content-list.component';
+import { SidebarLeftComponent } from 'src/app/shared/sidebar-left/sidebar-left.component';
+import { SidebarRightComponent } from 'src/app/shared/sidebar-right/sidebar-right.component';
 import { PostedsService } from '../../services/posteds.service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -19,7 +21,7 @@ import { IonInfiniteScroll, IonInfiniteScrollContent, IonContent, IonIcon } from
   templateUrl: './viewtrends.page.html',
   styleUrls: ['./viewtrends.page.scss'],
   standalone: true,
-  imports: [IonContent, IonIcon, CommonModule, BackComponent, ContentListComponent, IonInfiniteScroll, IonInfiniteScrollContent]
+  imports: [IonContent, IonIcon, CommonModule, BackComponent, ContentListComponent, IonInfiniteScroll, IonInfiniteScrollContent, SidebarLeftComponent, SidebarRightComponent]
 })
 export class ViewtrendsPage implements OnInit, OnDestroy {
 

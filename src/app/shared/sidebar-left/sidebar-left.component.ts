@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, filter } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { ProfileFollowService } from 'src/app/services/profile-follow.service';
 import { ProfileLikeService } from 'src/app/services/profile-like.service';
@@ -10,7 +10,8 @@ import { environment } from 'src/environments/environment';
 import { addIcons } from 'ionicons';
 import {
   peopleOutline, personAddOutline, heartOutline,
-  personCircleOutline, listOutline, settingsOutline,
+  listOutline, settingsOutline, homeOutline, searchOutline,
+  addCircleOutline, analyticsOutline, logOutOutline,
 } from 'ionicons/icons';
 import { IonIcon } from '@ionic/angular/standalone';
 
@@ -27,6 +28,7 @@ export class SidebarLeftComponent implements OnInit, OnDestroy {
   followersCount = 0;
   followingCount = 0;
   likesCount = 0;
+  currentUrl = '';
   private urlfiles = environment.servicio[0].urlfiles;
   private destroy$ = new Subject<void>();
 
@@ -36,10 +38,22 @@ export class SidebarLeftComponent implements OnInit, OnDestroy {
     private profileLikeService: ProfileLikeService,
     private router: Router,
   ) {
-    addIcons({ peopleOutline, personAddOutline, heartOutline, personCircleOutline, listOutline, settingsOutline });
+    addIcons({ peopleOutline, personAddOutline, heartOutline, listOutline, settingsOutline, homeOutline, searchOutline, addCircleOutline, analyticsOutline, logOutOutline });
   }
 
   ngOnInit() {
+    this.currentUrl = this.router.url;
+    this.router.events.pipe(
+      filter(e => e instanceof NavigationEnd),
+      takeUntil(this.destroy$)
+    ).subscribe((e: any) => this.currentUrl = e.urlAfterRedirects);
+
+    this.authService.isLoggedIn$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => this.loadSession());
+  }
+
+  private loadSession() {
     this.userSession = this.authService.getSession();
     const profile = this.authService.getProfile();
 
@@ -56,7 +70,7 @@ export class SidebarLeftComponent implements OnInit, OnDestroy {
           this.followingCount = status.countProfileFollowing;
         });
 
-      const userId = this.authService.getSession()?.id;
+      const userId = this.userSession?.id;
       if (userId) {
         this.profileLikeService
           .getProfileLikeStatus(profile._id, userId)
@@ -73,5 +87,10 @@ export class SidebarLeftComponent implements OnInit, OnDestroy {
 
   navigate(path: string, queryParams?: any) {
     this.router.navigate([path], queryParams ? { queryParams } : {});
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }

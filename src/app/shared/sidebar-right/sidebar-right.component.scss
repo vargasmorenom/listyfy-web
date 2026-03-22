@@ -36,16 +36,21 @@
     gap: 10px;
     cursor: pointer;
     border-radius: 8px;
-    border: 2px solid #303d5c;
+    border: 1px solid rgba(0, 0, 0, 0.08);
     padding: 4px;
     transition: background 0.15s;
-    box-shadow: 0 2px 8px rgba(126, 123, 169, 0.3);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
 
     &:hover {
-      background: rgba(58, 127, 243, 0.1);
+      background: rgba(58, 127, 243, 0.08);
       border-color: var(--ion-color-primary);
     }
   }
+}
+
+:host-context(.ion-palette-dark) .top-list li {
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .top-thumb {
@@ -54,12 +59,12 @@
   border-radius: 8px;
   object-fit: cover;
   flex-shrink: 0;
-  border: 2px solid #303d5c;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 }
 
 :host-context(.ion-palette-dark) .top-thumb {
-  border-color: #4a6fa5;
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
 .top-name {

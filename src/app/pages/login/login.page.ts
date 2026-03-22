@@ -4,7 +4,6 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { FormsModule, ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { MenubajoComponent } from './../../shared/menubajo/menubajo.component';
 import { Router } from '@angular/router';
 import * as CryptoJS from 'crypto-js';
 import { DynamicFormService } from 'src/app/services/dynamicFormService';
@@ -41,8 +40,7 @@ import { TranslatePipe } from '@ngx-translate/core';
     FormsModule,
     ReactiveFormsModule,
     IonInputPasswordToggle,
-    MenubajoComponent,
-    TranslatePipe,
+TranslatePipe,
     RecaptchaComponent,
   ],
 })
@@ -59,8 +57,7 @@ export class LoginPage implements OnInit, OnDestroy {
   public form: FormGroup;
   private url: string;
   public logo: string;
-  isMenuHidden!: true;
-  recaptchaToken: string | null = null;
+recaptchaToken: string | null = null;
 
   constructor(
     public router: Router,

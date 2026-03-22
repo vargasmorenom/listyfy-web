@@ -116,6 +116,12 @@
     }
 
     &:hover { background: rgba(58, 127, 243, 0.1); }
+
+    &.logout {
+      color: var(--ion-color-danger);
+      ion-icon { color: var(--ion-color-danger); }
+      &:hover { background: rgba(var(--ion-color-danger-rgb), 0.1); }
+    }
   }
 }
 

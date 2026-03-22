@@ -1,53 +1,55 @@
 <ion-content [fullscreen]="true" [scrollY]="false">
-  <div class="{{currentBackgroundClass}} background-container">
-    <ion-card class="logoCard">
-      <img alt="Listyfy" src="{{logo}}" />
-    </ion-card>
+  <div class="{{ currentBackgroundClass }} background-container">
 
-    <form [formGroup]="form">
-      @for (item of formCreate; track $index; ) {
+    <div class="login-card">
+      <div class="logo-wrapper">
+        <img [src]="logo" alt="Listyfy" />
+      </div>
 
-      <div class="input-group">
-        <ion-item>
-          <ion-input
-            type="{{item.type}}"
-            name="{{item.name}}"
-            [placeholder]="item.label | translate"
-            formControlName="{{item.name}}"
-          >
-            @if(item.type === 'password'){
-            <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+      <form [formGroup]="form">
+        @for (item of formCreate; track $index) {
+          <div class="field-group">
+            <ion-input
+              class="custom-input"
+              [type]="item.type"
+              [name]="item.name"
+              [placeholder]="item.label | translate"
+              [formControlName]="item.name"
+              fill="outline"
+            >
+              @if (item.type === 'password') {
+                <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+              }
+            </ion-input>
+
+            @if (form.get(item.name)?.touched) {
+              @if (form.get(item.name)?.errors?.['required']) {
+                <p class="error-msg">{{ 'login.error.requerido' | translate }}</p>
+              }
+              @if (form.get(item.name)?.errors?.['minlength']) {
+                <p class="error-msg">{{ 'login.error.minlength' | translate }}</p>
+              }
             }
-          </ion-input>
-        </ion-item>
-
-        @if(form.get(item.name)?.touched){ @if(form.get(item.name)?.errors?.['required']){
-        <ion-item>
-          <div class="error">
-            <span>{{ 'login.error.requerido' | translate }}</span>
           </div>
-        </ion-item>
-        } @if(form.get(item.name)?.errors?.['minlength']){
-        <ion-item>
-          <div class="error">
-            <span>{{ 'login.error.minlength' | translate }}</span>
-          </div>
-        </ion-item>
-        } }
-      </div>
-      }
+        }
 
-      <app-recaptcha #recaptchaRef (resolved)="onRecaptchaResolved($event)"></app-recaptcha>
+        <app-recaptcha #recaptchaRef (resolved)="onRecaptchaResolved($event)"></app-recaptcha>
 
-      <div class="input-group">
-        <ion-item>
-          <ion-button (click)="enviar()" [disabled]="form.invalid">
-            <ion-icon name="arrow-forward-outline" style="margin-right: 5px"></ion-icon>
-            {{ 'login.boton' | translate }}
-          </ion-button>
-        </ion-item>
+        <ion-button class="submit-btn" expand="block" (click)="enviar()" [disabled]="form.invalid">
+          <ion-icon name="arrow-forward-outline" slot="start"></ion-icon>
+          {{ 'login.boton' | translate }}
+        </ion-button>
+      </form>
+
+      <div class="login-links">
+        <a (click)="router.navigate(['/recuperaracceso'])">¿Olvidaste tu contraseña?</a>
+        <a (click)="router.navigate(['/register'])">Crear cuenta</a>
       </div>
-    </form>
+
+      <div class="home-link">
+        <a (click)="router.navigate(['/'])">Volver al inicio</a>
+      </div>
+    </div>
+
   </div>
 </ion-content>
-<app-menubajo [estado]="isMenuHidden"></app-menubajo>

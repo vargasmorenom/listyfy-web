@@ -16,6 +16,7 @@ import * as CryptoJS from 'crypto-js';
 import { IonContent, IonHeader, IonTitle, IonToolbar,IonAccordion,IonAccordionGroup,IonItem,
   IonInput,IonLabel,IonIcon,IonButton,IonInputPasswordToggle,IonCard,IonCardHeader,IonCardTitle,
   IonList,IonRadio,IonRadioGroup,IonToggle } from '@ionic/angular/standalone';
+import { BackComponent } from 'src/app/shared/back/back.component';
 
 @Component({
   selector: 'app-config',
@@ -24,7 +25,7 @@ import { IonContent, IonHeader, IonTitle, IonToolbar,IonAccordion,IonAccordionGr
   standalone: true,
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule,IonAccordion,
     ReactiveFormsModule,IonAccordionGroup,IonItem,IonLabel,IonIcon,IonButton,IonInputPasswordToggle,
-  IonInput,IonCard,IonCardHeader,IonCardTitle,IonList,IonRadio,IonRadioGroup,IonToggle]
+  IonInput,IonCard,IonCardHeader,IonCardTitle,IonList,IonRadio,IonRadioGroup,IonToggle,BackComponent]
 })
 export class ConfigPage implements OnInit, OnDestroy {
 
