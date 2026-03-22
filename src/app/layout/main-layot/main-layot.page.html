@@ -1,5 +1,38 @@
 <app-session></app-session>
+
+<!-- Backdrop -->
+<div class="side-backdrop" [class.open]="sideMenuOpen" (click)="closeMenu()"></div>
+
+<!-- Panel lateral -->
+<nav class="side-panel" [class.open]="sideMenuOpen">
+  <div class="side-panel-header">
+    <span class="side-panel-title">Menú</span>
+    <button class="side-close-btn" (click)="closeMenu()">✕</button>
+  </div>
+
+  <ul class="side-nav-list">
+    @for (item of menuItems; track $index) {
+      <li (click)="navigate(item.url)">
+        <ion-icon [name]="item.icon"></ion-icon>
+        <span>{{ 'menu.' + item.name | translate }}</span>
+      </li>
+    }
+  </ul>
+
+  @if (isLoggedIn) {
+    <ul class="side-nav-list side-nav-bottom">
+      <li (click)="navigate('/config')">
+        <ion-icon name="settings-outline"></ion-icon>
+        <span>{{ 'menu.config' | translate }}</span>
+      </li>
+      <li class="logout" (click)="logout()">
+        <ion-icon name="log-out-outline"></ion-icon>
+        <span>{{ 'menu.salir' | translate }}</span>
+      </li>
+    </ul>
+  }
+</nav>
+
 <div class="page-content">
   <router-outlet></router-outlet>
 </div>
-<app-menubajo [estado]="isMenuHidden"></app-menubajo>

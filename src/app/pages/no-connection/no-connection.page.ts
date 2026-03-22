@@ -26,9 +26,9 @@ export class NoConnectionPage implements OnInit, OnDestroy {
     this.networkService.isOnline$.pipe(takeUntil(this.destroy$)).subscribe((isOnline) => {
       const currentUrl = this.router.url;
 
-      if (!isOnline && currentUrl !== 'no-connection') {
-        this.router.navigate(['no-connection']);
-      } else if (isOnline && currentUrl === 'no-connection') {
+      if (!isOnline && currentUrl !== '/no-connection') {
+        this.router.navigate(['/no-connection']);
+      } else if (isOnline && currentUrl === '/no-connection') {
         this.router.navigate(['/']);
       }
     });

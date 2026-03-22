@@ -1,7 +1,104 @@
 <ion-content [fullscreen]="true" (ionScroll)="onScroll($event)" [scrollEvents]="true">
-  <app-content-list [entityNames]="items"></app-content-list>
-  <ion-infinite-scroll [disabled]="allLoaded" threshold="100px" (ionInfinite)="loadMore($event)">
-    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
-    </ion-infinite-scroll-content>
-  </ion-infinite-scroll>
+  <div class="home-layout">
+
+    <!-- Left: perfil + navegación -->
+    <aside class="sidebar sidebar-left">
+      <ng-container *ngIf="userSession">
+
+        <!-- Card: avatar -->
+        <div class="sidebar-card profile-hero">
+          <div class="avatar-wrapper">
+            <img class="avatar" [src]="profilePic" />
+          </div>
+          <p class="username">{{ userSession.user }}</p>
+        </div>
+
+        <!-- Card: estadísticas -->
+        <div class="sidebar-card">
+          <div class="profile-stats">
+            <div class="stat-item">
+              <span class="stat-value">{{ followersCount }}</span>
+              <span class="stat-label">
+                <ion-icon name="people-outline"></ion-icon>
+                Seguidores
+              </span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <span class="stat-value">{{ followingCount }}</span>
+              <span class="stat-label">
+                <ion-icon name="person-add-outline"></ion-icon>
+                Siguiendo
+              </span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <span class="stat-value">{{ likesCount }}</span>
+              <span class="stat-label">
+                <ion-icon name="heart-outline"></ion-icon>
+                Likes
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card: navegación -->
+        <div class="sidebar-card">
+          <p class="card-section-title">Accesos</p>
+          <nav class="sidebar-nav">
+            <a (click)="navigate('/perfil')">
+              <ion-icon name="person-circle-outline"></ion-icon>
+              Perfil
+            </a>
+            <a (click)="navigate('/adminlist')">
+              <ion-icon name="list-outline"></ion-icon>
+              Administración
+            </a>
+            <a (click)="navigate('/config')">
+              <ion-icon name="settings-outline"></ion-icon>
+              Configuración
+            </a>
+          </nav>
+        </div>
+
+      </ng-container>
+
+      <div class="sidebar-card guest-card" *ngIf="!userSession">
+        <a (click)="navigate('/login')">Iniciar sesión</a>
+        <a (click)="navigate('/inscriptions')">Registrarse</a>
+      </div>
+    </aside>
+
+    <!-- Center: feed principal -->
+    <main class="feed-center">
+      <app-content-list [entityNames]="items"></app-content-list>
+      <ion-infinite-scroll [disabled]="allLoaded" threshold="100px" (ionInfinite)="loadMore($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+        </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </main>
+
+    <!-- Right: más vistas y más likes -->
+    <aside class="sidebar sidebar-right">
+      <div class="sidebar-card">
+        <h4 class="sidebar-title">Más vistas</h4>
+        <ul class="top-list">
+          <li *ngFor="let post of topViewed" (click)="navigate('/adminlist', { id: post._id })">
+            <img *ngIf="post.imagen?.length" [src]="urlfiles + post.imagen[0].small" class="top-thumb" />
+            <span class="top-name">{{ post.name }}</span>
+          </li>
+        </ul>
+      </div>
+      <div class="sidebar-card">
+        <h4 class="sidebar-title">Más likes</h4>
+        <ul class="top-list">
+          <li *ngFor="let post of topLiked" (click)="navigate('/adminlist', { id: post._id })">
+            <img *ngIf="post.imagen?.length" [src]="urlfiles + post.imagen[0].small" class="top-thumb" />
+            <span class="top-name">{{ post.name }}</span>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+  </div>
 </ion-content>

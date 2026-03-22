@@ -13,29 +13,24 @@ import { PopupService } from 'src/app/services/popup.service';
 import { SocialmediaComponent } from 'src/app/shared/socialmedia/socialmedia.component';
 import { LikescountComponent } from 'src/app/shared/likescount/likescount.component';
 import { PostFacade } from 'src/app/facade/post.facade';
-import { Subscription } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { AuthService } from 'src/app/services/auth.service';
+import { ProfileFollowService } from 'src/app/services/profile-follow.service';
+import { ProfileLikeService } from 'src/app/services/profile-like.service';
+import { Subject, Subscription } from 'rxjs';
+import { take, takeUntil } from 'rxjs/operators';
 import { addIcons } from 'ionicons';
-import { addCircle, menuOutline, layersOutline } from 'ionicons/icons';
+import {
+  addCircle, menuOutline, layersOutline,
+  heartOutline, heart, peopleOutline, personAddOutline,
+  personCircleOutline, listOutline, settingsOutline,
+} from 'ionicons/icons';
 import { environment } from 'src/environments/environment';
 import { EditcontentlistComponent } from 'src/app/shared/editcontentlist/editcontentlist.component';
 import { NewcontentpopupComponent } from 'src/app/shared/newcontentpopup/newcontentpopup.component';
 import {
-  IonContent,
-  IonImg,
-  IonChip,
-  IonCard,
-  IonCol,
-  IonRow,
-  IonGrid,
-  IonCardHeader,
-  IonList,
-  IonItem,
-  IonPopover,
-  IonCardTitle,
-  IonButton,
-  IonCardContent,
-  IonIcon,
+  IonContent, IonImg, IonChip, IonCard, IonCol, IonRow, IonGrid,
+  IonCardHeader, IonList, IonItem, IonPopover, IonCardTitle,
+  IonButton, IonCardContent, IonIcon,
 } from '@ionic/angular/standalone';
 
 @Component({
@@ -44,27 +39,10 @@ import {
   styleUrls: ['./adminlist.page.scss'],
   standalone: true,
   imports: [
-    ShowcontentComponent,
-    SocialmediaComponent,
-    IonCardContent,
-    IonPopover,
-    IonButton,
-    IonCardTitle,
-    LikescountComponent,
-    IonCardHeader,
-    IonCard,
-    IonList,
-    IonItem,
-    IonContent,
-    CommonModule,
-    FormsModule,
-    BackComponent,
-    IonIcon,
-    IonGrid,
-    IonRow,
-    IonCol,
-    IonImg,
-    IonChip,
+    ShowcontentComponent, SocialmediaComponent, IonCardContent, IonPopover,
+    IonButton, IonCardTitle, LikescountComponent, IonCardHeader, IonCard,
+    IonList, IonItem, IonContent, CommonModule, FormsModule, BackComponent,
+    IonIcon, IonGrid, IonRow, IonCol, IonImg, IonChip,
   ],
 })
 export class AdminlistPage implements OnInit, AfterViewInit, OnDestroy {
@@ -72,14 +50,22 @@ export class AdminlistPage implements OnInit, AfterViewInit, OnDestroy {
   public data: any = {};
   public datacont: any;
   public usuario = this.validarEdit();
-  public mensaje = 'saludos';
-  public dataprueba = 'disabled';
   public likeCount = 0;
   public liked = false;
   public viewCount = 0;
   public urlfiles = environment.servicio[0].urlfiles;
   private facadeSubs: Subscription[] = [];
   private initialized = false;
+
+  // Sidebar
+  userSession: any = null;
+  profilePic: string = 'assets/logo/perfil02.png';
+  followersCount = 0;
+  followingCount = 0;
+  likesCount = 0;
+  topViewed: any[] = [];
+  topLiked: any[] = [];
+  private destroy$ = new Subject<void>();
 
   constructor(
     public popUp: PopupService,
@@ -91,12 +77,66 @@ export class AdminlistPage implements OnInit, AfterViewInit, OnDestroy {
     public messToast: ToastrService,
     private storage: StorageService,
     public facade: PostFacade,
+    private authService: AuthService,
+    private profileFollowService: ProfileFollowService,
+    private profileLikeService: ProfileLikeService,
   ) {
-    addIcons({ addCircle, menuOutline, layersOutline });
+    addIcons({
+      addCircle, menuOutline, layersOutline,
+      heartOutline, heart, peopleOutline, personAddOutline,
+      personCircleOutline, listOutline, settingsOutline,
+    });
   }
 
   validarEdit() {
     return this.storage.get('usuario');
+  }
+
+  ngOnInit() {
+    this.cargarDatos();
+    this.suscribirFacade();
+    this.loadSidebarData();
+  }
+
+  private loadSidebarData() {
+    this.userSession = this.authService.getSession();
+    const profile = this.authService.getProfile();
+
+    if (profile?.profilePic) {
+      this.profilePic = this.urlfiles + profile.profilePic[0].small;
+    }
+
+    if (profile?._id) {
+      this.profileFollowService
+        .getFollowStatus(profile._id, profile._id)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(status => {
+          this.followersCount = status.countFollowers;
+          this.followingCount = status.countProfileFollowing;
+        });
+
+      const userId = this.authService.getSession()?.id;
+      if (userId) {
+        this.profileLikeService
+          .getProfileLikeStatus(profile._id, userId)
+          .pipe(takeUntil(this.destroy$))
+          .subscribe(status => {
+            this.likesCount = status.countlikes;
+          });
+      }
+    }
+
+    this.posted.getTopViewed(5).pipe(takeUntil(this.destroy$)).subscribe((data: any) => {
+      if (data?.length) this.topViewed = data;
+    });
+
+    this.posted.getTopLiked(5).pipe(takeUntil(this.destroy$)).subscribe((data: any) => {
+      if (data?.length) this.topLiked = data;
+    });
+  }
+
+  navigate(path: string, queryParams?: any) {
+    this.navegar.navigate([path], queryParams ? { queryParams } : {});
   }
 
   toggleLike() {
@@ -115,27 +155,13 @@ export class AdminlistPage implements OnInit, AfterViewInit, OnDestroy {
     }
 
     const result = await this.popUp.showPopupDinamic(
-      {
-        title: 'Agregar Nuevo Contenido',
-        message: 'Nuevo Contenido',
-        confirmText: '',
-        id: id,
-      },
+      { title: 'Agregar Nuevo Contenido', message: 'Nuevo Contenido', confirmText: '', id: id },
       NewcontentpopupComponent
     );
 
     if (result?.data) {
       this.facade.loadPost(this.id, this.usuario?.id);
-    } else if (result?.cancelled) {
-      console.warn('Modal no se abrió porque ya existía uno');
-    } else if (result?.error) {
-      console.error('Error al abrir modal:', result.message);
     }
-  }
-
-  ngOnInit() {
-    this.cargarDatos();
-    this.suscribirFacade();
   }
 
   private suscribirFacade() {
@@ -149,13 +175,13 @@ export class AdminlistPage implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy() {
     this.facadeSubs.forEach((sub) => sub.unsubscribe());
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   cargarDatos() {
     this.param.queryParams.pipe(take(1)).subscribe((parametro: any) => {
-      if (!parametro['id']) {
-        this.navegar.navigate(['/']);
-      }
+      if (!parametro['id']) { this.navegar.navigate(['/']); }
       this.id = parametro['id'];
       this.facade.loadPost(this.id, this.usuario?.id);
       if (this.id && this.usuario?.id) {
@@ -164,27 +190,15 @@ export class AdminlistPage implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  searcher(_event: any) {}
-
   async editarContenido(id: any) {
     const result = await this.popUp.showPopupDinamic(
       {
-        title: 'Administración de Contenido',
-        message: 'Editar Contenido',
-        confirmText: '',
-        id: id,
-        onComplete: (postId: string) => {
-          this.facade.loadPost(postId, this.usuario?.id);
-        },
+        title: 'Administración de Contenido', message: 'Editar Contenido', confirmText: '', id: id,
+        onComplete: (postId: string) => { this.facade.loadPost(postId, this.usuario?.id); },
       },
       EditcontentlistComponent
     );
-
-    if (result?.cancelled) {
-      console.warn('Modal no se abrió porque ya existía uno');
-    } else if (result?.error) {
-      console.error('Error al abrir modal:', result.message);
-    }
+    if (result?.cancelled) console.warn('Modal no se abrió porque ya existía uno');
     this.popoverCtrl.dismiss();
   }
 
@@ -192,12 +206,8 @@ export class AdminlistPage implements OnInit, AfterViewInit, OnDestroy {
     const confirmacion = window.confirm('¿Estás seguro de eliminar este contenido?');
     if (confirmacion) {
       const datoUser = this.storage.get('usuario');
-      const datapost = {
-        postId: id,
-        postedBy: datoUser.id,
-      };
-      this.posted.deletePosted(datapost).subscribe(
-        (data) => {
+      this.posted.deletePosted({ postId: id, postedBy: datoUser.id }).subscribe({
+        next: (data) => {
           if (data.status === 200) {
             this.messToast.success('Contenido eliminado correctamente', 'Éxito');
             this.popoverCtrl.dismiss();
@@ -206,11 +216,8 @@ export class AdminlistPage implements OnInit, AfterViewInit, OnDestroy {
             this.messToast.error('Error al eliminar el contenido', 'Error');
           }
         },
-        (error) => {
-          console.error('Error al eliminar el contenido:', error);
-          this.messToast.error('Error al eliminar el contenido', 'Error');
-        }
-      );
+        error: () => this.messToast.error('Error al eliminar el contenido', 'Error'),
+      });
     } else {
       this.messToast.warning('Eliminación cancelada', 'Cancelado');
       this.popoverCtrl.dismiss();
@@ -223,10 +230,6 @@ export class AdminlistPage implements OnInit, AfterViewInit, OnDestroy {
 
   searcherPost(id: any) {
     this.navegar.navigate(['searcher'], { queryParams: { id: id } });
-  }
-
-  actualiza(id: any) {
-    this.navegar.navigateByUrl('adminlist?id=' + id, { replaceUrl: true });
   }
 
   ionViewWillEnter() {
@@ -249,62 +252,20 @@ export class AdminlistPage implements OnInit, AfterViewInit, OnDestroy {
       fbRoot.id = 'fb-root';
       document.body.appendChild(fbRoot);
     }
-    this.scriptLoader
-      .loadScripts([
-        {
-          url: 'https://www.instagram.com/embed.js',
-          globalObject: 'instgrm',
-          callbackMethodPath: 'Embeds.process',
-          innerText: '',
-        },
-        {
-          url: 'https://platform.twitter.com/widgets.js',
-          globalObject: 'twttr',
-          callbackMethodPath: 'widgets.load',
-          innerText: '',
-        },
-        {
-          url: 'https://www.youtube.com/iframe_api',
-          globalObject: 'YT',
-          callbackMethodPath: '',
-          innerText: '',
-        },
-        {
-          url: 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v18.0',
-          globalObject: 'FB',
-          callbackMethodPath: 'XFBML.parse',
-          innerText: '',
-        },
-        {
-          url: 'https://platform.linkedin.com/in.js',
-          globalObject: 'IN',
-          callbackMethodPath: 'parse',
-          innerText: 'lang: en_US',
-        },
-        {
-          url: 'https://telegram.org/js/telegram-widget.js?22',
-          globalObject: 'Telegram',
-          callbackMethodPath: '',
-          innerText: '',
-        },
-      ])
-      .catch((err) => {
-        console.error('Error cargando scripts:', err);
-      });
+    this.scriptLoader.loadScripts([
+      { url: 'https://www.instagram.com/embed.js', globalObject: 'instgrm', callbackMethodPath: 'Embeds.process', innerText: '' },
+      { url: 'https://platform.twitter.com/widgets.js', globalObject: 'twttr', callbackMethodPath: 'widgets.load', innerText: '' },
+      { url: 'https://www.youtube.com/iframe_api', globalObject: 'YT', callbackMethodPath: '', innerText: '' },
+      { url: 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v18.0', globalObject: 'FB', callbackMethodPath: 'XFBML.parse', innerText: '' },
+      { url: 'https://platform.linkedin.com/in.js', globalObject: 'IN', callbackMethodPath: 'parse', innerText: 'lang: en_US' },
+      { url: 'https://telegram.org/js/telegram-widget.js?22', globalObject: 'Telegram', callbackMethodPath: '', innerText: '' },
+    ]).catch((err) => console.error('Error cargando scripts:', err));
   }
 
   private reprocesarEmbeds() {
-    if ((window as any).instgrm?.Embeds?.process) {
-      (window as any).instgrm.Embeds.process();
-    }
-    if ((window as any).twttr?.widgets?.load) {
-      (window as any).twttr.widgets.load();
-    }
-    if ((window as any).FB?.XFBML?.parse) {
-      (window as any).FB.XFBML.parse();
-    }
-    if ((window as any).IN?.parse) {
-      (window as any).IN.parse();
-    }
+    if ((window as any).instgrm?.Embeds?.process) (window as any).instgrm.Embeds.process();
+    if ((window as any).twttr?.widgets?.load) (window as any).twttr.widgets.load();
+    if ((window as any).FB?.XFBML?.parse) (window as any).FB.XFBML.parse();
+    if ((window as any).IN?.parse) (window as any).IN.parse();
   }
 }
