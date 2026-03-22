@@ -1,69 +1,12 @@
-<ion-content [fullscreen]="true">
-  <div class="home-layout">
+<div class="home-layout">
 
-    <!-- Left: perfil del usuario logueado -->
-    <aside class="sidebar sidebar-left">
-      <ng-container *ngIf="userSession">
+  <aside class="sidebar sidebar-left">
+    <app-sidebar-left></app-sidebar-left>
+  </aside>
 
-        <div class="sidebar-card profile-hero">
-          <div class="avatar-wrapper">
-            <img class="avatar" [src]="profilePic" />
-          </div>
-          <p class="username">{{ userSession.user }}</p>
-        </div>
-
-        <div class="sidebar-card">
-          <div class="profile-stats">
-            <div class="stat-item">
-              <span class="stat-value">{{ followersCount }}</span>
-              <span class="stat-label">
-                <ion-icon name="people-outline"></ion-icon>
-                Seguidores
-              </span>
-            </div>
-            <div class="stat-divider"></div>
-            <div class="stat-item">
-              <span class="stat-value">{{ followingCount }}</span>
-              <span class="stat-label">
-                <ion-icon name="person-add-outline"></ion-icon>
-                Siguiendo
-              </span>
-            </div>
-            <div class="stat-divider"></div>
-            <div class="stat-item">
-              <span class="stat-value">{{ likesCount }}</span>
-              <span class="stat-label">
-                <ion-icon name="heart-outline"></ion-icon>
-                Likes
-              </span>
-            </div>
-          </div>
-        </div>
-
-        <div class="sidebar-card">
-          <p class="card-section-title">Accesos</p>
-          <nav class="sidebar-nav">
-            <a (click)="navigate('/perfil')">
-              <ion-icon name="person-circle-outline"></ion-icon>
-              Perfil
-            </a>
-            <a (click)="navigate('/adminlist')">
-              <ion-icon name="list-outline"></ion-icon>
-              Administración
-            </a>
-            <a (click)="navigate('/config')">
-              <ion-icon name="settings-outline"></ion-icon>
-              Configuración
-            </a>
-          </nav>
-        </div>
-
-      </ng-container>
-    </aside>
-
-    <!-- Center: detalle del post -->
-    <main class="feed-center">
-      <app-back></app-back>
+  <!-- Center: detalle del post -->
+  <ion-content class="feed-center" [fullscreen]="true">
+    <app-back></app-back>
 
       <div class="userVal">
         <ion-card class="linkprofile" (click)="profileview(data.postedBy)">
@@ -132,29 +75,10 @@
       </ion-card>
 
       <app-showcontent [content]="data.content" [idpost]="data._id" [typecontent]="data.typePost" [isOwner]="usuario?.id == data.postedBy"></app-showcontent>
-    </main>
+  </ion-content>
 
-    <!-- Right: top posts -->
-    <aside class="sidebar sidebar-right">
-      <div class="sidebar-card">
-        <h4 class="sidebar-title">Más vistas</h4>
-        <ul class="top-list">
-          <li *ngFor="let post of topViewed" (click)="navigate('/adminlist', { id: post._id })">
-            <img *ngIf="post.imagen?.length" [src]="urlfiles + post.imagen[0].small" class="top-thumb" />
-            <span class="top-name">{{ post.name }}</span>
-          </li>
-        </ul>
-      </div>
-      <div class="sidebar-card">
-        <h4 class="sidebar-title">Más likes</h4>
-        <ul class="top-list">
-          <li *ngFor="let post of topLiked" (click)="navigate('/adminlist', { id: post._id })">
-            <img *ngIf="post.imagen?.length" [src]="urlfiles + post.imagen[0].small" class="top-thumb" />
-            <span class="top-name">{{ post.name }}</span>
-          </li>
-        </ul>
-      </div>
-    </aside>
+  <aside class="sidebar sidebar-right">
+    <app-sidebar-right></app-sidebar-right>
+  </aside>
 
-  </div>
-</ion-content>
+</div>

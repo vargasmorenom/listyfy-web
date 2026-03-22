@@ -1,30 +1,58 @@
-ion-list {
-  background: transparent;
-  padding: 4px 12px;
+:host {
+  display: block;
+  height: 100%;
+  overflow: hidden;
 }
 
-/* Item delgado */
+.home-layout {
+  display: flex;
+  gap: 16px;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 16px;
+  height: 100%;
+  overflow: hidden;
+}
+
+.sidebar {
+  width: 300px;
+  flex-shrink: 0;
+  overflow-y: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.feed-center {
+  flex: 1;
+  min-width: 0;
+}
+
+@media (max-width: 1024px) {
+  .sidebar-right { display: none; }
+}
+
+@media (max-width: 768px) {
+  .sidebar-left { display: none; }
+  .home-layout { padding: 0; }
+}
+
+ion-list {
+  background: transparent;
+  padding: 4px 0;
+}
 
 ion-item {
   --background: #ffffff;
   margin-bottom: 8px;
   border-radius: 12px;
-
   --inner-padding-start: 10px;
   --inner-padding-end: 10px;
   --padding-top: 8px;
   --padding-bottom: 8px;
-
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
-/* Quitar línea */
-
-ion-item::part(native) {
-  border: none;
-}
-
-/* Texto */
+ion-item::part(native) { border: none; }
 
 ion-label h2 {
   font-size: 14px;
@@ -38,22 +66,13 @@ ion-label p {
   color: #8b93a6;
 }
 
-/* Modo oscuro */
-
 :host-context(.ion-palette-dark) ion-item {
   --background: #1e2a3a;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
-:host-context(.ion-palette-dark) ion-label h2 {
-  color: #e0e8f5;
-}
-
-:host-context(.ion-palette-dark) ion-label p {
-  color: #8b98b5;
-}
-
-/* Badge pequeño */
+:host-context(.ion-palette-dark) ion-label h2 { color: #e0e8f5; }
+:host-context(.ion-palette-dark) ion-label p { color: #8b98b5; }
 
 ion-badge {
   padding: 4px 8px;

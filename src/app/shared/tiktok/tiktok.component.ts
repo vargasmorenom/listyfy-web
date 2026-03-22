@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, AfterViewInit, OnDestroy } from '@angular/core';
 import { PopupService } from 'src/app/services/popup.service';
-import { ScriptLoaderService } from 'src/app/services/scriptloader.service';
 import { ViewTiktokComponent } from '../view-tiktok/view-tiktok.component';
 import { DeleteContentComponent } from '../delete-content/delete-content.component';
 import { SlicePipe } from '@angular/common';
@@ -29,8 +28,7 @@ export class TiktokComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() session: boolean = false;
 
   constructor(
-    public popUp: PopupService,
-    private scriptLoader: ScriptLoaderService
+    public popUp: PopupService
   ) {}
 
   ngOnInit() {}
@@ -47,6 +45,7 @@ export class TiktokComponent implements OnInit, AfterViewInit, OnDestroy {
         message: 'TikTok',
         confirmText: '',
         id: data,
+        cssClass: 'tiktok-popup-modal',
       },
       ViewTiktokComponent
     );

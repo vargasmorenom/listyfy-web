@@ -13,17 +13,12 @@ import { PopupService } from 'src/app/services/popup.service';
 import { SocialmediaComponent } from 'src/app/shared/socialmedia/socialmedia.component';
 import { LikescountComponent } from 'src/app/shared/likescount/likescount.component';
 import { PostFacade } from 'src/app/facade/post.facade';
-import { AuthService } from 'src/app/services/auth.service';
-import { ProfileFollowService } from 'src/app/services/profile-follow.service';
-import { ProfileLikeService } from 'src/app/services/profile-like.service';
-import { Subject, Subscription } from 'rxjs';
-import { take, takeUntil } from 'rxjs/operators';
+import { SidebarLeftComponent } from 'src/app/shared/sidebar-left/sidebar-left.component';
+import { SidebarRightComponent } from 'src/app/shared/sidebar-right/sidebar-right.component';
+import { Subscription, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { addIcons } from 'ionicons';
-import {
-  addCircle, menuOutline, layersOutline,
-  heartOutline, heart, peopleOutline, personAddOutline,
-  personCircleOutline, listOutline, settingsOutline,
-} from 'ionicons/icons';
+import { addCircle, menuOutline, layersOutline, heartOutline, heart } from 'ionicons/icons';
 import { environment } from 'src/environments/environment';
 import { EditcontentlistComponent } from 'src/app/shared/editcontentlist/editcontentlist.component';
 import { NewcontentpopupComponent } from 'src/app/shared/newcontentpopup/newcontentpopup.component';
@@ -43,6 +38,7 @@ import {
     IonButton, IonCardTitle, LikescountComponent, IonCardHeader, IonCard,
     IonList, IonItem, IonContent, CommonModule, FormsModule, BackComponent,
     IonIcon, IonGrid, IonRow, IonCol, IonImg, IonChip,
+    SidebarLeftComponent, SidebarRightComponent,
   ],
 })
 export class AdminlistPage implements OnInit, AfterViewInit, OnDestroy {
@@ -55,17 +51,8 @@ export class AdminlistPage implements OnInit, AfterViewInit, OnDestroy {
   public viewCount = 0;
   public urlfiles = environment.servicio[0].urlfiles;
   private facadeSubs: Subscription[] = [];
-  private initialized = false;
-
-  // Sidebar
-  userSession: any = null;
-  profilePic: string = 'assets/logo/perfil02.png';
-  followersCount = 0;
-  followingCount = 0;
-  likesCount = 0;
-  topViewed: any[] = [];
-  topLiked: any[] = [];
   private destroy$ = new Subject<void>();
+  private initialized = false;
 
   constructor(
     public popUp: PopupService,
@@ -77,15 +64,8 @@ export class AdminlistPage implements OnInit, AfterViewInit, OnDestroy {
     public messToast: ToastrService,
     private storage: StorageService,
     public facade: PostFacade,
-    private authService: AuthService,
-    private profileFollowService: ProfileFollowService,
-    private profileLikeService: ProfileLikeService,
   ) {
-    addIcons({
-      addCircle, menuOutline, layersOutline,
-      heartOutline, heart, peopleOutline, personAddOutline,
-      personCircleOutline, listOutline, settingsOutline,
-    });
+    addIcons({ addCircle, menuOutline, layersOutline, heartOutline, heart });
   }
 
   validarEdit() {
@@ -95,48 +75,6 @@ export class AdminlistPage implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit() {
     this.cargarDatos();
     this.suscribirFacade();
-    this.loadSidebarData();
-  }
-
-  private loadSidebarData() {
-    this.userSession = this.authService.getSession();
-    const profile = this.authService.getProfile();
-
-    if (profile?.profilePic) {
-      this.profilePic = this.urlfiles + profile.profilePic[0].small;
-    }
-
-    if (profile?._id) {
-      this.profileFollowService
-        .getFollowStatus(profile._id, profile._id)
-        .pipe(takeUntil(this.destroy$))
-        .subscribe(status => {
-          this.followersCount = status.countFollowers;
-          this.followingCount = status.countProfileFollowing;
-        });
-
-      const userId = this.authService.getSession()?.id;
-      if (userId) {
-        this.profileLikeService
-          .getProfileLikeStatus(profile._id, userId)
-          .pipe(takeUntil(this.destroy$))
-          .subscribe(status => {
-            this.likesCount = status.countlikes;
-          });
-      }
-    }
-
-    this.posted.getTopViewed(5).pipe(takeUntil(this.destroy$)).subscribe((data: any) => {
-      if (data?.length) this.topViewed = data;
-    });
-
-    this.posted.getTopLiked(5).pipe(takeUntil(this.destroy$)).subscribe((data: any) => {
-      if (data?.length) this.topLiked = data;
-    });
-  }
-
-  navigate(path: string, queryParams?: any) {
-    this.navegar.navigate([path], queryParams ? { queryParams } : {});
   }
 
   toggleLike() {
@@ -153,12 +91,10 @@ export class AdminlistPage implements OnInit, AfterViewInit, OnDestroy {
       this.messToast.warning('Has alcanzado el límite de 10 artículos por publicación', 'Límite alcanzado');
       return;
     }
-
     const result = await this.popUp.showPopupDinamic(
       { title: 'Agregar Nuevo Contenido', message: 'Nuevo Contenido', confirmText: '', id: id },
       NewcontentpopupComponent
     );
-
     if (result?.data) {
       this.facade.loadPost(this.id, this.usuario?.id);
     }
@@ -180,8 +116,8 @@ export class AdminlistPage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   cargarDatos() {
-    this.param.queryParams.pipe(take(1)).subscribe((parametro: any) => {
-      if (!parametro['id']) { this.navegar.navigate(['/']); }
+    this.param.queryParams.pipe(takeUntil(this.destroy$)).subscribe((parametro: any) => {
+      if (!parametro['id']) { this.navegar.navigate(['/']); return; }
       this.id = parametro['id'];
       this.facade.loadPost(this.id, this.usuario?.id);
       if (this.id && this.usuario?.id) {

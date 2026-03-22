@@ -1,3 +1,17 @@
+/* ── Toolbar ── */
+ion-toolbar {
+  --background: #303d5c;
+  --color: #ffffff;
+}
+
+ion-title {
+  color: #ffffff;
+}
+
+ion-buttons ion-button {
+  --color: #ffffff;
+}
+
 ion-button {
   --background: #313e5d;
   --background-hover: #f8fdfb;

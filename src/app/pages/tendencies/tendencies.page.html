@@ -1,24 +1,33 @@
-<ion-content [fullscreen]="true">
-  <app-back></app-back>
-  <ion-list>
-    <ion-item
-      *ngFor="let t of tendencias"
-      (click)="openTendency(t)"
-      detail="true"
-    >
-      <ion-label>
-        <h2>#{{ t.name }}</h2>
-        <p>{{ t.count }} publicaciones</p>
-      </ion-label>
+<div class="home-layout">
 
-      <ion-badge color="primary">
-        {{ t.count }}
-      </ion-badge>
-    </ion-item>
-  </ion-list>
+  <aside class="sidebar sidebar-left">
+    <app-sidebar-left></app-sidebar-left>
+  </aside>
 
-  <ion-infinite-scroll [disabled]="allLoaded" (ionInfinite)="loadMore($event)">
-    <ion-infinite-scroll-content loadingSpinner="crescent" loadingText="Cargando más tendencias...">
-    </ion-infinite-scroll-content>
-  </ion-infinite-scroll>
-</ion-content>
+  <ion-content class="feed-center" [fullscreen]="true">
+    <app-back></app-back>
+      <ion-list>
+        <ion-item
+          *ngFor="let t of tendencias"
+          (click)="openTendency(t)"
+          detail="true"
+        >
+          <ion-label>
+            <h2>#{{ t.name }}</h2>
+            <p>{{ t.count }} publicaciones</p>
+          </ion-label>
+          <ion-badge color="primary">{{ t.count }}</ion-badge>
+        </ion-item>
+      </ion-list>
+
+      <ion-infinite-scroll [disabled]="allLoaded" (ionInfinite)="loadMore($event)">
+        <ion-infinite-scroll-content loadingSpinner="crescent" loadingText="Cargando más tendencias...">
+        </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+  </ion-content>
+
+  <aside class="sidebar sidebar-right">
+    <app-sidebar-right></app-sidebar-right>
+  </aside>
+
+</div>
