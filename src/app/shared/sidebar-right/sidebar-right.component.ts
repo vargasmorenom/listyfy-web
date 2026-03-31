@@ -3,6 +3,7 @@ import { Subject } from 'rxjs';
 import { takeUntil, filter } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 import { RouterLink, Router, NavigationEnd } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { PostedsService } from 'src/app/services/posteds.service';
 import { environment } from 'src/environments/environment';
 
@@ -11,7 +12,7 @@ import { environment } from 'src/environments/environment';
   templateUrl: './sidebar-right.component.html',
   styleUrls: ['./sidebar-right.component.scss'],
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, TranslateModule],
 })
 export class SidebarRightComponent implements OnInit, OnDestroy {
   topViewed: any[] = [];

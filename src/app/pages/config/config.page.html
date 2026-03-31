@@ -31,16 +31,20 @@
           </ion-input>
         </ion-item>
 
+        @if (item.name === 'password') {
+          <app-password-rules [value]="form.get('password')?.value ?? ''"></app-password-rules>
+        }
+        @if (item.name === 'confirmPassword' && form.get('confirmPassword')?.touched && form.errors?.['passwordMismatch']) {
+          <ion-item>
+            <div class="error">
+              <span>Las contraseñas no coinciden.</span>
+            </div>
+          </ion-item>
+        }
         @if(form.get(item.name)?.touched){ @if(form.get(item.name)?.errors?.['required']){
         <ion-item>
           <div class="error">
             <span>Este campo es obligatorio.</span>
-          </div>
-        </ion-item>
-        } @if(form.get(item.name)?.errors?.['minlength']){
-        <ion-item>
-          <div class="error">
-            <span>Mínimo 8 caracteres.</span>
           </div>
         </ion-item>
         } }

@@ -39,6 +39,15 @@ ion-icon {
   border-color: #229ed9;
 }
 
+.share-bar.disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+
+  ion-icon {
+    pointer-events: none;
+  }
+}
+
 /* Modo oscuro */
 :host-context(.ion-palette-dark) ion-icon {
   color: #aaa;

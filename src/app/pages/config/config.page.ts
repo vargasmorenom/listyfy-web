@@ -4,10 +4,11 @@ import { takeUntil } from 'rxjs/operators';
 import { cambioPassword } from './../../configs/cambioPassword';
 import { languageSettings } from 'src/app/configs/languageSettings';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule, FormGroup } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormGroup, AbstractControl } from '@angular/forms';
 import { DynamicFormService } from 'src/app/services/dynamicFormService';
 import { LanguageService } from 'src/app/services/language.service';
 import { ConfigService } from 'src/app/services/config.service';
+import { PasswordRulesComponent } from 'src/app/shared/password-rules/password-rules.component';
 import { StorageService } from 'src/app/services/storage.service';
 import { ThemeService } from 'src/app/services/theme.service';
 import { ToastrService } from 'ngx-toastr';
@@ -25,7 +26,8 @@ import { BackComponent } from 'src/app/shared/back/back.component';
   standalone: true,
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule,IonAccordion,
     ReactiveFormsModule,IonAccordionGroup,IonItem,IonLabel,IonIcon,IonButton,IonInputPasswordToggle,
-  IonInput,IonCard,IonCardHeader,IonCardTitle,IonList,IonRadio,IonRadioGroup,IonToggle,BackComponent]
+  IonInput,IonCard,IonCardHeader,IonCardTitle,IonList,IonRadio,IonRadioGroup,IonToggle,BackComponent,
+  PasswordRulesComponent]
 })
 export class ConfigPage implements OnInit, OnDestroy {
 
@@ -53,6 +55,10 @@ export class ConfigPage implements OnInit, OnDestroy {
   ngOnInit() {
     this.formCreate = cambioPassword;
     this.form = this.formUl.createForm(this.formCreate);
+    this.form.addValidators((g: AbstractControl) =>
+      g.get('password')?.value === g.get('confirmPassword')?.value ? null : { passwordMismatch: true }
+    );
+    this.form.updateValueAndValidity();
     this.language = languageSettings;
     this.langua = this.formUl.createForm(this.language, {
       typePost: this.languageService.current

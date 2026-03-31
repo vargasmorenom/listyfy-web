@@ -8,6 +8,8 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { LoginService } from 'src/app/services/login.service';
 import { RecaptchaComponent } from 'src/app/shared/recaptcha/recaptcha.component';
+import { PasswordRulesComponent } from 'src/app/shared/password-rules/password-rules.component';
+import { PASSWORD_PATTERN } from 'src/app/utils/password.utils';
 import CryptoJS from 'crypto-js';
 
 import {
@@ -37,6 +39,7 @@ import { arrowForwardOutline, mailOutline, keyOutline, arrowBackOutline, lockClo
     IonIcon,
     IonSpinner,
     RecaptchaComponent,
+    PasswordRulesComponent,
   ],
 })
 export class RecuperaraccesoPage implements OnDestroy {
@@ -73,8 +76,9 @@ export class RecuperaraccesoPage implements OnDestroy {
 
     this.resetForm = this.fb.group({
       code: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
-    });
+      password: ['', [Validators.required, Validators.pattern(PASSWORD_PATTERN)]],
+      confirmPassword: ['', Validators.required],
+    }, { validators: (g) => g.get('password')?.value === g.get('confirmPassword')?.value ? null : { passwordMismatch: true } });
   }
 
   onRecaptchaResolved(token: string | null): void {
@@ -86,15 +90,10 @@ export class RecuperaraccesoPage implements OnDestroy {
       this.emailForm.markAllAsTouched();
       return;
     }
-    if (!this.recaptchaToken) {
-      this.toast.warning('Por favor completa el captcha.');
-      return;
-    }
-
     this.loading = true;
     const { email } = this.emailForm.value;
 
-    this.loginService.recoveryRequest(email, this.recaptchaToken)
+    this.loginService.recoveryRequest(email, this.recaptchaToken ?? '')
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (res) => {

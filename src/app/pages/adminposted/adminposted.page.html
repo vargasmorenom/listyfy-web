@@ -46,6 +46,15 @@
                 </ion-item>
               }
             }
+            @if(item.type === 'checkbox'){
+              <div class="input-group">
+                <ion-item>
+                  <ion-checkbox formControlName="{{ item.name }}" labelPlacement="end">
+                    {{ item.label | translate }}
+                  </ion-checkbox>
+                </ion-item>
+              </div>
+            }
             @if(item.type === 'radio'){
               <div class="input-group">
                 <ion-list class="optioconten">
@@ -109,7 +118,7 @@
           }
 
           <div class="botones-accion">
-            <ion-button expand="block" fill="outline" (click)="resetForm()">
+            <ion-button expand="block" fill="outline" (click)="resetForm()" [disabled]="form.pristine && !imagenCarga">
               <ion-icon name="refresh-outline" style="margin-right: 5px"></ion-icon>
               {{ 'newlist.boton_limpiar' | translate }}
             </ion-button>

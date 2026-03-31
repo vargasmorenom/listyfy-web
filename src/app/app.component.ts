@@ -11,6 +11,8 @@ import { ThemeService } from './services/theme.service';
   imports: [IonApp, IonRouterOutlet],
 })
 export class AppComponent {
+  private wasOffline = window.location.pathname === '/no-connection';
+
   constructor(
     private networkService: NetworkService,
     private router: Router,
@@ -20,12 +22,12 @@ export class AppComponent {
     this.languageService.init();
     this.themeService.init();
     this.networkService.isOnline$.subscribe((isOnline) => {
-      const currentUrl = this.router.url;
-
-      if (!isOnline && currentUrl !== '/no-connection') {
+      if (!isOnline && !this.wasOffline) {
+        this.wasOffline = true;
         this.router.navigate(['/no-connection']);
-      } else if (isOnline && currentUrl === '/no-connection') {
-        this.router.navigate(['/']); // O la ruta que prefieras al reconectar
+      } else if (isOnline && this.wasOffline) {
+        this.wasOffline = false;
+        this.router.navigate(['/']);
       }
     });
   }

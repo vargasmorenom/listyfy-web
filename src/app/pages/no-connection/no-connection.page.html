@@ -1,13 +1,7 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>no-connection</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">no-connection</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="no-connection-container">
+    <img src="assets/imagenes/noconnexion.jpg" alt="no connection" />
+    <h2>{{ 'no_connection.titulo' | translate }}</h2>
+    <p>{{ 'no_connection.mensaje' | translate }}</p>
+  </div>
 </ion-content>

@@ -58,7 +58,7 @@
           <ion-grid>
             <ion-row>
               <ion-col size="12" class="social-buttons">
-                <app-socialmedia [red]="1" [postId]="data._id" [postTitle]="data.name"></app-socialmedia>
+                <app-socialmedia [red]="1" [postId]="data._id" [postTitle]="data.name" [contentCount]="data.content?.length ?? 0"></app-socialmedia>
               </ion-col>
             </ion-row>
           </ion-grid>

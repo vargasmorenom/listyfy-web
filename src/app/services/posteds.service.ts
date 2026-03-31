@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { PostedModel } from '../interfaces/posted';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -42,6 +41,15 @@ export class PostedsService {
 
   updatePosted(posted: FormData): Observable<HttpResponse<any>> {
     return this.http.put<any>(this.url + 'updatepost', posted, {
+      observe: 'response',
+    });
+  }
+
+  updateForKids(postId: string, forKids: boolean): Observable<HttpResponse<any>> {
+    const formData = new FormData();
+    formData.append('postId', postId);
+    formData.append('forKids', forKids ? 'true' : 'false');
+    return this.http.put<any>(this.url + 'updatepost', formData, {
       observe: 'response',
     });
   }

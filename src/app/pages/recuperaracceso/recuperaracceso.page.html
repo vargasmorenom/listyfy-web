@@ -1,4 +1,4 @@
-<ion-content [fullscreen]="true" [scrollY]="false">
+<ion-content [fullscreen]="true">
   <div class="{{ currentBackgroundClass }} background-container">
 
     <div class="recovery-card">
@@ -32,7 +32,7 @@
             }
           </div>
 
-          <app-recaptcha #recaptchaRef (resolved)="onRecaptchaResolved($event)"></app-recaptcha>
+          <!-- <app-recaptcha #recaptchaRef (resolved)="onRecaptchaResolved($event)"></app-recaptcha> -->
 
           <ion-button class="submit-btn" expand="block" (click)="enviarEmail()" [disabled]="loading">
             @if (loading) {
@@ -84,13 +84,22 @@
               <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
               <ion-input-password-toggle slot="end"></ion-input-password-toggle>
             </ion-input>
-            @if (resetForm.get('password')?.touched) {
-              @if (resetForm.get('password')?.errors?.['required']) {
-                <p class="error-msg">La contraseña es obligatoria.</p>
-              }
-              @if (resetForm.get('password')?.errors?.['minlength']) {
-                <p class="error-msg">Mínimo 8 caracteres.</p>
-              }
+            <app-password-rules [value]="resetForm.get('password')?.value ?? ''"></app-password-rules>
+          </div>
+
+          <div class="field-group">
+            <ion-input
+              class="custom-input"
+              type="password"
+              formControlName="confirmPassword"
+              placeholder="Repetir contraseña"
+              fill="outline"
+            >
+              <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+              <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+            </ion-input>
+            @if (resetForm.get('confirmPassword')?.touched && resetForm.errors?.['passwordMismatch']) {
+              <p class="error-msg">Las contraseñas no coinciden.</p>
             }
           </div>
 

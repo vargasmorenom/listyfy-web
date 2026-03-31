@@ -18,7 +18,7 @@ import { refreshOutline, arrowForwardOutline } from 'ionicons/icons';
 import {
   IonContent, IonItem, IonInput, IonButton, IonIcon,
   IonSelect, IonLabel, IonSelectOption, IonTextarea,
-  IonRadio, IonRadioGroup, IonList,
+  IonRadio, IonRadioGroup, IonList, IonCheckbox,
 } from '@ionic/angular/standalone';
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -30,7 +30,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   imports: [
     IonContent, IonItem, IonInput, IonButton, IonLabel, IonIcon,
     FormsModule, ReactiveFormsModule, IonSelect, IonSelectOption,
-    IonTextarea, BackComponent, IonRadioGroup, IonRadio, IonList,
+    IonTextarea, BackComponent, IonRadioGroup, IonRadio, IonList, IonCheckbox,
     TranslatePipe, CommonModule, SidebarLeftComponent, SidebarRightComponent,
   ],
 })
@@ -97,6 +97,7 @@ export class AdminpostedPage implements OnInit, OnDestroy {
     dataForm.append('description', this.form.value.description);
     dataForm.append('typePost', this.form.value.typePost);
     dataForm.append('tags', this.form.value.tags);
+    dataForm.append('forKids', this.form.value.forKids ? 'true' : 'false');
     dataForm.append('access', this.form.value.access);
     dataForm.append('profileId', profile._id);
     dataForm.append('chanelName', profile.chanelName);

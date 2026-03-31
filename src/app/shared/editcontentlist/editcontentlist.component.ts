@@ -31,6 +31,7 @@ import {
   IonList,
   IonRadioGroup,
   IonRadio,
+  IonCheckbox,
 } from '@ionic/angular/standalone';
 
 @Component({
@@ -57,6 +58,7 @@ import {
     FormsModule,
     ReactiveFormsModule,
     TranslatePipe,
+    IonCheckbox,
   ],
   standalone: true,
 })
@@ -90,6 +92,10 @@ export class EditcontentlistComponent implements OnInit, OnDestroy {
 
     for (let i = 0; i < id.imagen.length; i++) {
       this.imagenCarga = environment.servicio[0].urlfiles + id.imagen[i].small;
+    }
+
+    if ((id.content?.length ?? 0) > 0) {
+      this.formData = posted.filter((field: any) => field.name !== 'forKids');
     }
   }
   close() {
@@ -125,6 +131,7 @@ export class EditcontentlistComponent implements OnInit, OnDestroy {
       formData.append('description', this.form.value.description);
       formData.append('typePost', this.form.value.typePost);
       formData.append('tags', this.form.value.tags);
+      formData.append('forKids', this.form.value.forKids ? 'true' : 'false');
       formData.append('access', this.form.value.access);
       formData.append('postId', this.postId);
 

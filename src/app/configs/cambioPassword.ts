@@ -1,3 +1,5 @@
+import { PASSWORD_PATTERN } from 'src/app/utils/password.utils';
+
 export const cambioPassword = [
     {
     name: 'passwordActual',
@@ -13,7 +15,7 @@ export const cambioPassword = [
     type: 'password',
     validations: [
       { type: 'required' },
-      { type: 'pattern', value: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/ },
+      { type: 'pattern', value: PASSWORD_PATTERN },
     ],
   },
   { name: 'confirmPassword', label: 'Confirmar Password', type: 'password', validations: [{ type: 'required' }] },
