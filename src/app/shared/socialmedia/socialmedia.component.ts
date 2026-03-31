@@ -14,6 +14,11 @@ export class SocialmediaComponent implements OnInit {
   @Input() red: number = 0;
   @Input() postId: string = '';
   @Input() postTitle: string = '';
+  @Input() contentCount: number = 0;
+
+  get hasContent(): boolean {
+    return this.contentCount > 0;
+  }
 
   constructor() {
     addIcons({ logoFacebook, logoWhatsapp, logoTwitter });
@@ -26,23 +31,27 @@ export class SocialmediaComponent implements OnInit {
   }
 
   shareOnFacebook() {
+    if (!this.hasContent) return;
     const url = encodeURIComponent(this.getShareUrl());
     window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
   }
 
   shareOnWhatsApp() {
+    if (!this.hasContent) return;
     const url = encodeURIComponent(this.getShareUrl());
     const text = encodeURIComponent(this.postTitle ? `${this.postTitle} ` : '');
     window.open(`https://wa.me/?text=${text}${url}`, '_blank');
   }
 
   shareOnTwitter() {
+    if (!this.hasContent) return;
     const url = encodeURIComponent(this.getShareUrl());
     const text = encodeURIComponent(this.postTitle || '');
     window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank');
   }
 
   shareOnTelegram() {
+    if (!this.hasContent) return;
     const url = encodeURIComponent(this.getShareUrl());
     const text = encodeURIComponent(this.postTitle || '');
     window.open(`https://t.me/share/url?url=${url}&text=${text}`, '_blank');

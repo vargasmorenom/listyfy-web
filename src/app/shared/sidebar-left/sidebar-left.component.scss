@@ -85,6 +85,29 @@
   background: rgba(255, 255, 255, 0.1);
 }
 
+.new-list-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  background: var(--ion-color-primary);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 14px 20px;
+  transition: background 0.2s;
+
+  ion-icon {
+    font-size: 22px;
+    color: #fff;
+  }
+
+  &:hover {
+    background: var(--ion-color-primary-shade);
+  }
+}
+
 .card-section-title {
   font-size: 0.72rem;
   font-weight: 700;

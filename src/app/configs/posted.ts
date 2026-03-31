@@ -37,6 +37,12 @@ export const posted = [
     validations: [{ type: 'pattern', value: /^[A-Za-z-ZñÑáéíóúÁÉÍÓÚ0,@#-9\s]{2,300}$/ }],
   },
   {
+    name: 'forKids',
+    label: 'newlist.para_ninos',
+    type: 'checkbox',
+    validations: [],
+  },
+  {
     name: 'access',
     label: 'newlist.acceso',
     type: 'radio',

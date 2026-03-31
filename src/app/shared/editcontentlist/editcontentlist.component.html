@@ -52,6 +52,15 @@
             </ion-item>
           </div>
         }
+        @if (item.type === 'checkbox') {
+          <div class="input-group">
+            <ion-item>
+              <ion-checkbox formControlName="{{ item.name }}" labelPlacement="end">
+                {{ item.label | translate }}
+              </ion-checkbox>
+            </ion-item>
+          </div>
+        }
         @if (item.type === 'radio') {
           <div class="input-group">
             <ion-list class="optioconten">

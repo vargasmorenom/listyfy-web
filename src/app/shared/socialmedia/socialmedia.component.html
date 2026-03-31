@@ -1,4 +1,4 @@
-<div class="share-bar">
+<div class="share-bar" [class.disabled]="!hasContent" [title]="!hasContent ? 'Agrega contenido para poder compartir' : ''">
   <ion-icon class="face" name="logo-facebook" (click)="shareOnFacebook()" title="Compartir en Facebook"></ion-icon>
   <ion-icon class="waps" name="logo-whatsapp" (click)="shareOnWhatsApp()" title="Compartir en WhatsApp"></ion-icon>
   <ion-icon class="twit" name="logo-twitter" (click)="shareOnTwitter()" title="Compartir en Twitter / X"></ion-icon>

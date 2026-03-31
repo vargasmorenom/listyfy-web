@@ -10,6 +10,10 @@
     "config": "Configuración",
     "salir": "Salir"
   },
+  "sidebar": {
+    "mas_vistos": "Más vistos",
+    "mas_reacciones": "Más Reacciones"
+  },
   "perfil": {
     "info": "Información",
     "contenido": "Contenido",
@@ -36,6 +40,7 @@
     "acceso": "Nivel de Acceso",
     "boton_crear": "Crear Lista",
     "boton_limpiar": "Limpiar Formulario",
+    "para_ninos": "Para Niños",
     "publico": "Público",
     "privado": "Privado",
     "error": {
@@ -52,6 +57,13 @@
       "requerido": "Este campo es obligatorio.",
       "minlength": "Mínimo 8 caracteres."
     }
+  },
+  "error": {
+    "regresar": "Regresar al inicio"
+  },
+  "no_connection": {
+    "titulo": "Sin conexión",
+    "mensaje": "Problemas con la conexión. Por favor revisa tu red e intenta de nuevo."
   },
   "inscripcion": {
     "usuario": "Usuario",

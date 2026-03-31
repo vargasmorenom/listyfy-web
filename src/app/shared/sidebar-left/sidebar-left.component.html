@@ -37,9 +37,14 @@
     </div>
   </div>
 
+  <!-- Botón destacado: Nueva Lista -->
+  <div *ngIf="!currentUrl.startsWith('/newlist')" class="sidebar-card new-list-card" (click)="navigate('/newlist')">
+    <ion-icon name="add-circle-outline"></ion-icon>
+    <span>Nueva Lista</span>
+  </div>
+
   <!-- Card: navegación -->
   <div class="sidebar-card">
-    <p class="card-section-title">Accesos</p>
     <nav class="sidebar-nav">
       <a *ngIf="currentUrl !== '/' && currentUrl !== '/home'" (click)="navigate('/')">
         <ion-icon name="home-outline"></ion-icon>
@@ -48,10 +53,6 @@
       <a *ngIf="!currentUrl.startsWith('/searcher')" (click)="navigate('/searcher')">
         <ion-icon name="search-outline"></ion-icon>
         Buscar
-      </a>
-      <a *ngIf="!currentUrl.startsWith('/newlist')" (click)="navigate('/newlist')">
-        <ion-icon name="add-circle-outline"></ion-icon>
-        Nueva Lista
       </a>
       <a *ngIf="!currentUrl.startsWith('/tendencies')" (click)="navigate('/tendencies')">
         <ion-icon name="analytics-outline"></ion-icon>

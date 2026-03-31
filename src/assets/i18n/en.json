@@ -10,6 +10,10 @@
     "config": "Settings",
     "salir": "Logout"
   },
+  "sidebar": {
+    "mas_vistos": "Most Viewed",
+    "mas_reacciones": "Most Reactions"
+  },
   "perfil": {
     "info": "Information",
     "contenido": "Content",
@@ -36,6 +40,7 @@
     "acceso": "Access Level",
     "boton_crear": "Create List",
     "boton_limpiar": "Clear Form",
+    "para_ninos": "For Kids",
     "publico": "Public",
     "privado": "Private",
     "error": {
@@ -52,6 +57,13 @@
       "requerido": "This field is required.",
       "minlength": "Minimum 8 characters."
     }
+  },
+  "error": {
+    "regresar": "Back to home"
+  },
+  "no_connection": {
+    "titulo": "No connection",
+    "mensaje": "Connection problems. Please check your network and try again."
   },
   "inscripcion": {
     "usuario": "Username",

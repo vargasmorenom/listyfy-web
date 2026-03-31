@@ -1,9 +1,10 @@
 .background-container {
-  height: 100vh;
-  width: 100vw;
+  min-height: 100%;
+  width: 100%;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
+  padding: 24px 0;
   background-size: cover;
   background-position: center;
   transition: background-image 1s ease-in-out;
@@ -74,6 +75,24 @@
   margin: 4px 4px 0;
   font-size: 0.78rem;
   color: #ffcdd2;
+}
+
+.pass-rules {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  margin-top: 6px;
+
+  span {
+    font-size: 0.78rem;
+    transition: color 0.2s;
+  }
+
+  .ok   { color: #a5d6a7; }
+  .fail { color: #ef9a9a; }
 }
 
 .submit-btn {
