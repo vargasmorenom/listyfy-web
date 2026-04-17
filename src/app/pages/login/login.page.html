@@ -33,7 +33,9 @@
           </div>
         }
 
-        <app-recaptcha #recaptchaRef (resolved)="onRecaptchaResolved($event)"></app-recaptcha>
+        @if (recaptchaEnabled) {
+          <app-recaptcha #recaptchaRef (resolved)="onRecaptchaResolved($event)"></app-recaptcha>
+        }
 
         <ion-button class="submit-btn" expand="block" (click)="enviar()" [disabled]="form.invalid">
           <ion-icon name="arrow-forward-outline" slot="start"></ion-icon>

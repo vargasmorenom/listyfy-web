@@ -11,17 +11,14 @@ import { login } from 'src/app/configs/login';
 import { LoginService } from 'src/app/services/login.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { generarToken } from 'src/app/utilities/generarToken';
 import { RecaptchaComponent } from 'src/app/shared/recaptcha/recaptcha.component';
 
 import {
   IonContent,
-  IonItem,
   IonInput,
   IonButton,
   IonIcon,
   IonInputPasswordToggle,
-  IonCard,
 } from '@ionic/angular/standalone';
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -31,16 +28,14 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrls: ['./login.page.scss'],
   standalone: true,
   imports: [
-    IonCard,
     IonContent,
-    IonItem,
     IonInput,
     IonButton,
     IonIcon,
     FormsModule,
     ReactiveFormsModule,
     IonInputPasswordToggle,
-TranslatePipe,
+    TranslatePipe,
     RecaptchaComponent,
   ],
 })
@@ -58,6 +53,7 @@ export class LoginPage implements OnInit, OnDestroy {
   private url: string;
   public logo: string;
 recaptchaToken: string | null = null;
+recaptchaEnabled = environment.servicio[0].recaptchaEnabled;
 
   constructor(
     public router: Router,
@@ -98,6 +94,11 @@ recaptchaToken: string | null = null;
   }
 
   enviar() {
+    if (this.recaptchaEnabled && !this.recaptchaToken) {
+      this.messToast.warning('Por favor completa el captcha antes de continuar');
+      return;
+    }
+
     const data = {
       username: this.form.value.username,
       password: this.encrypt(this.form.value.password),
@@ -106,8 +107,9 @@ recaptchaToken: string | null = null;
 
     this.loginservice.LoginUser(data).pipe(takeUntil(this.destroy$)).subscribe({
       next: (datos) => {
+        console.log('[Login] Response body completo:', datos.body);
         if (datos.status === 200) {
-          const token = generarToken();
+          const token = datos.body.token;
           const usuario = { user: datos.body.usuario, id: datos.body.id, valores: token };
           this.storage.set('usuario', usuario);
           this.auth.login(token);
@@ -117,12 +119,12 @@ recaptchaToken: string | null = null;
             this.router.navigateByUrl('/', { replaceUrl: true });
           }, 2000);
         } else if (datos.status === 206) {
-          this.recaptchaRef.reset();
+          this.recaptchaRef?.reset();
           this.messToast.warning('Tu cuenta aún no ha sido activada. Revisa tu correo.');
         }
       },
       error: () => {
-        this.recaptchaRef.reset();
+        this.recaptchaRef?.reset();
       },
     });
   }

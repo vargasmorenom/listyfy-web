@@ -45,11 +45,13 @@ export const routes: Routes = [
     children: [
       {
         path: '',
+        canActivate: [accessUserGuard],
         data: { reuse: true },
         loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
       },
       {
         path: 'home',
+        canActivate: [accessUserGuard],
         data: { reuse: true },
         loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
       },

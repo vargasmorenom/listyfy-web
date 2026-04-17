@@ -10,9 +10,9 @@
 
       <div class="userVal">
         <ion-card class="linkprofile" (click)="profileview(data.postedBy)">
-          <img [src]="urlfiles + data.profilepic" alt="Avatar" />
+          <img [src]="resolveImg(typeof data.profileId === 'object' ? data.profileId?.profilePic?.[0]?.medium : null)" alt="Avatar" />
           <ion-card-header>
-            <ion-card-title>{{data.chanelName}}</ion-card-title>
+            <ion-card-title>{{typeof data.profileId === 'object' ? data.profileId?.chanelName : data.chanelName}}</ion-card-title>
           </ion-card-header>
         </ion-card>
       </div>
@@ -35,7 +35,7 @@
         }
 
         @for (itema of data.imagen; track $index) {
-          <ion-img class="shadow-img" [src]="urlfiles + itema.medium" alt="Imagen destacada"></ion-img>
+          <ion-img class="shadow-img" [src]="resolveImg(itema.medium)" alt="Imagen destacada"></ion-img>
         }
 
         <div class="tipocontent">Tipo de Contenido: <strong>{{data.typePostName}}</strong></div>

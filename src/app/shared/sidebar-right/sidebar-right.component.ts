@@ -1,6 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Subject } from 'rxjs';
-import { takeUntil, filter } from 'rxjs/operators';
+import { takeUntil, filter, catchError, of } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { RouterLink, Router, NavigationEnd } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -15,11 +15,18 @@ import { environment } from 'src/environments/environment';
   imports: [CommonModule, RouterLink, TranslateModule],
 })
 export class SidebarRightComponent implements OnInit, OnDestroy {
+  @Input() showTopLists: boolean = true;
   topViewed: any[] = [];
   topLiked: any[] = [];
   currentPostId: string | null = null;
   urlfiles = environment.servicio[0].urlfiles;
   private destroy$ = new Subject<void>();
+
+  resolveImg(path: string): string {
+    if (!path) return environment.servicio[0].defaultAvatar;
+    if (path.startsWith('http')) return path;
+    return this.urlfiles + path;
+  }
 
   constructor(
     private posted: PostedsService,
@@ -27,10 +34,10 @@ export class SidebarRightComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.posted.getTopViewed(3).pipe(takeUntil(this.destroy$)).subscribe((data: any) => {
+    this.posted.getTopViewed(3).pipe(takeUntil(this.destroy$), catchError(() => of([]))).subscribe((data: any) => {
       if (data?.length) this.topViewed = data;
     });
-    this.posted.getTopLiked(3).pipe(takeUntil(this.destroy$)).subscribe((data: any) => {
+    this.posted.getTopLiked(3).pipe(takeUntil(this.destroy$), catchError(() => of([]))).subscribe((data: any) => {
       if (data?.length) this.topLiked = data;
     });
 

@@ -32,9 +32,9 @@
             }
           </div>
 
-          <!-- <app-recaptcha #recaptchaRef (resolved)="onRecaptchaResolved($event)"></app-recaptcha> -->
+          <app-recaptcha #recaptchaRef (resolved)="onRecaptchaResolved($event)"></app-recaptcha>
 
-          <ion-button class="submit-btn" expand="block" (click)="enviarEmail()" [disabled]="loading">
+          <ion-button class="submit-btn" expand="block" (click)="enviarEmail()" [disabled]="loading || !recaptchaToken">
             @if (loading) {
               <ion-spinner name="crescent"></ion-spinner>
             } @else {

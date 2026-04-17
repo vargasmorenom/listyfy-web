@@ -1,7 +1,7 @@
 <div class="menu-header-bg">
   @for (item of info.profilePic; track $index) {
     <div class="imagen-container" (click)="session ? mostrarData(info) : null">
-      <img class="perfilimg" [src]="urlBack + item.medium" />
+      <img class="perfilimg" [src]="resolveImg(item.medium)" />
       @if (session) {
         <div class="edit-badge">
           <ion-icon name="image-outline"></ion-icon>

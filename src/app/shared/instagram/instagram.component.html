@@ -1,18 +1,16 @@
 @for (item of contenido; track $index) {
   <div class="instagram" id="{{ item.id }}">
     <app-delete-content [idContent]="item.id" [idpost]="idpost" [session]="session"></app-delete-content>
-
-    <blockquote
-      class="instagram-media"
-      [attr.data-instgrm-permalink]="'https://www.instagram.com/p/' + item.id + '/?utm_source=ig_embed&utm_campaign=loading'"
-      data-instgrm-version="14"
-      style="background:#fff; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin:1px; max-width:540px; min-width:326px; padding:0; width:99.375%;"
-    >
-      <a
-        [href]="'https://www.instagram.com/p/' + item.id + '/'"
-        style="background:#ffffff; line-height:0; padding:0; text-align:center; text-decoration:none; width:100%"
-        target="_blank"
-      ></a>
-    </blockquote>
+    <ion-card class="contentInstagram" (click)="viewcontent(item)">
+      <div class="preview-banner">
+        <ion-icon name="logo-instagram"></ion-icon>
+      </div>
+      <ion-card-content>
+        @if (item.titulo) {
+          <p class="titulo">{{ item.titulo | slice:0:120 }}{{ item.titulo?.length > 120 ? '...' : '' }}</p>
+        }
+        <p class="post-ref">Post: {{ item.id }}</p>
+      </ion-card-content>
+    </ion-card>
   </div>
 }

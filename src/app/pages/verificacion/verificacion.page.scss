@@ -1,14 +1,24 @@
 ion-content {
+  --background: var(--ion-background-color, #fff);
+}
+
+ion-content::part(scroll) {
   display: flex;
   align-items: center;
   justify-content: center;
+  min-height: 100%;
+  padding: 24px 16px;
+  box-sizing: border-box;
 }
 
 .verificacion-card {
-  margin: 20% auto;
+  margin: 0;
   text-align: center;
-  max-width: 400px;
-  padding: 20px;
+  max-width: 420px;
+  width: 100%;
+  padding: 36px 28px;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
 }
 
 .mail-icon {

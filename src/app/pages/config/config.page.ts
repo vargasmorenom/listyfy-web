@@ -14,7 +14,7 @@ import { ThemeService } from 'src/app/services/theme.service';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
 import * as CryptoJS from 'crypto-js';
-import { IonContent, IonHeader, IonTitle, IonToolbar,IonAccordion,IonAccordionGroup,IonItem,
+import { IonAccordion,IonAccordionGroup,IonItem,
   IonInput,IonLabel,IonIcon,IonButton,IonInputPasswordToggle,IonCard,IonCardHeader,IonCardTitle,
   IonList,IonRadio,IonRadioGroup,IonToggle } from '@ionic/angular/standalone';
 import { BackComponent } from 'src/app/shared/back/back.component';
@@ -24,7 +24,7 @@ import { BackComponent } from 'src/app/shared/back/back.component';
   templateUrl: './config.page.html',
   styleUrls: ['./config.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule,IonAccordion,
+  imports: [CommonModule, FormsModule, IonAccordion,
     ReactiveFormsModule,IonAccordionGroup,IonItem,IonLabel,IonIcon,IonButton,IonInputPasswordToggle,
   IonInput,IonCard,IonCardHeader,IonCardTitle,IonList,IonRadio,IonRadioGroup,IonToggle,BackComponent,
   PasswordRulesComponent]

@@ -1,3 +1,4 @@
 export const content = [
-  { name: 'contenid', label: 'Nuevo Contenido', type: 'text', validations: [{ type: 'required' }] },
+  { name: 'contenid', label: 'URL del Contenido', type: 'text', validations: [{ type: 'required' }] },
+  { name: 'titulo', label: 'Título (opcional)', type: 'text', validations: [] },
 ];

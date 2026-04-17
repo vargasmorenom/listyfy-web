@@ -57,7 +57,7 @@ export class ProfileComponent implements OnInit {
       const profile = this.authService.getProfile();
       this.imagenPerfil(profile);
     } else {
-      this.dcimg = '../../../assets/logo/perfil02.png';
+      this.dcimg = environment.servicio[0].defaultAvatar;
       const currentRouteSnapshot = this.activatedRoute.snapshot;
       this.page = currentRouteSnapshot.url.join('/');
     }
@@ -75,11 +75,17 @@ export class ProfileComponent implements OnInit {
     );
   }
 
+  resolveImg(path: string): string {
+    if (!path) return environment.servicio[0].defaultAvatar;
+    if (path.startsWith('http')) return path;
+    return this.urlBack + path;
+  }
+
   imagenPerfil(data: any) {
-    if (data?.profilePic) {
-      this.dcimg = this.urlBack + data.profilePic[0].medium;
+    if (data?.profilePic?.[0]?.medium) {
+      this.dcimg = this.resolveImg(data.profilePic[0].medium);
     } else {
-      this.dcimg = '../../../assets/logo/perfil02.png';
+      this.dcimg = environment.servicio[0].defaultAvatar;
     }
   }
 }

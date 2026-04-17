@@ -1,41 +1,39 @@
-import { Component, OnInit, AfterViewInit, Input, ElementRef } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { PopupService } from 'src/app/services/popup.service';
+import { ViewTelegramComponent } from '../view-telegram/view-telegram.component';
 import { DeleteContentComponent } from '../delete-content/delete-content.component';
+import { IonIcon, IonCard, IonCardContent } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-telegram',
   templateUrl: './telegram.component.html',
   styleUrls: ['./telegram.component.scss'],
   standalone: true,
-  imports: [DeleteContentComponent],
+  imports: [IonIcon, IonCard, IonCardContent, DeleteContentComponent],
 })
-export class TelegramComponent implements OnInit, AfterViewInit {
+export class TelegramComponent implements OnInit {
   @Input() contenido!: any[];
   @Input() idpost!: string;
   @Input() session: boolean = false;
 
-  constructor(private el: ElementRef) {}
+  constructor(public popUp: PopupService) {}
 
   ngOnInit() {}
 
-  ngAfterViewInit() {
-    this.loadTelegramWidgets();
-  }
+  async viewcontent(data: any) {
+    const result = await this.popUp.showPopupDinamic(
+      {
+        title: 'Ver Mensaje Telegram',
+        message: 'Telegram',
+        confirmText: '',
+        id: data,
+        cssClass: 'telegram-popup-modal',
+      },
+      ViewTelegramComponent
+    );
 
-  private loadTelegramWidgets() {
-    if (!this.contenido?.length) return;
-
-    const containers = this.el.nativeElement.querySelectorAll('.telegram-embed');
-    containers.forEach((container: HTMLElement) => {
-      const post = container.getAttribute('data-post');
-      if (!post) return;
-
-      const script = document.createElement('script');
-      script.async = true;
-      script.src = 'https://telegram.org/js/telegram-widget.js?22';
-      script.setAttribute('data-telegram-post', post);
-      script.setAttribute('data-width', '100%');
-      script.setAttribute('data-color', '2AABEE');
-      container.appendChild(script);
-    });
+    if (result?.cancelled) {
+      console.warn('Modal no se abrió porque ya existía uno');
+    }
   }
 }

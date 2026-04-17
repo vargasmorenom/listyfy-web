@@ -6,10 +6,10 @@
         <ion-label>{{ perfilSession.chanelName }}</ion-label>
       </ion-item>
     }
-    @if (perfilSession.firstname) {
+    @if (perfilSession.firstName) {
       <ion-item>
         <ion-icon aria-hidden="true" name="man" slot="start"></ion-icon>
-        <ion-label>{{ perfilSession.firstname }} {{ perfilSession.lastname || '' }}</ion-label>
+        <ion-label>{{ perfilSession.firstName }} {{ perfilSession.lastName || '' }}</ion-label>
       </ion-item>
     }
     @if (perfilSession.email) {

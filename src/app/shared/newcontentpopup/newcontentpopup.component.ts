@@ -8,10 +8,13 @@ import { ToastrService } from 'ngx-toastr';
 import { PostedsService } from 'src/app/services/posteds.service';
 import { content } from '../../configs/content';
 import { NavParams } from '@ionic/angular';
+import { addIcons } from 'ionicons';
+import { closeOutline, addCircleOutline, alertCircleOutline, cloudUploadOutline } from 'ionicons/icons';
 import {
   IonButton,
   IonItem,
   IonInput,
+  IonIcon,
   IonHeader,
   IonButtons,
   IonToolbar,
@@ -28,6 +31,7 @@ import {
     IonItem,
     IonButtons,
     IonInput,
+    IonIcon,
     FormsModule,
     ReactiveFormsModule,
     IonContent,
@@ -53,6 +57,7 @@ export class NewcontentpopupComponent implements OnInit, OnDestroy {
     public messToast: ToastrService,
     private posted: PostedsService
   ) {
+    addIcons({ closeOutline, addCircleOutline, alertCircleOutline, cloudUploadOutline });
     this.content = content;
     this.form = this.formUl.createForm(this.content);
   }
@@ -79,6 +84,7 @@ enviar() {
 
   const dataContenido = {
     url: this.form.value.contenid,
+    titulo: this.form.value.titulo || '',
     typePost: this.id.typePost,
     postId: this.id._id,
   };
@@ -90,7 +96,7 @@ enviar() {
       switch (response.status) {
         case 200:
           this.messToast.success(message, 'Éxito');
-          setTimeout(() => this.close(), 2000);
+          setTimeout(() => this.modalCtrl.dismiss({ updated: true }), 2000);
           break;
 
         case 201:

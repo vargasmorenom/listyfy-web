@@ -52,6 +52,16 @@ export class PostFacade {
   }
 
   // =====================
+  // CONTENT
+  // =====================
+  removeContent(contentId: string) {
+    const post = this.postSubject.value;
+    if (!post) return;
+    const updated = { ...post, content: (post as any).content?.filter((c: any) => c._id?.toString() !== contentId) };
+    this.postSubject.next(updated as any);
+  }
+
+  // =====================
   // LIKES
   // =====================
   private initLikes(post: any, userId?: string) {

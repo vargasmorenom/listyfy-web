@@ -5,6 +5,7 @@ import { PostedsService } from 'src/app/services/posteds.service';
 import { ToastrService } from 'ngx-toastr';
 import { AlertController } from '@ionic/angular';
 import { IonButton, IonIcon } from '@ionic/angular/standalone';
+import { PostFacade } from 'src/app/facade/post.facade';
 
 @Component({
   selector: 'app-delete-content',
@@ -24,7 +25,8 @@ export class DeleteContentComponent implements OnDestroy {
   constructor(
     private messToast: ToastrService,
     private posted: PostedsService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private facade: PostFacade
   ) {}
 
   ngOnDestroy() {
@@ -33,12 +35,12 @@ export class DeleteContentComponent implements OnDestroy {
   }
 
   deleteContent(id: any, idpost: any) {
-    this.posted.deleteContent(id, idpost).pipe(takeUntil(this.destroy$)).subscribe((response) => {
-      if (response.status === 200) {
-        this.messToast.success(response.body.message, 'Éxito');
-      }
-      if (response.status === 400) {
-        this.messToast.error(response.body.message, 'Error');
+    this.posted.deleteContent(id, idpost).pipe(takeUntil(this.destroy$)).subscribe({
+      next: (response: any) => {
+        this.messToast.success(response?.message ?? 'Contenido eliminado', 'Éxito');
+      },
+      error: () => {
+        this.messToast.error('Error al eliminar el contenido', 'Error');
       }
     });
   }
@@ -60,6 +62,7 @@ export class DeleteContentComponent implements OnDestroy {
           handler: () => {
             this.deleteContent(idContent, idPost);
             this.eleminarContenido(idContent);
+            this.facade.removeContent(idContent);
           },
         },
       ],

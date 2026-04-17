@@ -1,30 +1,44 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { SlicePipe } from '@angular/common';
+import { PopupService } from 'src/app/services/popup.service';
+import { ViewYoutubeComponent } from '../view-youtube/view-youtube.component';
 import { DeleteContentComponent } from '../delete-content/delete-content.component';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { IonIcon, IonCard, IonCardContent } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-youtube',
   templateUrl: './youtube.component.html',
   styleUrls: ['./youtube.component.scss'],
-  imports: [DeleteContentComponent],
+  imports: [SlicePipe, IonIcon, IonCard, IonCardContent, DeleteContentComponent],
   standalone: true,
 })
 export class YoutubeComponent implements OnInit {
   @Input() contenido: any;
   @Input() idpost!: any;
   @Input() session: boolean = false;
-  constructor(private sanitizer: DomSanitizer) {}
 
-  getSafeUrl(idpost: string): SafeResourceUrl {
-    const url = `https://www.youtube.com/embed/${idpost}?si=1mJHjv2b8b7vX8Zp`;
-    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  constructor(public popUp: PopupService) {}
+
+  ngOnInit() {}
+
+  getThumbnail(item: any): string {
+    return item.thumbnail ?? `https://img.youtube.com/vi/${item.id}/mqdefault.jpg`;
   }
 
-  ngOnInit() {
-    let i = 0;
-    for (let item of this.contenido) {
-      this.contenido[i]['urlfinal'] = this.getSafeUrl(item.id);
-      i++;
+  async viewcontent(data: any) {
+    const result = await this.popUp.showPopupDinamic(
+      {
+        title: 'Ver Video YouTube',
+        message: 'YouTube',
+        confirmText: '',
+        id: data,
+        cssClass: 'youtube-popup-modal',
+      },
+      ViewYoutubeComponent
+    );
+
+    if (result?.cancelled) {
+      console.warn('Modal no se abrió porque ya existía uno');
     }
   }
 }
