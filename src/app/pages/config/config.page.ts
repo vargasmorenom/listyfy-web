@@ -13,7 +13,7 @@ import { StorageService } from 'src/app/services/storage.service';
 import { ThemeService } from 'src/app/services/theme.service';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
-import * as CryptoJS from 'crypto-js';
+import CryptoJS from 'crypto-js';
 import { IonAccordion,IonAccordionGroup,IonItem,
   IonInput,IonLabel,IonIcon,IonButton,IonInputPasswordToggle,IonCard,IonCardHeader,IonCardTitle,
   IonList,IonRadio,IonRadioGroup,IonToggle } from '@ionic/angular/standalone';
