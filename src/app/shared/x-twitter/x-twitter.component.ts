@@ -1,34 +1,40 @@
-import { Component, OnInit, AfterViewInit, Input, ElementRef } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
+import { Component, OnInit, Input } from '@angular/core';
+import { SlicePipe } from '@angular/common';
+import { PopupService } from 'src/app/services/popup.service';
+import { ViewTwitterComponent } from '../view-twitter/view-twitter.component';
 import { DeleteContentComponent } from '../delete-content/delete-content.component';
-
+import { IonIcon, IonCard, IonCardContent } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-x-twitter',
   templateUrl: './x-twitter.component.html',
   styleUrls: ['./x-twitter.component.scss'],
   standalone: true,
-  imports: [ DeleteContentComponent],
+  imports: [SlicePipe, IonIcon, IonCard, IonCardContent, DeleteContentComponent],
 })
-export class XTwitterComponent implements OnInit, AfterViewInit {
+export class XTwitterComponent implements OnInit {
   @Input() contenido!: any;
   @Input() idpost!: any;
   @Input() session: boolean = false;
 
-  constructor(public messToast: ToastrService, private el: ElementRef) {}
+  constructor(public popUp: PopupService) {}
 
   ngOnInit() {}
 
-  ngAfterViewInit() {
-    this.loadTwitterWidgets();
-  }
+  async viewcontent(data: any) {
+    const result = await this.popUp.showPopupDinamic(
+      {
+        title: 'Ver Tweet',
+        message: 'Twitter',
+        confirmText: '',
+        id: data,
+        cssClass: 'twitter-popup-modal',
+      },
+      ViewTwitterComponent
+    );
 
-  private loadTwitterWidgets() {
-    const twttr = (window as any).twttr;
-    if (twttr?.widgets?.load) {
-      twttr.widgets.load(this.el.nativeElement);
+    if (result?.cancelled) {
+      console.warn('Modal no se abrió porque ya existía uno');
     }
   }
-
-  borrarXtw() {}
 }

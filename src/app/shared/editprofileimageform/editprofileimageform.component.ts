@@ -22,9 +22,6 @@ import {
   IonButtons,
   IonButton,
   IonContent,
-  IonInput,
-  IonItem,
-  IonLabel,
 } from '@ionic/angular/standalone';
 
 @Component({
@@ -36,11 +33,8 @@ import {
     IonIcon,
     IonToolbar,
     IonTitle,
-    IonLabel,
     IonButtons,
     IonButton,
-    IonInput,
-    IonItem,
     IonContent,
     FormsModule,
     ReactiveFormsModule,
@@ -73,7 +67,8 @@ export class EditprofileimageformComponent implements OnInit, OnDestroy {
     this.perfilId = id.userBy;
     this.formImg = this.formUl.createForm(this.formCreateImg, id);
     if (id?.profilePic?.length > 0) {
-      this.imagenCarga = environment.servicio[0].urlfiles + id.profilePic[0].medium;
+      const pic = id.profilePic[0].medium;
+      this.imagenCarga = pic?.startsWith('http') ? pic : environment.servicio[0].urlfiles + pic;
     }
   }
 

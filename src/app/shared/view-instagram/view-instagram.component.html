@@ -1,0 +1,37 @@
+<ion-header class="modal-header">
+  <ion-toolbar>
+    <ion-title>Instagram</ion-title>
+    <ion-buttons slot="end">
+      <ion-button class="close-btn" (click)="close()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  @if (loading) {
+    <div class="loading-container">
+      <ion-spinner name="crescent"></ion-spinner>
+      <p>Cargando publicación...</p>
+    </div>
+  }
+
+  <div class="iframe-wrapper">
+    <iframe
+      [src]="safeUrl"
+      [class.hidden]="loading"
+      frameborder="0"
+      allowfullscreen
+      scrolling="yes"
+      title="Instagram post"
+      (load)="onIframeLoad()">
+    </iframe>
+  </div>
+
+  <div class="urlexterna">
+    <a href="https://www.instagram.com/p/{{ postId }}/" target="_blank">Ver en Instagram</a>
+  </div>
+
+</ion-content>

@@ -8,10 +8,9 @@ import { FormsModule } from '@angular/forms';
 import { TendenciesService } from '../../services/tendencies.service';
 import { SidebarLeftComponent } from 'src/app/shared/sidebar-left/sidebar-left.component';
 import { SidebarRightComponent } from 'src/app/shared/sidebar-right/sidebar-right.component';
-import { PredictionFacade } from '../../facade/prediction.facade';
 import {
   IonContent, IonBadge, IonLabel, IonItem, IonList,
-  IonInfiniteScroll, IonInfiniteScrollContent, IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle
+  IonInfiniteScroll, IonInfiniteScrollContent,
 } from '@ionic/angular/standalone';
 
 @Component({
@@ -24,7 +23,6 @@ import {
     IonBadge, IonLabel, IonItem, IonList,
     IonInfiniteScroll, IonInfiniteScrollContent,
     SidebarLeftComponent, SidebarRightComponent,
-    IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle
   ],
 })
 export class TendenciesPage implements OnInit, OnDestroy {
@@ -34,25 +32,13 @@ export class TendenciesPage implements OnInit, OnDestroy {
   allLoaded = false;
   private destroy$ = new Subject<void>();
 
-  predictions: number[][] = [];
-  topNumbers: { num: number, freq: number }[] = [];
-
   constructor(
     private TendenciesService: TendenciesService,
     private navCtrl: NavController,
-    private predictionFacade: PredictionFacade
   ) {}
 
   ngOnInit() {
     this.getTrendingTags();
-    this.predictionFacade.predictions$.pipe(takeUntil(this.destroy$)).subscribe(predictions => {
-      this.predictions = predictions;
-    });
-    this.predictionFacade.topNumbers$.pipe(takeUntil(this.destroy$)).subscribe(topNumbers => {
-      this.topNumbers = topNumbers;
-    });
-    this.predictionFacade.loadTopNumbers();
-    this.predictionFacade.generatePredictions(5);
   }
 
   ngOnDestroy() {
@@ -82,7 +68,4 @@ export class TendenciesPage implements OnInit, OnDestroy {
     });
   }
 
-  generateNewPredictions() {
-    this.predictionFacade.generatePredictions(5);
-  }
 }

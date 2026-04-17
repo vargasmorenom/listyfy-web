@@ -2,14 +2,14 @@
   <div class="card-container" [id]="item._id">
     @if (typeof item.profileId === 'object') {
       <div class="card-usuario" (click)="perfil(item.postedBy)">
-        <img class="imagenPefil" [src]="urlfiles + item.profileId.profilePic[0].small" />
+        <img class="imagenPefil" [src]="resolveImg(item.profileId.profilePic[0].small)" />
         <span>{{ item.profileId.chanelName }}</span>
       </div>
     }
 
     <div class="card-background" (click)="seeContent(item._id)">
       @for (itemA of item.imagen; track $index) {
-        <img [src]="urlfiles + itemA.small" />
+        <img [src]="resolveImg(itemA.small)" />
       }
       <div class="card-content">
         <div class="card-info">

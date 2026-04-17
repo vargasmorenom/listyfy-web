@@ -25,21 +25,6 @@
         </ion-infinite-scroll-content>
       </ion-infinite-scroll>
 
-      <!-- Sección de Predicciones Numéricas -->
-      <ion-card>
-        <ion-card-header>
-          <ion-card-title>Predicciones Numéricas</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <h3>Números Más Frecuentes:</h3>
-          <p *ngFor="let top of topNumbers">{{ top.num }} ({{ top.freq }} veces)</p>
-          <h3>Predicciones Sugeridas:</h3>
-          <ul *ngFor="let pred of predictions">
-            <li>{{ pred.join(', ') }}</li>
-          </ul>
-          <ion-button (click)="generateNewPredictions()" expand="block">Generar Nuevas Predicciones</ion-button>
-        </ion-card-content>
-      </ion-card>
   </ion-content>
 
   <aside class="sidebar sidebar-right">

@@ -57,17 +57,21 @@ export class SidebarLeftComponent implements OnInit, OnDestroy {
     this.userSession = this.authService.getSession();
     const profile = this.authService.getProfile();
 
-    if (profile?.profilePic) {
-      this.profilePic = this.urlfiles + profile.profilePic[0].small;
+    if (profile?.profilePic?.[0]?.small) {
+      const pic = profile.profilePic[0].small;
+      this.profilePic = pic?.startsWith('http') ? pic : this.urlfiles + pic;
     }
 
     if (profile?._id) {
       this.profileFollowService
         .getFollowStatus(profile._id, profile._id)
         .pipe(takeUntil(this.destroy$))
-        .subscribe(status => {
-          this.followersCount = status.countFollowers;
-          this.followingCount = status.countProfileFollowing;
+        .subscribe({
+          next: status => {
+            this.followersCount = status.countFollowers;
+            this.followingCount = status.countProfileFollowing;
+          },
+          error: () => {},
         });
 
       const userId = this.userSession?.id;
@@ -75,7 +79,10 @@ export class SidebarLeftComponent implements OnInit, OnDestroy {
         this.profileLikeService
           .getProfileLikeStatus(profile._id, userId)
           .pipe(takeUntil(this.destroy$))
-          .subscribe(status => { this.likesCount = status.countlikes; });
+          .subscribe({
+            next: status => { this.likesCount = status.countlikes; },
+            error: () => {},
+          });
       }
     }
   }

@@ -91,7 +91,8 @@ export class EditcontentlistComponent implements OnInit, OnDestroy {
     this.form = this.formUl.createForm(this.formData, id);
 
     for (let i = 0; i < id.imagen.length; i++) {
-      this.imagenCarga = environment.servicio[0].urlfiles + id.imagen[i].small;
+      const pic = id.imagen[i].small;
+      this.imagenCarga = pic?.startsWith('http') ? pic : environment.servicio[0].urlfiles + pic;
     }
 
     if ((id.content?.length ?? 0) > 0) {

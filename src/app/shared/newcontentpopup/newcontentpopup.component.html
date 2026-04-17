@@ -1,39 +1,46 @@
-<ion-header translucent>
+<ion-header>
   <ion-toolbar>
-    <ion-title>{{ title }}</ion-title>
+    <ion-title>
+      <ion-icon name="add-circle-outline"></ion-icon>
+      {{ title }}
+    </ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="close()">✖</ion-button>
+      <ion-button (click)="close()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <form [formGroup]="form" class="textForm">
+  <form [formGroup]="form" class="content-form">
+
+    <p class="form-hint">Pega la URL del contenido que quieres agregar a esta lista.</p>
+
     @for (item of content; track $index) {
-      @if (item.type === 'text') {
-        <div class="input-group">
-          <ion-item>
-            <ion-input
-              type="{{ item.type }}"
-              name="{{ item.name }}"
-              labelPlacement="stacked"
-              label="{{ item.label }}"
-              formControlName="{{ item.name }}"
-            >
-            </ion-input>
-          </ion-item>
-        </div>
-      }
-      @if (form.get(item.name)?.touched) {
-        @if (form.get(item.name)?.errors?.['required']) {
-          <div class="error-message">
-            <span>Campo Obligatorio</span>
-          </div>
+      <div class="field-group">
+        <label class="field-label">{{ item.label }}</label>
+        <ion-item class="field-item" [class.invalid]="form.get(item.name)?.touched && form.get(item.name)?.invalid">
+          <ion-input
+            type="{{ item.type }}"
+            name="{{ item.name }}"
+            formControlName="{{ item.name }}"
+            [placeholder]="item.name === 'contenid' ? 'https://...' : 'Ej: Mi video favorito'"
+          ></ion-input>
+        </ion-item>
+        @if (form.get(item.name)?.touched && form.get(item.name)?.errors?.['required']) {
+          <p class="error-message">
+            <ion-icon name="alert-circle-outline"></ion-icon>
+            Campo obligatorio
+          </p>
         }
-      }
+      </div>
     }
-    <ion-button expand="block" (click)="enviar()" [disabled]="form.invalid">
+
+    <ion-button expand="block" class="submit-btn" (click)="enviar()" [disabled]="form.invalid">
+      <ion-icon name="cloud-upload-outline" slot="start"></ion-icon>
       <strong>{{ message }}</strong>
     </ion-button>
+
   </form>
 </ion-content>

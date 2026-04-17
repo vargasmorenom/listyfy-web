@@ -15,6 +15,8 @@ export const environment = {
       appUrl: 'http://localhost:8100',
       termsUrl: 'http://terminosycondiciones',
       recaptchaSiteKey: '6Le9OpAsAAAAAEBabC1joHvAxIJQL5XV96qM-tyV',
+      recaptchaEnabled: false,
+      defaultAvatar: 'assets/logo/perfil02.png',
     },
   ],
 };

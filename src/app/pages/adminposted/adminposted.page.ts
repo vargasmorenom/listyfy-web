@@ -14,11 +14,11 @@ import { CommonModule } from '@angular/common';
 import { SidebarLeftComponent } from 'src/app/shared/sidebar-left/sidebar-left.component';
 import { SidebarRightComponent } from 'src/app/shared/sidebar-right/sidebar-right.component';
 import { addIcons } from 'ionicons';
-import { refreshOutline, arrowForwardOutline } from 'ionicons/icons';
+import { refreshOutline, arrowForwardOutline, helpCircleOutline } from 'ionicons/icons';
 import {
   IonContent, IonItem, IonInput, IonButton, IonIcon,
   IonSelect, IonLabel, IonSelectOption, IonTextarea,
-  IonRadio, IonRadioGroup, IonList, IonCheckbox,
+  IonRadio, IonRadioGroup, IonList, IonCheckbox, IonPopover,
 } from '@ionic/angular/standalone';
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -30,7 +30,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   imports: [
     IonContent, IonItem, IonInput, IonButton, IonLabel, IonIcon,
     FormsModule, ReactiveFormsModule, IonSelect, IonSelectOption,
-    IonTextarea, BackComponent, IonRadioGroup, IonRadio, IonList, IonCheckbox,
+    IonTextarea, BackComponent, IonRadioGroup, IonRadio, IonList, IonCheckbox, IonPopover,
     TranslatePipe, CommonModule, SidebarLeftComponent, SidebarRightComponent,
   ],
 })
@@ -41,6 +41,7 @@ export class AdminpostedPage implements OnInit, OnDestroy {
   public logo: string;
   public fileData: any;
   public imagenCarga: any;
+  public imagenRequerida = false;
 
   constructor(
     public router: Router,
@@ -52,7 +53,7 @@ export class AdminpostedPage implements OnInit, OnDestroy {
     this.formCreate = posted;
     this.form = this.formUl.createForm(this.formCreate);
     this.logo = environment.servicio[0].logosmall;
-    addIcons({ refreshOutline, arrowForwardOutline });
+    addIcons({ refreshOutline, arrowForwardOutline, helpCircleOutline });
   }
 
   ngOnInit() {}
@@ -101,7 +102,7 @@ export class AdminpostedPage implements OnInit, OnDestroy {
     dataForm.append('access', this.form.value.access);
     dataForm.append('profileId', profile._id);
     dataForm.append('chanelName', profile.chanelName);
-    dataForm.append('profilepic', profile.profilePic[0].small);
+    dataForm.append('profilepic', profile.profilePic?.[0]?.small ?? '');
     dataForm.append('postedBy', profile.userBy);
 
     if (this.fileData) {

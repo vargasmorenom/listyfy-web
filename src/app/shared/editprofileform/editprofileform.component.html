@@ -55,7 +55,7 @@
 
           <div class="array-header">
             <span class="array-label">{{ item.label }}</span>
-            @if ((itemsMap[item.name]?.length ?? 0) < 3) {
+            @if ((itemsMap[item.name].length ?? 0) < 3) {
               <button type="button" class="add-icon-btn" (click)="addItem(item.name)" title="Agregar">
                 <ion-icon name="add-circle-outline"></ion-icon>
               </button>

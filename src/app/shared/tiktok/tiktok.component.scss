@@ -116,8 +116,13 @@ ion-card-content {
   background-color: rgb(215, 218, 233);
 }
 ion-card-content .titulo {
-  font-size: 0.9em;
-  text-align: justify;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #1f2937;
+  line-height: 1.4;
+  margin: 0;
+  border-left: 3px solid #ff0050;
+  padding-left: 8px;
 }
 ion-card-content .creador a {
   font-size: 1em;

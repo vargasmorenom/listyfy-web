@@ -1,0 +1,46 @@
+<ion-header class="modal-header">
+  <ion-toolbar>
+    <ion-title>Facebook</ion-title>
+    <ion-buttons slot="end">
+      <ion-button class="close-btn" (click)="close()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  @if (loading) {
+    <div class="loading-container">
+      <ion-spinner name="crescent"></ion-spinner>
+      <p>Cargando publicación...</p>
+    </div>
+  }
+
+  <div class="iframe-wrapper">
+    <iframe
+      [src]="safeUrl"
+      [class.hidden]="loading"
+      frameborder="0"
+      allowfullscreen
+      scrolling="yes"
+      allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+      title="Facebook post"
+      (load)="onIframeLoad()">
+    </iframe>
+  </div>
+
+  <div class="aviso-privacidad">
+    <ion-icon name="information-circle-outline"></ion-icon>
+    <span>Si el contenido no se muestra, puede ser privado o pertenecer a un perfil personal. Solo el contenido público de Páginas de Facebook es embebible.</span>
+  </div>
+
+  <div class="urlexterna">
+    <a [href]="externalUrl" target="_blank">
+      <ion-icon name="open-outline"></ion-icon>
+      Abrir en Facebook
+    </a>
+  </div>
+
+</ion-content>

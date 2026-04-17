@@ -14,14 +14,14 @@ import { ToastrService } from 'ngx-toastr';
 import { addIcons } from 'ionicons';
 import { heart, heartOutline, arrowBackOutline } from 'ionicons/icons';
 
-import { IonInfiniteScroll, IonInfiniteScrollContent, IonContent, IonIcon } from '@ionic/angular/standalone';
+import { IonInfiniteScroll, IonInfiniteScrollContent, IonContent } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-viewtrends',
   templateUrl: './viewtrends.page.html',
   styleUrls: ['./viewtrends.page.scss'],
   standalone: true,
-  imports: [IonContent, IonIcon, CommonModule, BackComponent, ContentListComponent, IonInfiniteScroll, IonInfiniteScrollContent, SidebarLeftComponent, SidebarRightComponent]
+  imports: [IonContent, CommonModule, BackComponent, ContentListComponent, IonInfiniteScroll, IonInfiniteScrollContent, SidebarLeftComponent, SidebarRightComponent]
 })
 export class ViewtrendsPage implements OnInit, OnDestroy {
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PopoverController } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
@@ -7,7 +7,6 @@ import { PostedsService } from 'src/app/services/posteds.service';
 import { ToastrService } from 'ngx-toastr';
 import { StorageService } from 'src/app/services/storage.service';
 import { BackComponent } from 'src/app/shared/back/back.component';
-import { ScriptLoaderService } from 'src/app/services/scriptloader.service';
 import { ShowcontentComponent } from 'src/app/shared/showcontent/showcontent.component';
 import { PopupService } from 'src/app/services/popup.service';
 import { SocialmediaComponent } from 'src/app/shared/socialmedia/socialmedia.component';
@@ -41,7 +40,7 @@ import {
     SidebarLeftComponent, SidebarRightComponent,
   ],
 })
-export class AdminlistPage implements OnInit, AfterViewInit, OnDestroy {
+export class AdminlistPage implements OnInit, OnDestroy {
   public id!: string;
   public data: any = {};
   public datacont: any;
@@ -58,7 +57,6 @@ export class AdminlistPage implements OnInit, AfterViewInit, OnDestroy {
     public popUp: PopupService,
     public param: ActivatedRoute,
     private popoverCtrl: PopoverController,
-    private scriptLoader: ScriptLoaderService,
     private navegar: Router,
     private posted: PostedsService,
     public messToast: ToastrService,
@@ -66,6 +64,12 @@ export class AdminlistPage implements OnInit, AfterViewInit, OnDestroy {
     public facade: PostFacade,
   ) {
     addIcons({ addCircle, menuOutline, layersOutline, heartOutline, heart });
+  }
+
+  resolveImg(path: string): string {
+    if (!path) return environment.servicio[0].defaultAvatar;
+    if (path.startsWith('http')) return path;
+    return this.urlfiles + path;
   }
 
   validarEdit() {
@@ -96,13 +100,15 @@ export class AdminlistPage implements OnInit, AfterViewInit, OnDestroy {
       NewcontentpopupComponent
     );
     if (result?.data) {
-      this.facade.loadPost(this.id, this.usuario?.id);
+      this.navegar.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+        this.navegar.navigate(['adminlist'], { queryParams: { id: this.id } });
+      });
     }
   }
 
   private suscribirFacade() {
     this.facadeSubs.push(
-      this.facade.post$.subscribe((post) => { if (post) this.data = post; }),
+      this.facade.post$.subscribe((post) => { if (post) { this.data = post; console.log('adminlist data:', post); } }),
       this.facade.likeCount$.subscribe((count) => { this.likeCount = count; }),
       this.facade.liked$.subscribe((liked) => { this.liked = liked; }),
       this.facade.viewCount$.subscribe((count) => { this.viewCount = count; }),
@@ -176,32 +182,9 @@ export class AdminlistPage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ionViewDidEnter() {
-    this.reprocesarEmbeds();
     if (this.id && this.usuario?.id) {
       this.facade.trackView(this.id, this.usuario.id);
     }
   }
 
-  ngAfterViewInit() {
-    if (!document.getElementById('fb-root')) {
-      const fbRoot = document.createElement('div');
-      fbRoot.id = 'fb-root';
-      document.body.appendChild(fbRoot);
-    }
-    this.scriptLoader.loadScripts([
-      { url: 'https://www.instagram.com/embed.js', globalObject: 'instgrm', callbackMethodPath: 'Embeds.process', innerText: '' },
-      { url: 'https://platform.twitter.com/widgets.js', globalObject: 'twttr', callbackMethodPath: 'widgets.load', innerText: '' },
-      { url: 'https://www.youtube.com/iframe_api', globalObject: 'YT', callbackMethodPath: '', innerText: '' },
-      { url: 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v18.0', globalObject: 'FB', callbackMethodPath: 'XFBML.parse', innerText: '' },
-      { url: 'https://platform.linkedin.com/in.js', globalObject: 'IN', callbackMethodPath: 'parse', innerText: 'lang: en_US' },
-      { url: 'https://telegram.org/js/telegram-widget.js?22', globalObject: 'Telegram', callbackMethodPath: '', innerText: '' },
-    ]).catch((err) => console.error('Error cargando scripts:', err));
-  }
-
-  private reprocesarEmbeds() {
-    if ((window as any).instgrm?.Embeds?.process) (window as any).instgrm.Embeds.process();
-    if ((window as any).twttr?.widgets?.load) (window as any).twttr.widgets.load();
-    if ((window as any).FB?.XFBML?.parse) (window as any).FB.XFBML.parse();
-    if ((window as any).IN?.parse) (window as any).IN.parse();
-  }
 }

@@ -202,6 +202,39 @@ ion-button {
   transition: all 0.3s ease;
 }
 
+/* ── Tags help ── */
+.help-btn {
+  --color: #ffffff;
+  --background: transparent;
+  --box-shadow: none;
+  --padding-start: 4px;
+  --padding-end: 0;
+  font-size: 20px;
+  margin: 0;
+  height: auto;
+  box-shadow: none;
+  margin-top: 0;
+}
+
+.tags-help-content {
+  padding: 14px 16px;
+  max-width: 260px;
+
+  p {
+    font-size: 0.85rem;
+    color: var(--ion-text-color);
+    line-height: 1.5;
+    margin: 0 0 8px;
+
+    &:last-child { margin: 0; }
+  }
+
+  .tags-example {
+    font-size: 0.8rem;
+    color: var(--ion-color-step-500);
+  }
+}
+
 :host-context(.ion-palette-dark) {
   .tituloConten h1 { color: #7b9cdc; }
   .optioconten ion-label { color: #7b9cdc; }

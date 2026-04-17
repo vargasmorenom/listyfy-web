@@ -136,6 +136,66 @@ ion-popover.submenu ion-item {
   justify-content: center;
 }
 
+/* ── Popup / Modal Instagram ── */
+.instagram-popup-modal {
+  --width: min(580px, 95%);
+  --height: 92vh;
+  --border-radius: 20px;
+  --box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.2);
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Popup / Modal Twitter/X ── */
+.twitter-popup-modal {
+  --width: min(580px, 95%);
+  --height: 92vh;
+  --border-radius: 20px;
+  --box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.2);
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Popup / Modal Telegram ── */
+.telegram-popup-modal {
+  --width: min(560px, 95%);
+  --height: 80vh;
+  --border-radius: 20px;
+  --box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.2);
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Popup / Modal LinkedIn ── */
+.linkedin-popup-modal {
+  --width: min(560px, 95%);
+  --height: 92vh;
+  --border-radius: 20px;
+  --box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.2);
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Popup / Modal Facebook ── */
+.facebook-popup-modal {
+  --width: min(560px, 95%);
+  --height: 92vh;
+  --border-radius: 20px;
+  --box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.2);
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Popup / Modal YouTube ── */
+.youtube-popup-modal {
+  --width: min(700px, 95%);
+  --height: 70vh;
+  --border-radius: 20px;
+  --box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.3);
+  align-items: center;
+  justify-content: center;
+}
+
 /* ── Popup / Modal dinámico ── */
 .custom-popup-modal {
   --width: 90%;

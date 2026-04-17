@@ -5,7 +5,6 @@ import { NavParams } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { DynamicFormService } from 'src/app/services/dynamicFormService';
 import { profile } from '../../configs/profile';
-import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { StorageService } from 'src/app/services/storage.service';
 import { ProfileService } from 'src/app/services/profile.service';
@@ -71,14 +70,14 @@ export class EditprofileformComponent implements OnInit, OnDestroy {
     private modalCtrl: ModalController,
     private perfil: ProfileService,
     private storage: StorageService,
-    private routes: Router
   ) {
     this.formCreate = profile;
     const id = this.navParams.get('id');
     this.form = this.formUl.createForm(this.formCreate, id);
 
     if (id?.profilePic?.length) {
-      this.currentImageUrl = this.urlBack + id.profilePic[0].medium;
+      const pic = id.profilePic[0].medium;
+      this.currentImageUrl = pic?.startsWith('http') ? pic : this.urlBack + pic;
     }
 
     ARRAY_FIELDS.forEach((fieldName) => {
@@ -187,8 +186,8 @@ export class EditprofileformComponent implements OnInit, OnDestroy {
       : of(null);
 
     const profileData = {
-      firstname: this.form.value.firstname,
-      lastname: this.form.value.lastname,
+      firstName: this.form.value.firstName,
+      lastName: this.form.value.lastName,
       chanelName: this.form.value.chanelName,
       description: this.form.value.description,
       links: this.form.value.linksString,
@@ -206,8 +205,7 @@ export class EditprofileformComponent implements OnInit, OnDestroy {
     ).subscribe((datos: any) => {
       if (datos) {
         this.messToast.success(datos.message);
-        setTimeout(() => this.close(), 1000);
-        setTimeout(() => this.routes.navigate(['/perfil']), 1500);
+        setTimeout(() => this.modalCtrl.dismiss({ updated: true }), 1000);
       }
     });
   }

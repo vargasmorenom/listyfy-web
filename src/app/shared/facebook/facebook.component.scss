@@ -1,69 +1,60 @@
 .contentFacebook {
-  // display: flex;
-  // flex-wrap: wrap;
-  // gap: 10px;
-  // width: 90%;
-  // margin: 10px auto;
-  // text-align: center;
   position: relative;
   display: flex;
   flex-wrap: wrap;
   width: 95%;
   margin: 2px auto;
 }
-.contentFacebook:hover {
+
+.facebook-card {
+  position: relative;
+  width: 100%;
+  margin: 2px 0;
+}
+
+.facebook-card:hover {
   box-shadow: 0 6px 18px rgba(48, 61, 92, 0.25);
   transform: translateY(-2px);
 }
 
-.photo {
-  text-align: center;
+.contentFb {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
   width: 100%;
 }
-.photo > .fb-post {
-  display: inline-block; /* necesario para que el centrado funcione */
-}
-// iframe {
-//   display: block;       /* Elimina espacios fantasma */
-//   border: none !important; /* Eliminar bordes */
-//   overflow: hidden !important;
-//   width: 90% !important;
-//   margin: 1px auto;/* Ajusta la altura */
-//   margin-bottom: -4em;
-// }
 
-// .contentFacebook{
-//   display: flex;
-//   flex-direction: column; /* apila los hijos en columna */
-//   gap: 10px; /* espacio entre .b y .c */
+.preview-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 140px;
+  background: #1877f2;
 
-// }
-.photo,
-.reel,
-.video,
-.post {
-  position: relative;
+  ion-icon {
+    font-size: 5rem;
+    color: white;
+  }
 }
-.video {
-  padding: 10px;
-  background: #f0f0f0; /* solo para que se vean */
-  border: 1px solid #ccc;
-  width: 95%;
-  margin: 1px auto;
-  text-align: center;
-}
-.reel {
-  padding: 10px;
-  background: #f0f0f0; /* solo para que se vean */
-  border: 1px solid #ccc;
-  width: 95%;
-  margin: 1px auto;
-  text-align: center;
-}
-.photo {
-  padding: 10px;
-  background: #f0f0f0; /* solo para que se vean */
-  border: 1px solid #ccc;
-  width: 95%;
-  margin: 1px auto;
+
+ion-card-content {
+  background-color: rgb(215, 218, 233);
+
+  .tipo-label {
+    font-size: 0.75em;
+    font-weight: 700;
+    color: #1877f2;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .titulo {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #1f2937;
+    line-height: 1.4;
+    margin: 0;
+    border-left: 3px solid #1877f2;
+    padding-left: 8px;
+  }
 }

@@ -16,7 +16,6 @@ import { InfoPerfilComponent } from 'src/app/shared/info-perfil/info-perfil.comp
 import { ContentListComponent } from 'src/app/shared/content-list/content-list.component';
 import { PopupService } from 'src/app/services/popup.service';
 import { EditprofileformComponent } from 'src/app/shared/editprofileform/editprofileform.component';
-import { SidebarRightComponent } from 'src/app/shared/sidebar-right/sidebar-right.component';
 import {
   IonContent, IonButton, IonSegment, IonSegmentButton,
   IonLabel, IonInfiniteScroll, IonInfiniteScrollContent,
@@ -38,7 +37,7 @@ import { environment } from 'src/environments/environment';
     IonInfiniteScrollContent, IonInfiniteScroll, IonButton, IonContent,
     CommonModule, FormsModule, BackComponent, ContentListComponent,
     InfoPerfilComponent, IonLabel, ReactiveFormsModule, ProfileComponent,
-    IonSegment, IonSegmentButton, TranslatePipe, SidebarRightComponent,
+    IonSegment, IonSegmentButton, TranslatePipe,
   ],
 })
 export class PerfilPage implements OnInit, OnDestroy {
@@ -101,11 +100,14 @@ export class PerfilPage implements OnInit, OnDestroy {
     });
   }
 
-  showWelcome(id: any) {
-    this.popUp.showPopupDinamic(
+  async showWelcome(id: any) {
+    const result = await this.popUp.showPopupDinamic(
       { title: 'Editor de Perfil', message: 'Nuevo Contenido', confirmText: '', id: id },
       EditprofileformComponent
     );
+    if (result?.data?.updated) {
+      this.dataPerfil(this.idConsult);
+    }
   }
 
   dataPerfil(id: any) {

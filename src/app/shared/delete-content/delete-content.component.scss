@@ -1,44 +1,30 @@
-.twitter-container {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  margin: 1rem 0;
-}
-
-.twitter-container:hover {
-  box-shadow: 0 6px 18px rgba(48, 61, 92, 0.25);
-  transform: translateY(-2px);
-}
-
-/* ============================
-   Botón de borrar
-============================ */
 .borrarXtw {
   position: absolute;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  border-radius: 50%;
+  top: 8px;
+  right: 8px;
   z-index: 10;
 }
 
 .borrarXtw ion-button {
-  --background: #e74c3c;
-  --color: #ffffff00;
-  --border-radius: 50%;
-  --padding-start: 0.6rem;
-  --padding-end: 0.6rem;
-  --padding-top: 0.4rem;
-  --padding-bottom: 0.4rem;
-    box-shadow: 0 0px 6px rgba(255, 255, 255, 0.2);
-}
-
-.borrarXtw ion-button:hover {
-  --color: #d93025; /* rojo elegante */
-  transform: scale(1.1);
-}
-
-.borrarXtw ion-icon {
+  --background: #ff8c00;
+  --background-hover: #e07a00;
+  --background-activated: #cc6f00;
   --color: #ffffff;
-  font-size: 3em;
+  --border-radius: 8px;
+  --padding-start: 10px;
+  --padding-end: 10px;
+  --padding-top: 6px;
+  --padding-bottom: 6px;
+  --box-shadow: 0 2px 8px rgba(255, 140, 0, 0.35);
+  height: 32px;
+  font-size: 13px;
+  transition: transform 0.15s ease;
+
+  ion-icon {
+    font-size: 16px;
+  }
+
+  &:hover {
+    transform: scale(1.05);
+  }
 }

@@ -5,24 +5,21 @@ import { takeUntil } from 'rxjs/operators';
 import { ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-import * as CryptoJS from 'crypto-js';
+import CryptoJS from 'crypto-js';
 import { DynamicFormService } from 'src/app/services/dynamicFormService';
 import { inscription } from '../../configs/inscription';
 import { InscriptionService } from '../../services/inscription.service';
 import { CountrysService } from 'src/app/services/countrys.service';
 import { RecaptchaComponent } from 'src/app/shared/recaptcha/recaptcha.component';
+import { PasswordRulesComponent } from 'src/app/shared/password-rules/password-rules.component';
 
 import {
   IonContent,
-  IonItem,
   IonInput,
   IonButton,
   IonIcon,
   IonCheckbox,
   IonInputPasswordToggle,
-  IonList,
-  IonText,
-  IonCard,
 } from '@ionic/angular/standalone';
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -32,19 +29,16 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrls: ['./inscriptions.page.scss'],
   standalone: true,
   imports: [
-    IonCard,
-    IonText,
     IonContent,
-    IonItem,
     IonInput,
     IonButton,
     IonIcon,
     ReactiveFormsModule,
     IonCheckbox,
     IonInputPasswordToggle,
-    IonList,
     TranslatePipe,
     RecaptchaComponent,
+    PasswordRulesComponent,
   ],
 })
 export class InscriptionsPage implements OnInit, OnDestroy {
@@ -63,21 +57,11 @@ export class InscriptionsPage implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
   private bgInterval!: ReturnType<typeof setInterval>;
   recaptchaToken: string | null = null;
+  recaptchaEnabled = environment.servicio[0].recaptchaEnabled;
 
   countries: any[] = [];
   filtered: any[] = [];
   pp: any = [];
-
-  get passwordChecks() {
-    const v = this.form.get('password')?.value ?? '';
-    return {
-      uppercase: /[A-Z]/.test(v),
-      lowercase: /[a-z]/.test(v),
-      number:    /[0-9]/.test(v),
-      special:   /[#?!@$ %^_/()&*\-]/.test(v),
-      minlength: v.length >= 8,
-    };
-  }
 
   constructor(
     private countrys: CountrysService,
@@ -147,6 +131,16 @@ export class InscriptionsPage implements OnInit, OnDestroy {
   }
 
   enviar() {
+    if (this.recaptchaEnabled && !this.recaptchaToken) {
+      this.messToast.warning('Por favor completa el captcha antes de continuar');
+      return;
+    }
+
+    if (!this.codtelefono) {
+      this.messToast.warning('Selecciona un país de la lista de sugerencias');
+      return;
+    }
+
     const data = {
       username: this.form.value.username,
       phoneCountry: this.form.value.pais,
@@ -158,23 +152,25 @@ export class InscriptionsPage implements OnInit, OnDestroy {
       recaptchaToken: this.recaptchaToken,
     };
 
-    if (this.form.value.checkdatos === true) {
-      this.register.increptionUser(data).pipe(takeUntil(this.destroy$)).subscribe({
-        next: (datos) => {
-          if (datos.status === 201) {
-            this.messToast.success('Revisa tu correo para activar tu cuenta: ' + this.form.value.email);
-            setTimeout(() => this.router.navigate(['/verificacion']), 2000);
-          } else if (datos.status === 206) {
-            this.recaptchaRef.reset();
-            this.messToast.warning('El username o email ya está registrado');
-          }
-        },
-        error: () => {
-          this.recaptchaRef.reset();
-        },
-      });
-    } else {
-      this.messToast.warning('el campo Termino y condiciones debe ser aceptado');
-    }
+    console.log('[Inscripcion] Payload enviado:', data);
+
+    this.register.increptionUser(data).pipe(takeUntil(this.destroy$)).subscribe({
+      next: (datos) => {
+        console.log('[Inscripcion] Respuesta:', datos.status, datos.body);
+        if (datos.status === 201) {
+          this.messToast.success('Revisa tu correo para activar tu cuenta: ' + this.form.value.email);
+          setTimeout(() => this.router.navigate(['/verificacion']), 2000);
+        } else if (datos.status === 206) {
+          this.recaptchaRef?.reset();
+          this.recaptchaToken = null;
+          this.messToast.warning('El username o email ya está registrado');
+        }
+      },
+      error: (err) => {
+        console.error('[Inscripcion] Error:', err.status, err.error);
+        this.recaptchaRef?.reset();
+        this.recaptchaToken = null;
+      },
+    });
   }
 }

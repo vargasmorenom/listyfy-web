@@ -36,23 +36,7 @@
                   <p class="error-msg">{{ 'inscripcion.error.patron' | translate: { campo: item.name } }}</p>
                 }
                 @if (item.name === 'password') {
-                  <div class="pass-rules">
-                    <span [class.ok]="passwordChecks.uppercase" [class.fail]="!passwordChecks.uppercase">
-                      {{ passwordChecks.uppercase ? '✓' : '✗' }} {{ 'inscripcion.error.pass_mayuscula' | translate }}
-                    </span>
-                    <span [class.ok]="passwordChecks.lowercase" [class.fail]="!passwordChecks.lowercase">
-                      {{ passwordChecks.lowercase ? '✓' : '✗' }} {{ 'inscripcion.error.pass_minuscula' | translate }}
-                    </span>
-                    <span [class.ok]="passwordChecks.number" [class.fail]="!passwordChecks.number">
-                      {{ passwordChecks.number ? '✓' : '✗' }} {{ 'inscripcion.error.pass_numero' | translate }}
-                    </span>
-                    <span [class.ok]="passwordChecks.special" [class.fail]="!passwordChecks.special">
-                      {{ passwordChecks.special ? '✓' : '✗' }} {{ 'inscripcion.error.pass_especial' | translate }}
-                    </span>
-                    <span [class.ok]="passwordChecks.minlength" [class.fail]="!passwordChecks.minlength">
-                      {{ passwordChecks.minlength ? '✓' : '✗' }} {{ 'inscripcion.error.pass_min' | translate }}
-                    </span>
-                  </div>
+                  <app-password-rules [value]="form.get('password')?.value ?? ''"></app-password-rules>
                 }
                 @if (item.name === 'confirmPassword' && form.errors?.['passwordMismatch']) {
                   <p class="error-msg">{{ 'inscripcion.error.no_coinciden' | translate }}</p>
@@ -105,7 +89,9 @@
 
         }
 
-        <app-recaptcha #recaptchaRef (resolved)="onRecaptchaResolved($event)"></app-recaptcha>
+        @if (recaptchaEnabled) {
+          <app-recaptcha #recaptchaRef (resolved)="onRecaptchaResolved($event)"></app-recaptcha>
+        }
 
         <ion-button class="submit-btn" expand="block" (click)="enviar()" [disabled]="form.invalid">
           <ion-icon name="arrow-forward-outline" slot="start"></ion-icon>

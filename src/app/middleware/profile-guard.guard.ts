@@ -1,23 +1,20 @@
-import { CanActivateFn,Router } from '@angular/router';
-import { Injectable,inject } from '@angular/core';
-import { StorageService } from '../services/storage.service';
+import { CanActivateFn, Router } from '@angular/router';
+import { inject } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 
 
-export const profileGuardGuard: CanActivateFn = (route, state) => {
+export const profileGuardGuard: CanActivateFn = (route, _state) => {
 
   const authService = inject(AuthService);
-  const storage = inject(StorageService);
   const router = inject(Router);
 
   const paramId = route.queryParamMap.get('id');
   const sessionValid = authService.isSessionValid();
-  const user = storage.get('usuario');
 
   if (paramId) return true;
 
   if (!sessionValid) {
-    router.parseUrl('/');
+    router.navigate(['/login']);
     return false;
   }
 

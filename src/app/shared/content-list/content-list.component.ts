@@ -26,6 +26,12 @@ export class ContentListComponent implements OnInit {
 
   ngOnInit() {}
 
+  resolveImg(path: string): string {
+    if (!path) return environment.servicio[0].defaultAvatar;
+    if (path.startsWith('http')) return path;
+    return this.urlfiles + path;
+  }
+
   seeContent(id: string) {
     this.router.navigate(['adminlist'], {
       queryParams: { id: id },

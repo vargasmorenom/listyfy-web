@@ -7,8 +7,6 @@ import { AuthService } from 'src/app/services/auth.service';
 import { menuactivo } from 'src/app/configs/menuSession';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { IonIcon } from '@ionic/angular/standalone';
-import { TranslatePipe } from '@ngx-translate/core';
 import { addIcons } from 'ionicons';
 import {
   homeOutline, searchOutline, addCircle, analyticsOutline,
@@ -21,7 +19,7 @@ import {
   templateUrl: './main-layot.page.html',
   styleUrls: ['./main-layot.page.scss'],
   standalone: true,
-  imports: [CommonModule, RouterOutlet, SessionComponent, TranslatePipe, IonIcon],
+  imports: [CommonModule, RouterOutlet, SessionComponent],
 })
 export class MainLayotPage implements OnInit, OnDestroy {
   isLoggedIn = false;

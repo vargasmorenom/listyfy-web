@@ -53,7 +53,7 @@
                 }
               } -->
     }
-    <ion-button expand="block" (click)="enviarImagen()" [disabled]="formImg.invalid">
+    <ion-button expand="block" (click)="enviarImagen()" [disabled]="!fileData">
       <ion-icon name="arrow-forward-outline" style="margin-right: 5px"></ion-icon>Editar Imagen
     </ion-button>
   </form>

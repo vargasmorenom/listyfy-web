@@ -1,61 +1,22 @@
 <div class="contentFacebook">
   @for (item of contenido; track $index) {
-    @if (item.listas.tipo === 'videos') {
-      <div class="video" id="{{ item.id }}">
-        <app-delete-content [idContent]="item.id" [idpost]="idpost" [session]="session"> </app-delete-content>
-
-        <iframe
-          frameborder="0"
-          allowtransparency="true"
-          allowfullscreen="true"
-          scrolling="no"
-          allow="encrypted-media"
-          [src]="item.listas.urlfinal"
-        >
-        </iframe>
-      </div>
-    }
-    @if (item.listas.tipo === 'photo') {
-      <div class="photo" id="{{ item.listas.id }}">
-        <app-delete-content [idContent]="item.listas.id" [idpost]="idpost" [session]="session"> </app-delete-content>
-
-        <div id="fb-root"></div>
-
-        <div
-          class="fb-post"
-          [attr.data-href]="
-            'https://www.facebook.com/photo.php?fbid=' + item.listas.id + '&set=' + item.listas.id1 + '&type=3&ref=embed_post'
-          "
-          data-width="340"
-          data-show-text="true"
-        ></div>
-      </div>
-    }
-    @if (item.listas.tipo === 'reel') {
-      <div class="reel" id="{{ item.listas.id }}">
-        <app-delete-content [idContent]="item.listas.id" [idpost]="idpost" [session]="session"> </app-delete-content>
-
-        <iframe
-          [src]="item.listas.urlfinal"
-          width="auto"
-          height="476"
-          style="border: none; overflow: hidden"
-          scrolling="no"
-          frameborder="0"
-          allowfullscreen="true"
-          allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-        >
-        </iframe>
-      </div>
-    }
-    @if (item.listas.tipo === 'posts') {
-      <div class="post" id="{{ item.listas.id }}">
-        <app-delete-content [idContent]="item.listas.id" [idpost]="idpost" [session]="session"> </app-delete-content>
-
-        <div id="fb-root"></div>
-
-        <div class="fb-post" [attr.data-href]="item.listas.urlfinal" [attr.data-width]="'500'" data-show-text="true"></div>
-      </div>
-    }
+    <div class="facebook-card" id="{{ item.listas?.id ?? item.id }}">
+      <app-delete-content
+        [idContent]="item.listas?.id ?? item.id"
+        [idpost]="idpost"
+        [session]="session">
+      </app-delete-content>
+      <ion-card class="contentFb" (click)="viewcontent(item)">
+        <div class="preview-banner">
+          <ion-icon name="logo-facebook"></ion-icon>
+        </div>
+        <ion-card-content>
+          <p class="tipo-label">{{ getTipoLabel(item.listas?.tipo ?? item.tipo) }}</p>
+          @if (item.titulo) {
+            <p class="titulo">{{ item.titulo }}</p>
+          }
+        </ion-card-content>
+      </ion-card>
+    </div>
   }
 </div>

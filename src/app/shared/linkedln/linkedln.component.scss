@@ -1,14 +1,51 @@
 .linkedln {
   display: flex;
-  flex-direction: column; /* apila los hijos en columna */
-  gap: 10px; /* espacio entre .b y .c */
+  flex-direction: column;
+  gap: 4px;
+  width: 95%;
+  margin: 2px auto;
 }
 
-.linkedln iframe {
-  display: block; /* Elimina espacios fantasma */
-  border: none !important; /* Eliminar bordes */
-  overflow: hidden !important;
-  width: 90% !important;
-  margin: 1px auto; /* Ajusta la altura */
-  margin-bottom: -4em;
+.linkedin-card {
+  position: relative;
+  width: 100%;
+}
+
+.linkedin-card:hover {
+  box-shadow: 0 6px 18px rgba(48, 61, 92, 0.25);
+  transform: translateY(-2px);
+}
+
+.contentLinkedin {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  width: 100%;
+}
+
+.preview-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 140px;
+  background: #0a66c2;
+
+  ion-icon {
+    font-size: 5rem;
+    color: white;
+  }
+}
+
+ion-card-content {
+  background-color: rgb(215, 218, 233);
+
+  .titulo {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #1f2937;
+    line-height: 1.4;
+    margin: 0;
+    border-left: 3px solid #0a66c2;
+    padding-left: 8px;
+  }
 }
