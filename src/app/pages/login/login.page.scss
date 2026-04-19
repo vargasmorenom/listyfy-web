@@ -9,9 +9,9 @@
   transition: background-image 1s ease-in-out;
 }
 
-.background-1 { background-image: url('./../../../assets/fondos/fondo1.jpeg'); }
-.background-2 { background-image: url('./../../../assets/fondos/fondo2.png'); }
-.background-3 { background-image: url('./../../../assets/fondos/fondo3.png'); }
+.background-1 { background-image: url('./../../../assets/fondos/fondo1.jpg'); }
+.background-2 { background-image: url('./../../../assets/fondos/fondo2.jpg'); }
+.background-3 { background-image: url('./../../../assets/fondos/fondo3.jpg'); }
 
 .login-card {
   width: 100%;
@@ -31,7 +31,7 @@
   margin-bottom: 28px;
 
   img {
-    max-width: 200px;
+    max-width: 300px;
     height: auto;
   }
 }
