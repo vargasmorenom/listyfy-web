@@ -1,7 +1,7 @@
 export const environment = {
   servicio: [
     {
-      url: 'https://api-mylistys-production.up.railway.app/',
+      url: 'https://api-mylistys-production.up.railway.app/api/v1/',
       key: 'encrypt!135790',
       logo: './../../../assets/logo/logoanchoNegro-2.png',
       logosmall: './../../../assets/logo/logoanchoNegro-small.png',
