@@ -13,6 +13,7 @@ export const environment = {
       recaptchaSiteKey: '6Ld9j8EsAAAAAJ9Z1e6UJuGelvaD5wEzlBPE5lT1',
       recaptchaEnabled: true,
       defaultAvatar: 'assets/logo/perfil02.png',
+      appName: 'mylistys',
     },
   ],
 };

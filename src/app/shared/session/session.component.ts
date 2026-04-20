@@ -16,6 +16,7 @@ import { environment } from 'src/environments/environment';
 })
 export class SessionComponent implements OnInit, OnDestroy {
   logoHeader = environment.servicio[0].logoHeader;
+  appName = environment.servicio[0].appName;
   isLoggedIn = false;
   private sub!: Subscription;
 

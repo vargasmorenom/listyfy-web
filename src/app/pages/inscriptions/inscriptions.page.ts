@@ -53,6 +53,7 @@ export class InscriptionsPage implements OnInit, OnDestroy {
   public form: FormGroup;
   private url: string;
   public logo: string;
+  appName = environment.servicio[0].appName;
   public codtelefono!: string;
   private destroy$ = new Subject<void>();
   private bgInterval!: ReturnType<typeof setInterval>;

@@ -53,6 +53,7 @@ export class RecuperaraccesoPage implements OnDestroy {
   private encryptKey = environment.servicio[0].key;
 
   logo = environment.servicio[0].logoHeaderInscription;
+  appName = environment.servicio[0].appName;
   step: 1 | 2 = 1;
   loading = false;
   recaptchaToken: string | null = null;

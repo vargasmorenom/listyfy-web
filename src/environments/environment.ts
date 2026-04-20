@@ -17,6 +17,7 @@ export const environment = {
       recaptchaSiteKey: '6Le9OpAsAAAAAEBabC1joHvAxIJQL5XV96qM-tyV',
       recaptchaEnabled: false,
       defaultAvatar: 'assets/logo/perfil02.png',
+      appName: 'mylistys',
     },
   ],
 };

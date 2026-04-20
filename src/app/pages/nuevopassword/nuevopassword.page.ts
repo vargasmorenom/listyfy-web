@@ -44,6 +44,7 @@ export class NuevopasswordPage implements OnInit, OnDestroy {
   public form: FormGroup;
   private url: string;
   public logo: string;
+  appName = environment.servicio[0].appName;
 
   constructor(
     public router: Router,

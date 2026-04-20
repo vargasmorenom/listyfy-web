@@ -52,8 +52,9 @@ export class LoginPage implements OnInit, OnDestroy {
   public form: FormGroup;
   private url: string;
   public logo: string;
-recaptchaToken: string | null = null;
-recaptchaEnabled = environment.servicio[0].recaptchaEnabled;
+  appName = environment.servicio[0].appName;
+  recaptchaToken: string | null = null;
+  recaptchaEnabled = environment.servicio[0].recaptchaEnabled;
 
   constructor(
     public router: Router,
