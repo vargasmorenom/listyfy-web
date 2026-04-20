@@ -11,7 +11,7 @@ export const environment = {
       appUrl: 'https://api-mylistys-production.up.railway.app',
       termsUrl: 'https://mylistys.com/terminos',
       recaptchaSiteKey: '6Ld9j8EsAAAAAJ9Z1e6UJuGelvaD5wEzlBPE5lT1',
-      recaptchaEnabled: false,
+      recaptchaEnabled: true,
       defaultAvatar: 'assets/logo/perfil02.png',
       appName: 'mylistys',
     },
