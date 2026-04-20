@@ -10,7 +10,7 @@ export const environment = {
       urlfiles: 'https://api-mylistys-production.up.railway.app/files/',
       appUrl: 'https://api-mylistys-production.up.railway.app',
       termsUrl: 'https://mylistys.com/terminos',
-      recaptchaSiteKey: '6Le9OpAsAAAAAEBabC1joHvAxIJQL5XV96qM-tyV',
+      recaptchaSiteKey: '6Ld9j8EsAAAAAJ9Z1e6UJuGelvaD5wEzlBPE5lT1',
       recaptchaEnabled: true,
       defaultAvatar: 'assets/logo/perfil02.png',
     },
