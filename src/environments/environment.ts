@@ -12,6 +12,7 @@ export const environment = {
       logoHeader: 'assets/logo/logoMyllistys.png',
       logoHeaderInscription: 'assets/logo/logoMyllistys.png',
       urlfiles: 'http://localhost:3000/files/',
+      urlimages: 'http://localhost:3000/images/',
       appUrl: 'http://localhost:8100',
       termsUrl: 'http://terminosycondiciones',
       recaptchaSiteKey: '6Le9OpAsAAAAAEBabC1joHvAxIJQL5XV96qM-tyV',

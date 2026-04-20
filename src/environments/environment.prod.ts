@@ -8,6 +8,7 @@ export const environment = {
       logoHeader: 'assets/logo/logoMyllistys.png',
       logoHeaderInscription: 'assets/logo/logoMyllistys.png',
       urlfiles: 'https://api-mylistys-production.up.railway.app/files/',
+      urlimages: 'https://api-mylistys-production.up.railway.app/images/',
       appUrl: 'https://api-mylistys-production.up.railway.app',
       termsUrl: 'https://mylistys.com/terminos',
       recaptchaSiteKey: '6Ld9j8EsAAAAAJ9Z1e6UJuGelvaD5wEzlBPE5lT1',
