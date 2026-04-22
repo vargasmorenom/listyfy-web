@@ -13,6 +13,7 @@ import { PopupService } from 'src/app/services/popup.service';
 import { SocialmediaComponent } from 'src/app/shared/socialmedia/socialmedia.component';
 import { LikescountComponent } from 'src/app/shared/likescount/likescount.component';
 import { PostFacade } from 'src/app/facade/post.facade';
+import { SharedLinkService } from 'src/app/services/shared-link.service';
 import { SidebarLeftComponent } from 'src/app/shared/sidebar-left/sidebar-left.component';
 import { SidebarRightComponent } from 'src/app/shared/sidebar-right/sidebar-right.component';
 import { Subscription, Subject } from 'rxjs';
@@ -50,6 +51,8 @@ export class AdminlistPage implements OnInit, OnDestroy {
   public liked = false;
   public viewCount = 0;
   public urlfiles = environment.servicio[0].urlfiles;
+  public shareUrl: string | null = null;
+  public generandoEnlace = false;
   private facadeSubs: Subscription[] = [];
   private destroy$ = new Subject<void>();
   private initialized = false;
@@ -65,6 +68,7 @@ export class AdminlistPage implements OnInit, OnDestroy {
     public facade: PostFacade,
     private meta: Meta,
     private titleService: Title,
+    private sharedLinkService: SharedLinkService,
   ) {
     addIcons({ addCircle, menuOutline, layersOutline, heartOutline, heart });
   }
@@ -225,6 +229,29 @@ export class AdminlistPage implements OnInit, OnDestroy {
     if (this.id && this.usuario?.id) {
       this.facade.trackView(this.id, this.usuario.id);
     }
+  }
+
+  generarEnlace() {
+    if (!this.data?._id) return;
+    this.generandoEnlace = true;
+    this.sharedLinkService.createToken(this.data._id)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: ({ token }) => {
+          this.shareUrl = `${window.location.origin}/share/${token}`;
+          this.generandoEnlace = false;
+        },
+        error: () => {
+          this.messToast.error('No se pudo generar el enlace', 'Error');
+          this.generandoEnlace = false;
+        },
+      });
+  }
+
+  copiarEnlace() {
+    if (!this.shareUrl) return;
+    navigator.clipboard.writeText(this.shareUrl);
+    this.messToast.success('Enlace copiado al portapapeles', 'Copiado');
   }
 
 }

@@ -1,0 +1,39 @@
+.center-spinner {
+  display: flex;
+  justify-content: center;
+  padding: 40px;
+}
+
+.error-state {
+  text-align: center;
+  padding: 40px;
+  opacity: 0.6;
+}
+
+.shared-header {
+  padding: 12px 0;
+}
+
+.canal {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+
+  .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  span {
+    font-weight: 600;
+  }
+}
+
+.tipo {
+  font-size: 0.85rem;
+  opacity: 0.7;
+  margin: 8px 0;
+}

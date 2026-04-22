@@ -4,6 +4,11 @@ import { profileGuardGuard } from './middleware/profile-guard.guard';
 import { MainLayotPage } from './layout/main-layot/main-layot.page';
 
 export const routes: Routes = [
+  // Página pública de enlace compartido (sin layout ni auth)
+  {
+    path: 'shared/:token',
+    loadComponent: () => import('./pages/shared/shared.page').then((m) => m.SharedPage),
+  },
   // Páginas SIN layout (sin menú inferior)
   {
     path: 'no-connection',

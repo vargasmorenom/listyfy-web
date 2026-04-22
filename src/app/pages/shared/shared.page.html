@@ -1,0 +1,51 @@
+<ion-content class="ion-padding">
+
+  @if (loading) {
+    <div class="center-spinner">
+      <ion-spinner name="bubbles"></ion-spinner>
+    </div>
+  }
+
+  @if (error) {
+    <div class="error-state">
+      <p>Este enlace no es válido o ha sido revocado.</p>
+    </div>
+  }
+
+  @if (!loading && !error && data) {
+    <div class="shared-header">
+      @if (data.profileId?.chanelName) {
+        <div class="canal">
+          <img class="avatar" [src]="resolveImg(data.profileId.profilePic?.medium)" alt="avatar" />
+          <span>{{ data.profileId.chanelName }}</span>
+        </div>
+      }
+    </div>
+
+    <ion-card>
+      @for (img of data.imagen; track $index) {
+        <ion-img [src]="resolveImg(img.large ?? img.medium)" alt="imagen del post"></ion-img>
+      }
+
+      <ion-card-header>
+        <ion-card-title>{{ data.name }}</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <p>{{ data.description }}</p>
+        <div class="tipo">{{ data.typePostName }}</div>
+        @for (tag of data.tags; track $index) {
+          <ion-chip color="tertiary"><strong>#{{ tag.name }}</strong></ion-chip>
+        }
+      </ion-card-content>
+    </ion-card>
+
+    <app-showcontent
+      [content]="data.content"
+      [idpost]="data._id"
+      [typecontent]="data.typePost"
+      [isOwner]="false">
+    </app-showcontent>
+  }
+
+</ion-content>

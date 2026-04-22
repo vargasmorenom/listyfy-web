@@ -61,6 +61,20 @@
                 <app-socialmedia [red]="1" [postId]="data._id" [postTitle]="data.name" [contentCount]="data.content?.length ?? 0"></app-socialmedia>
               </ion-col>
             </ion-row>
+            <ion-row>
+              <ion-col size="12" class="share-link-section">
+                <ion-button fill="outline" size="small" (click)="generarEnlace()" [disabled]="generandoEnlace">
+                  <ion-icon name="layers-outline" slot="start"></ion-icon>
+                  {{ generandoEnlace ? 'Generando...' : 'Generar enlace público' }}
+                </ion-button>
+                @if (shareUrl) {
+                  <div class="share-url-box">
+                    <span class="share-url-text">{{ shareUrl }}</span>
+                    <ion-button fill="clear" size="small" (click)="copiarEnlace()">Copiar</ion-button>
+                  </div>
+                }
+              </ion-col>
+            </ion-row>
           </ion-grid>
         }
 

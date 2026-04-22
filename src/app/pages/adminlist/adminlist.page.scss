@@ -159,6 +159,34 @@ ion-card-content {
   align-items: center;
 }
 
+.share-link-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 8px 0 4px;
+}
+
+.share-url-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(48, 61, 92, 0.08);
+  border-radius: 10px;
+  padding: 6px 10px;
+  width: 100%;
+  overflow: hidden;
+
+  .share-url-text {
+    font-size: 12px;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    opacity: 0.8;
+  }
+}
+
 .masContent {
   display: flex;
   align-items: center;
