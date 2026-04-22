@@ -37,6 +37,10 @@
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.class.css';
 
+html {
+  font-size: 19px;
+}
+
 :root {
   /* Variables Globales de la App */
   --app-color-primario: #3a7ff3;
@@ -107,6 +111,24 @@ button.alert-button.alert-button-confirm {
 }
 .alert-button-group.sc-ion-alert-md {
   justify-content: center !important;
+}
+
+/* ── Texto blanco en modo oscuro ── */
+.ion-palette-dark {
+  ion-card-content,
+  ion-card-content p,
+  ion-card-content span,
+  ion-card-header,
+  ion-card-title,
+  ion-label,
+  ion-item ion-label,
+  p {
+    color: #ffffff;
+  }
+
+  ion-card-content strong {
+    color: #e8f0fb;
+  }
 }
 
 /* ── Scrollbar invisible ── */
