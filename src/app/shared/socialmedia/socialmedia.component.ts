@@ -1,7 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { IonIcon } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { logoFacebook, logoWhatsapp, logoTwitter } from 'ionicons/icons';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-socialmedia',
@@ -10,11 +11,13 @@ import { logoFacebook, logoWhatsapp, logoTwitter } from 'ionicons/icons';
   imports: [IonIcon],
   standalone: true,
 })
-export class SocialmediaComponent implements OnInit {
+export class SocialmediaComponent {
   @Input() red: number = 0;
   @Input() postId: string = '';
   @Input() postTitle: string = '';
   @Input() contentCount: number = 0;
+
+  private readonly backendUrl = environment.servicio[0].url.replace('/api/v1/', '');
 
   get hasContent(): boolean {
     return this.contentCount > 0;
@@ -24,10 +27,8 @@ export class SocialmediaComponent implements OnInit {
     addIcons({ logoFacebook, logoWhatsapp, logoTwitter });
   }
 
-  ngOnInit() {}
-
   private getShareUrl(): string {
-    return `${window.location.origin}/adminlist?id=${this.postId}`;
+    return `${this.backendUrl}/share/${this.postId}`;
   }
 
   shareOnFacebook() {
@@ -47,7 +48,7 @@ export class SocialmediaComponent implements OnInit {
     if (!this.hasContent) return;
     const url = encodeURIComponent(this.getShareUrl());
     const text = encodeURIComponent(this.postTitle || '');
-    window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank');
+    window.open(`https://x.com/intent/post?url=${url}&text=${text}`, '_blank');
   }
 
   shareOnTelegram() {

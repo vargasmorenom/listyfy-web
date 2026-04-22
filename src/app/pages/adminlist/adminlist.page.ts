@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { PopoverController } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Meta, Title } from '@angular/platform-browser';
 import { PostedsService } from 'src/app/services/posteds.service';
 import { ToastrService } from 'ngx-toastr';
 import { StorageService } from 'src/app/services/storage.service';
@@ -62,6 +63,8 @@ export class AdminlistPage implements OnInit, OnDestroy {
     public messToast: ToastrService,
     private storage: StorageService,
     public facade: PostFacade,
+    private meta: Meta,
+    private titleService: Title,
   ) {
     addIcons({ addCircle, menuOutline, layersOutline, heartOutline, heart });
   }
@@ -108,14 +111,51 @@ export class AdminlistPage implements OnInit, OnDestroy {
 
   private suscribirFacade() {
     this.facadeSubs.push(
-      this.facade.post$.subscribe((post) => { if (post) { this.data = post; console.log('adminlist data:', post); } }),
+      this.facade.post$.subscribe((post) => {
+        if (post) {
+          this.data = post;
+          this.updateOgTags(post);
+        }
+      }),
       this.facade.likeCount$.subscribe((count) => { this.likeCount = count; }),
       this.facade.liked$.subscribe((liked) => { this.liked = liked; }),
       this.facade.viewCount$.subscribe((count) => { this.viewCount = count; }),
     );
   }
 
+  private updateOgTags(post: any): void {
+    const appUrl = environment.servicio[0].appUrl;
+    const postUrl = `${appUrl}/adminlist?id=${post._id}`;
+    const raw = post.imagen?.[0]?.large ?? post.imagen?.[0]?.medium;
+    const imageUrl = raw
+      ? (raw.startsWith('http') ? raw : this.urlfiles + raw)
+      : `${appUrl}/assets/logo/logoMyllistys.png`;
+    const description = post.description?.trim() || post.typePostName || 'mylistys';
+
+    this.titleService.setTitle(`${post.name} | mylistys`);
+    [
+      { property: 'og:title',       content: post.name },
+      { property: 'og:description', content: description },
+      { property: 'og:image',       content: imageUrl },
+      { property: 'og:url',         content: postUrl },
+      { property: 'og:type',        content: 'article' },
+    ].forEach(t => this.meta.updateTag(t));
+    [
+      { name: 'twitter:card',        content: 'summary_large_image' },
+      { name: 'twitter:title',       content: post.name },
+      { name: 'twitter:description', content: description },
+      { name: 'twitter:image',       content: imageUrl },
+    ].forEach(t => this.meta.updateTag(t));
+  }
+
+  private resetOgTags(): void {
+    this.titleService.setTitle('mylistys');
+    ['og:title', 'og:description', 'og:image', 'og:url', 'og:type']
+      .forEach(p => this.meta.updateTag({ property: p, content: '' }));
+  }
+
   ngOnDestroy() {
+    this.resetOgTags();
     this.facadeSubs.forEach((sub) => sub.unsubscribe());
     this.destroy$.next();
     this.destroy$.complete();
