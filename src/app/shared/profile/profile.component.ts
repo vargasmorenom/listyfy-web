@@ -82,8 +82,8 @@ export class ProfileComponent implements OnInit {
   }
 
   imagenPerfil(data: any) {
-    if (data?.profilePic?.[0]?.medium) {
-      this.dcimg = this.resolveImg(data.profilePic[0].medium);
+    if (data?.profilePic?.medium) {
+      this.dcimg = this.resolveImg(data.profilePic.medium);
     } else {
       this.dcimg = environment.servicio[0].defaultAvatar;
     }

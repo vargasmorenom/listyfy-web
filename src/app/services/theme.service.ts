@@ -9,14 +9,14 @@ const DARK_CLASS = 'ion-palette-dark';
 
 @Injectable({ providedIn: 'root' })
 export class ThemeService {
-  private _theme$ = new BehaviorSubject<AppTheme>('light');
+  private _theme$ = new BehaviorSubject<AppTheme>('dark');
   readonly theme$ = this._theme$.asObservable();
 
   constructor(private storage: StorageService) {}
 
   init(): void {
     const saved = this.storage.get(THEME_KEY) as AppTheme | null;
-    const theme: AppTheme = saved === 'dark' ? 'dark' : 'light';
+    const theme: AppTheme = saved === 'light' ? 'light' : 'dark';
     this.apply(theme);
   }
 

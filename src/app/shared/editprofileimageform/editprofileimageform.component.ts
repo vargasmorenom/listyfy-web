@@ -64,11 +64,11 @@ export class EditprofileimageformComponent implements OnInit, OnDestroy {
     addIcons({ imageOutline });
     this.formCreateImg = imagen;
     const id = this.navParams.get('id');
-    this.perfilId = id.userBy;
+    this.perfilId = id?.userBy;
     this.formImg = this.formUl.createForm(this.formCreateImg, id);
-    if (id?.profilePic?.length > 0) {
-      const pic = id.profilePic[0].medium;
-      this.imagenCarga = pic?.startsWith('http') ? pic : environment.servicio[0].urlfiles + pic;
+    const medium = id?.profilePic?.medium;
+    if (medium) {
+      this.imagenCarga = medium.startsWith('http') ? medium : environment.servicio[0].urlfiles + medium;
     }
   }
 

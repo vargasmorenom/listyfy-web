@@ -57,8 +57,8 @@ export class SearcherPage implements OnInit, OnDestroy {
   }
 
   onSearch(event: any) {
-    if (!event.detail.value || event.detail.value.trim() === '') return;
-    const query = event.detail.value;
+    const query = event.detail.value?.trim() ?? '';
+    if (query.length < 6) return;
     this.ini = 1;
     this.fin = 3;
     this.items = [];

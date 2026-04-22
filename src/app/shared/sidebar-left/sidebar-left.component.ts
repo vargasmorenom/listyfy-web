@@ -24,7 +24,7 @@ import { IonIcon } from '@ionic/angular/standalone';
 })
 export class SidebarLeftComponent implements OnInit, OnDestroy {
   userSession: any = null;
-  profilePic: string = 'assets/logo/perfil02.png';
+  profilePic: string = '';
   followersCount = 0;
   followingCount = 0;
   likesCount = 0;
@@ -56,9 +56,9 @@ export class SidebarLeftComponent implements OnInit, OnDestroy {
   private loadSession() {
     this.userSession = this.authService.getSession();
     const profile = this.authService.getProfile();
-
-    if (profile?.profilePic?.[0]?.small) {
-      const pic = profile.profilePic[0].small;
+    this.profilePic = 'assets/logo/perfil02.png';
+    if (profile?.profilePic?.medium) {
+      const pic = profile.profilePic.medium;
       this.profilePic = pic?.startsWith('http') ? pic : this.urlfiles + pic;
     }
 

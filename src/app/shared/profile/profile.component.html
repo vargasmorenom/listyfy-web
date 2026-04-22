@@ -1,23 +1,12 @@
 <div class="menu-header-bg">
-  @for (item of info.profilePic; track $index) {
-    <div class="imagen-container" (click)="session ? mostrarData(info) : null">
-      <img class="perfilimg" [src]="resolveImg(item.medium)" />
-      @if (session) {
-        <div class="edit-badge">
-          <ion-icon name="image-outline"></ion-icon>
-        </div>
-      }
-    </div>
-  } @empty {
-    <div class="imagen-container" (click)="session ? mostrarData(info) : null">
-      <img class="perfilimg" src="assets/logo/perfil02.png" />
-      @if (session) {
-        <div class="edit-badge">
-          <ion-icon name="image-outline"></ion-icon>
-        </div>
-      }
-    </div>
-  }
+  <div class="imagen-container" (click)="session ? mostrarData(info) : null">
+    <img class="perfilimg" [src]="resolveImg(info.profilePic?.medium)" alt="foto de perfil" />
+    @if (session) {
+      <div class="edit-badge">
+        <ion-icon name="image-outline"></ion-icon>
+      </div>
+    }
+  </div>
 </div>
 <div class="headerInterno">
   <ion-grid>

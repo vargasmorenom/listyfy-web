@@ -10,7 +10,7 @@
 
       <div class="userVal">
         <ion-card class="linkprofile" (click)="profileview(data.postedBy)">
-          <img [src]="resolveImg(typeof data.profileId === 'object' ? data.profileId?.profilePic?.[0]?.medium : null)" alt="Avatar" />
+          <img [src]="resolveImg(typeof data.profileId === 'object' ? data.profileId?.profilePic?.small : null)" alt="Avatar" />
           <ion-card-header>
             <ion-card-title>{{typeof data.profileId === 'object' ? data.profileId?.chanelName : data.chanelName}}</ion-card-title>
           </ion-card-header>

@@ -5,14 +5,14 @@
 export const environment = {
   servicio: [
     {
-      url: 'http://localhost:3000/api/v1/',
+      url: 'http://localhost:8080/api/v1/',
       key: 'encrypt!135790',
       logo: './../../../assets/logo/logoanchoNegro-2.png',
       logosmall: './../../../assets/logo/logoanchoNegro-small.png',
       logoHeader: 'assets/logo/logoMyllistys.png',
       logoHeaderInscription: 'assets/logo/logoMyllistys.png',
-      urlfiles: 'http://localhost:3000/files/',
-      urlimages: 'http://localhost:3000/images/',
+      urlfiles: 'http://localhost:8080/files/',
+      urlimages: 'http://localhost:8080/images/',
       appUrl: 'http://localhost:8100',
       termsUrl: 'http://terminosycondiciones',
       recaptchaSiteKey: '6Le9OpAsAAAAAEBabC1joHvAxIJQL5XV96qM-tyV',

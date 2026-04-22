@@ -10,7 +10,7 @@
         show-clear-button="focus"
         debounce="500"
         (ionInput)="onSearch($event)"
-        placeholder="Buscar..."
+        placeholder="Buscar (mínimo 6 caracteres)..."
       ></ion-searchbar>
       <app-content-list [entityNames]="items"></app-content-list>
       <ion-infinite-scroll (ionInfinite)="loadMore($event)">

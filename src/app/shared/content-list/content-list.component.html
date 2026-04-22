@@ -1,8 +1,8 @@
 @for (item of entityNames; track $index) {
   <div class="card-container" [id]="item._id">
-    @if (typeof item.profileId === 'object') {
+    @if (item.profileId?.chanelName) {
       <div class="card-usuario" (click)="perfil(item.postedBy)">
-        <img class="imagenPefil" [src]="resolveImg(item.profileId.profilePic[0].small)" />
+        <img class="imagenPefil" [src]="resolveImg(item.profileId.profilePic?.medium)" (error)="$any($event.target).src = defaultAvatar" />
         <span>{{ item.profileId.chanelName }}</span>
       </div>
     }

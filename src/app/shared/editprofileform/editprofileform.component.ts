@@ -75,9 +75,9 @@ export class EditprofileformComponent implements OnInit, OnDestroy {
     const id = this.navParams.get('id');
     this.form = this.formUl.createForm(this.formCreate, id);
 
-    if (id?.profilePic?.length) {
-      const pic = id.profilePic[0].medium;
-      this.currentImageUrl = pic?.startsWith('http') ? pic : this.urlBack + pic;
+    const medium = id?.profilePic?.medium;
+    if (medium) {
+      this.currentImageUrl = medium.startsWith('http') ? medium : this.urlBack + medium;
     }
 
     ARRAY_FIELDS.forEach((fieldName) => {

@@ -16,6 +16,7 @@ import { environment } from 'src/environments/environment';
 export class ContentListComponent implements OnInit {
   @Input() entityNames: Array<any> = [];
   urlfiles = environment.servicio[0].urlfiles;
+  defaultAvatar = environment.servicio[0].defaultAvatar;
 
   constructor(
     public navCtrl: NavController,
