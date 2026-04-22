@@ -9,7 +9,7 @@ import { ShowcontentComponent } from 'src/app/shared/showcontent/showcontent.com
 import { environment } from 'src/environments/environment';
 import {
   IonContent, IonCard, IonCardHeader, IonCardTitle,
-  IonCardContent, IonImg, IonChip, IonSpinner,
+  IonCardContent, IonImg, IonChip, IonSpinner, IonButton,
 } from '@ionic/angular/standalone';
 
 @Component({
@@ -19,7 +19,7 @@ import {
   standalone: true,
   imports: [
     CommonModule, IonContent, IonCard, IonCardHeader, IonCardTitle,
-    IonCardContent, IonImg, IonChip, IonSpinner, ShowcontentComponent,
+    IonCardContent, IonImg, IonChip, IonSpinner, IonButton, ShowcontentComponent,
   ],
 })
 export class SharedPage implements OnInit, OnDestroy {

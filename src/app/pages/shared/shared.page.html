@@ -1,51 +1,66 @@
-<ion-content class="ion-padding">
+<ion-content>
 
-  @if (loading) {
-    <div class="center-spinner">
-      <ion-spinner name="bubbles"></ion-spinner>
-    </div>
-  }
+  <div class="top-bar">
+    <a href="https://www.mylistys.com" class="brand-link">
+      <img src="assets/logo/logoMyllistys.png" alt="mylistys" class="brand-logo" />
+    </a>
+    <ion-button fill="outline" size="small" href="https://www.mylistys.com">
+      Ir a mylistys
+    </ion-button>
+  </div>
 
-  @if (error) {
-    <div class="error-state">
-      <p>Este enlace no es válido o ha sido revocado.</p>
-    </div>
-  }
+  <div class="feed-center">
 
-  @if (!loading && !error && data) {
-    <div class="shared-header">
+    @if (loading) {
+      <div class="center-spinner">
+        <ion-spinner name="bubbles"></ion-spinner>
+      </div>
+    }
+
+    @if (error) {
+      <div class="error-state">
+        <p>Este enlace no es válido o ha sido revocado.</p>
+      </div>
+    }
+
+    @if (!loading && !error && data) {
+
       @if (data.profileId?.chanelName) {
-        <div class="canal">
-          <img class="avatar" [src]="resolveImg(data.profileId.profilePic?.medium)" alt="avatar" />
-          <span>{{ data.profileId.chanelName }}</span>
+        <div class="userVal">
+          <div class="linkprofile">
+            <img [src]="resolveImg(data.profileId.profilePic?.medium)" alt="Avatar" />
+            <span class="canal-name">{{ data.profileId.chanelName }}</span>
+          </div>
         </div>
       }
-    </div>
 
-    <ion-card>
-      @for (img of data.imagen; track $index) {
-        <ion-img [src]="resolveImg(img.large ?? img.medium)" alt="imagen del post"></ion-img>
-      }
-
-      <ion-card-header>
-        <ion-card-title>{{ data.name }}</ion-card-title>
-      </ion-card-header>
-
-      <ion-card-content>
-        <p>{{ data.description }}</p>
-        <div class="tipo">{{ data.typePostName }}</div>
-        @for (tag of data.tags; track $index) {
-          <ion-chip color="tertiary"><strong>#{{ tag.name }}</strong></ion-chip>
+      <ion-card class="content-card">
+        @for (img of data.imagen; track $index) {
+          <ion-img class="shadow-img" [src]="resolveImg(img.large ?? img.medium)" alt="imagen del post"></ion-img>
         }
-      </ion-card-content>
-    </ion-card>
 
-    <app-showcontent
-      [content]="data.content"
-      [idpost]="data._id"
-      [typecontent]="data.typePost"
-      [isOwner]="false">
-    </app-showcontent>
-  }
+        <div class="tipocontent">Tipo de Contenido: <strong>{{ data.typePostName }}</strong></div>
+
+        <ion-card-header>
+          <ion-card-title>{{ data.name }}</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+          <p>{{ data.description }}</p>
+          @for (tag of data.tags; track $index) {
+            <ion-chip color="tertiary"><strong>#{{ tag.name }}</strong></ion-chip>
+          }
+        </ion-card-content>
+      </ion-card>
+
+      <app-showcontent
+        [content]="data.content"
+        [idpost]="data._id"
+        [typecontent]="data.typePost"
+        [isOwner]="false">
+      </app-showcontent>
+
+    }
+  </div>
 
 </ion-content>
