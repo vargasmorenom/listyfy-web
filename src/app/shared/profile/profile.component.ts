@@ -4,6 +4,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { addIcons } from 'ionicons';
 import { ActivatedRoute } from '@angular/router';
 import { EditprofileimageformComponent } from '../editprofileimageform/editprofileimageform.component';
+import { Router } from '@angular/router';
 import {
   person,
   mail,
@@ -39,14 +40,17 @@ export class ProfileComponent implements OnInit {
   @Input() followingCount: number = 0;
   @Output() likeToggled = new EventEmitter<void>();
   @Output() followToggled = new EventEmitter<void>();
+  @Output() profileImageUpdated = new EventEmitter<void>();
   public page!: string;
   public dcimg: string = '';
   public urlBack = environment.servicio[0].urlfiles;
+  public imageTimestamp: number = 0;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     public popUp: PopupService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {
     addIcons({ imageOutline, people, peopleCircle, heart, heartOutline, images, person, mail, location, close, arrowForwardOutline });
   }
@@ -63,22 +67,21 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  mostrarData(id: any) {
-    this.popUp.showPopupDinamic(
-      {
-        title: 'Administracion de Contenido',
-        message: 'Nuevo Contenido',
-        confirmText: '',
-        id: id,
-      },
+  async mostrarData(id: any) {
+    const result = await this.popUp.showPopupDinamic(
+      { title: 'Administracion de Contenido', message: 'Nuevo Contenido', confirmText: '', id: id },
       EditprofileimageformComponent
     );
+    if (result?.data?.success) {
+      this.imageTimestamp = Date.now();
+      this.profileImageUpdated.emit();
+    }
   }
 
   resolveImg(path: string): string {
     if (!path) return environment.servicio[0].defaultAvatar;
-    if (path.startsWith('http')) return path;
-    return this.urlBack + path;
+    const base = path.startsWith('http') ? path : this.urlBack + path;
+    return this.imageTimestamp ? `${base}?t=${this.imageTimestamp}` : base;
   }
 
   imagenPerfil(data: any) {

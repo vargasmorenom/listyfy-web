@@ -107,6 +107,7 @@ export class AdminlistPage implements OnInit, OnDestroy {
       NewcontentpopupComponent
     );
     if (result?.data) {
+       this.cargarDatos();
       this.navegar.navigateByUrl('/', { skipLocationChange: true }).then(() => {
         this.navegar.navigate(['adminlist'], { queryParams: { id: this.id } });
       });

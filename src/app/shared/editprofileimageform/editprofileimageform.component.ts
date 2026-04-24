@@ -4,11 +4,11 @@ import { takeUntil } from 'rxjs/operators';
 import { NavParams } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { DynamicFormService } from 'src/app/services/dynamicFormService';
-import { Router } from '@angular/router';
 import { imagen } from './../../configs/imagen';
 import { ModalController } from '@ionic/angular';
 import { StorageService } from 'src/app/services/storage.service';
 import { ProfileService } from 'src/app/services/profile.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { NavController } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
@@ -59,7 +59,7 @@ export class EditprofileimageformComponent implements OnInit, OnDestroy {
     private modalCtrl: ModalController,
     private perfil: ProfileService,
     private storage: StorageService,
-    private routes: Router
+    private authService: AuthService
   ) {
     addIcons({ imageOutline });
     this.formCreateImg = imagen;
@@ -116,7 +116,10 @@ export class EditprofileimageformComponent implements OnInit, OnDestroy {
         if (data) {
           this.messToast.success(data.message);
           this.storage.set(user.id, data.perfilCreate.perfilUpdated);
-          this.routes.navigate(['/perfil']);
+          this.authService.isUser();
+          setTimeout(() => {
+            this.modalCtrl.dismiss({ success: true, profile: data.perfilCreate.perfilUpdated });
+          }, 1500);
         }
       });
     }

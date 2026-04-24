@@ -107,6 +107,7 @@ export class PerfilPage implements OnInit, OnDestroy {
     );
     if (result?.data?.updated) {
       this.dataPerfil(this.idConsult);
+      console.log('Perfil actualizado:', result.data);
     }
   }
 

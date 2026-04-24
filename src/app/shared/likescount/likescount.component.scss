@@ -68,3 +68,13 @@
   50% { transform: scale(1.3); }
   100% { transform: scale(1.2); }
 }
+
+:host-context(.ion-palette-dark) {
+  .like-icon,
+  .view-icon { color: #ffffff; }
+  .like-count,
+  .view-count { color: #ffffff; }
+
+  .like-container.liked .like-icon,
+  .like-container.liked .like-count { color: #e53935; }
+}

@@ -1,6 +1,10 @@
 <div class="menu-header-bg">
   <div class="imagen-container" (click)="session ? mostrarData(info) : null">
-    <img class="perfilimg" [src]="resolveImg(info.profilePic?.medium)" alt="foto de perfil" />
+    @if (info?._id) {
+      <img class="perfilimg" [src]="resolveImg(info.profilePic?.medium)" alt="foto de perfil" />
+    } @else {
+      <div class="perfilimg skeleton"></div>
+    }
     @if (session) {
       <div class="edit-badge">
         <ion-icon name="image-outline"></ion-icon>
