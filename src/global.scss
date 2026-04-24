@@ -131,6 +131,16 @@ button.alert-button.alert-button-confirm {
   }
 }
 
+/* ── Fade-in en imágenes al cargar ── */
+img {
+  animation: imgFadeIn 0.25s ease;
+}
+
+@keyframes imgFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
 /* ── Scrollbar invisible ── */
 ion-content::part(scroll) {
   scrollbar-width: none;

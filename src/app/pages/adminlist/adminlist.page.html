@@ -8,14 +8,16 @@
   <ion-content class="feed-center" [fullscreen]="true">
     <app-back></app-back>
 
-      <div class="userVal">
-        <ion-card class="linkprofile" (click)="profileview(data.postedBy)">
-          <img [src]="resolveImg(typeof data.profileId === 'object' ? data.profileId?.profilePic?.small : null)" alt="Avatar" />
-          <ion-card-header>
-            <ion-card-title>{{typeof data.profileId === 'object' ? data.profileId?.chanelName : data.chanelName}}</ion-card-title>
-          </ion-card-header>
-        </ion-card>
-      </div>
+      @if (data._id && usuario?.id !== data.postedBy) {
+        <div class="userVal">
+          <ion-card class="linkprofile" (click)="profileview(data.postedBy)">
+            <img [src]="resolveImg(typeof data.profileId === 'object' ? data.profileId?.profilePic?.small : null)" alt="Avatar" />
+            <ion-card-header>
+              <ion-card-title>{{typeof data.profileId === 'object' ? data.profileId?.chanelName : data.chanelName}}</ion-card-title>
+            </ion-card-header>
+          </ion-card>
+        </div>
+      }
 
       <ion-card class="content-card">
         @if (usuario?.id == data.postedBy) {
