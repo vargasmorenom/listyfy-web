@@ -28,7 +28,7 @@ export class SocialmediaComponent {
   }
 
   private getShareUrl(): string {
-    return `${window.location.origin}/shared/${this.postId}`;
+    return `${this.backendUrl}/share/${this.postId}`;
   }
 
   private openShare(buildUrl: (url: string) => string): void {
@@ -37,9 +37,7 @@ export class SocialmediaComponent {
   }
 
   shareOnFacebook() {
-    if (!this.hasContent) return;
-    const url = encodeURIComponent(`${this.backendUrl}/share/${this.postId}`);
-    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+    this.openShare((url) => `https://www.facebook.com/sharer/sharer.php?u=${url}`);
   }
 
   shareOnWhatsApp() {
