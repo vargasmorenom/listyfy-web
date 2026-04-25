@@ -25,7 +25,7 @@ export class SocialmediaComponent {
   }
 
   private getShareUrl(): string {
-    return `${window.location.origin}/share/${this.postId}`;
+    return `${window.location.origin}/shared/${this.postId}`;
   }
 
   shareOnFacebook() {

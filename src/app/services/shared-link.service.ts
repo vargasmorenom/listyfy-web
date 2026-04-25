@@ -17,7 +17,7 @@ export class SharedLinkService {
     return this.http.delete<{ message: string }>(this.url + 'share/' + token);
   }
 
-  getSharedContent(token: string): Observable<any> {
-    return this.http.get<any>(this.url + 'shared/' + token);
+  getSharedContent(id: string): Observable<any> {
+    return this.http.get<any>(this.url + 'getonepost?id=' + id);
   }
 }
