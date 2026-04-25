@@ -1,8 +1,7 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { IonIcon } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { logoFacebook, logoWhatsapp, logoTwitter } from 'ionicons/icons';
-import { SharedLinkService } from 'src/app/services/shared-link.service';
 
 @Component({
   selector: 'app-socialmedia',
@@ -11,37 +10,26 @@ import { SharedLinkService } from 'src/app/services/shared-link.service';
   imports: [IonIcon],
   standalone: true,
 })
-export class SocialmediaComponent implements OnChanges {
+export class SocialmediaComponent {
   @Input() red: number = 0;
   @Input() postId: string = '';
   @Input() postTitle: string = '';
   @Input() contentCount: number = 0;
 
-  private shareToken: string | null = null;
-
   get hasContent(): boolean {
     return this.contentCount > 0 && !!this.postId;
   }
 
-  constructor(private sharedLinkService: SharedLinkService) {
+  constructor() {
     addIcons({ logoFacebook, logoWhatsapp, logoTwitter });
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['postId'] && this.postId) {
-      this.shareToken = null;
-      this.sharedLinkService.createToken(this.postId).subscribe({
-        next: ({ token }) => { this.shareToken = token; },
-      });
-    }
-  }
-
   private getShareUrl(): string {
-    return `${window.location.origin}/shared/${this.shareToken}`;
+    return `${window.location.origin}/shared/${this.postId}`;
   }
 
   private openShare(buildUrl: (url: string) => string): void {
-    if (!this.hasContent || !this.shareToken) return;
+    if (!this.hasContent) return;
     window.open(buildUrl(encodeURIComponent(this.getShareUrl())), '_blank');
   }
 
