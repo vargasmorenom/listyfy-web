@@ -1,8 +1,7 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { IonIcon } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { logoFacebook, logoWhatsapp, logoTwitter } from 'ionicons/icons';
-import { SharedLinkService } from 'src/app/services/shared-link.service';
 
 @Component({
   selector: 'app-socialmedia',
@@ -11,56 +10,48 @@ import { SharedLinkService } from 'src/app/services/shared-link.service';
   imports: [IonIcon],
   standalone: true,
 })
-export class SocialmediaComponent implements OnChanges {
+export class SocialmediaComponent {
   @Input() red: number = 0;
   @Input() postId: string = '';
   @Input() postTitle: string = '';
   @Input() contentCount: number = 0;
 
-  private shareToken: string | null = null;
-
   get hasContent(): boolean {
     return this.contentCount > 0 && !!this.postId;
   }
 
-  constructor(private sharedLinkService: SharedLinkService) {
+  constructor() {
     addIcons({ logoFacebook, logoWhatsapp, logoTwitter });
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['postId'] && this.postId) {
-      this.shareToken = null;
-      this.sharedLinkService.createToken(this.postId).subscribe({
-        next: ({ token }) => { this.shareToken = token; },
-      });
-    }
-  }
-
   private getShareUrl(): string {
-    return `${window.location.origin}/shared/${this.shareToken}`;
-  }
-
-  private openShare(buildUrl: (url: string) => string): void {
-    if (!this.hasContent || !this.shareToken) return;
-    window.open(buildUrl(encodeURIComponent(this.getShareUrl())), '_blank');
+    return `${window.location.origin}/share/${this.postId}`;
   }
 
   shareOnFacebook() {
-    this.openShare((url) => `https://www.facebook.com/sharer.php?u=${url}`);
+    if (!this.hasContent) return;
+    const url = encodeURIComponent(this.getShareUrl());
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
   }
 
   shareOnWhatsApp() {
+    if (!this.hasContent) return;
+    const url = encodeURIComponent(this.getShareUrl());
     const text = encodeURIComponent(this.postTitle ? `${this.postTitle} ` : '');
-    this.openShare((url) => `https://wa.me/?text=${text}${url}`);
+    window.open(`https://wa.me/?text=${text}${url}`, '_blank');
   }
 
   shareOnTwitter() {
+    if (!this.hasContent) return;
+    const url = encodeURIComponent(this.getShareUrl());
     const text = encodeURIComponent(this.postTitle || '');
-    this.openShare((url) => `https://x.com/intent/post?url=${url}&text=${text}`);
+    window.open(`https://x.com/intent/post?url=${url}&text=${text}`, '_blank');
   }
 
   shareOnTelegram() {
+    if (!this.hasContent) return;
+    const url = encodeURIComponent(this.getShareUrl());
     const text = encodeURIComponent(this.postTitle || '');
-    this.openShare((url) => `https://t.me/share/url?url=${url}&text=${text}`);
+    window.open(`https://t.me/share/url?url=${url}&text=${text}`, '_blank');
   }
 }

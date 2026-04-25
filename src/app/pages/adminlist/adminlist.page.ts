@@ -243,7 +243,7 @@ export class AdminlistPage implements OnInit, OnDestroy {
   generarEnlace() {
     if (!this.data?._id) return;
     if (this.shareToken) {
-      this.shareUrl = `${window.location.origin}/shared/${this.shareToken}`;
+      this.shareUrl = `${window.location.origin}/share/${this.shareToken}`;
       return;
     }
     this.generandoEnlace = true;
@@ -252,7 +252,7 @@ export class AdminlistPage implements OnInit, OnDestroy {
       .subscribe({
         next: ({ token }) => {
           this.shareToken = token;
-          this.shareUrl = `${window.location.origin}/shared/${token}`;
+          this.shareUrl = `${window.location.origin}/share/${token}`;
           this.generandoEnlace = false;
         },
         error: () => {
