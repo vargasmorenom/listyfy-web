@@ -52,6 +52,7 @@ export class AdminlistPage implements OnInit, OnDestroy {
   public viewCount = 0;
   public urlfiles = environment.servicio[0].urlfiles;
   public shareUrl: string | null = null;
+  public shareToken: string | null = null;
   public generandoEnlace = false;
   private facadeSubs: Subscription[] = [];
   private destroy$ = new Subject<void>();
@@ -120,6 +121,11 @@ export class AdminlistPage implements OnInit, OnDestroy {
         if (post) {
           this.data = post;
           this.updateOgTags(post);
+          if (!this.shareToken) {
+            this.sharedLinkService.createToken(post._id)
+              .pipe(takeUntil(this.destroy$))
+              .subscribe({ next: ({ token }) => { this.shareToken = token; } });
+          }
         }
       }),
       this.facade.likeCount$.subscribe((count) => { this.likeCount = count; }),
@@ -160,6 +166,8 @@ export class AdminlistPage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.shareToken = null;
+    this.shareUrl = null;
     this.resetOgTags();
     this.facadeSubs.forEach((sub) => sub.unsubscribe());
     this.destroy$.next();
@@ -234,11 +242,16 @@ export class AdminlistPage implements OnInit, OnDestroy {
 
   generarEnlace() {
     if (!this.data?._id) return;
+    if (this.shareToken) {
+      this.shareUrl = `${window.location.origin}/share/${this.shareToken}`;
+      return;
+    }
     this.generandoEnlace = true;
     this.sharedLinkService.createToken(this.data._id)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: ({ token }) => {
+          this.shareToken = token;
           this.shareUrl = `${window.location.origin}/share/${token}`;
           this.generandoEnlace = false;
         },
