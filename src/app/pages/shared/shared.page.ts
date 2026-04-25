@@ -69,7 +69,7 @@ export class SharedPage implements OnInit, OnDestroy {
 
   private setOgTags(post: any): void {
     const appUrl   = environment.servicio[0].appUrl;
-    const raw      = post.imagen?.[0]?.large ?? post.imagen?.[0]?.medium;
+    const raw      = post.imagen?.large ?? post.imagen?.medium;
     const imageUrl = raw
       ? (raw.startsWith('http') ? raw : this.urlfiles + raw)
       : `${appUrl}/assets/logo/logoMyllistys.png`;

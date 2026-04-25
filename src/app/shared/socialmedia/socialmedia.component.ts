@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 import { IonIcon } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { logoFacebook, logoWhatsapp, logoTwitter } from 'ionicons/icons';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-socialmedia',
@@ -21,14 +20,12 @@ export class SocialmediaComponent {
     return this.contentCount > 0 && !!this.postId;
   }
 
-  private readonly backendUrl = environment.servicio[0].url.replace('/api/v1/', '');
-
   constructor() {
     addIcons({ logoFacebook, logoWhatsapp, logoTwitter });
   }
 
   private getShareUrl(): string {
-    return `${this.backendUrl}/share/${this.postId}`;
+    return `${window.location.origin}/shared/${this.postId}`;
   }
 
   private openShare(buildUrl: (url: string) => string): void {
