@@ -49,57 +49,35 @@ function buildHtml({ title, description, imageUrl, canonicalUrl, redirectUrl }) 
 
 module.exports = async function handler(req, res) {
   const id = req.query.id || (req.url || '').split('/').pop();
-
-  const redirectUrl = `${APP_URL}/adminlist?id=${id}`;
+  const redirectUrl = `${APP_URL}/shared/${id}`;
   const canonicalUrl = `${APP_URL}/share/${id}`;
-
-  const ua = req.headers['user-agent'] || '';
-
-  const isBot =
-    /facebookexternalhit|Facebot|WhatsApp|TelegramBot|Twitterbot|Slackbot/i.test(ua);
-
   try {
-    const response = await fetch(
-      `${API_BASE}getonepost?id=${encodeURIComponent(id)}`
-    );
-
-    if (!response.ok) throw new Error();
-
+    const response = await fetch(`${API_BASE}shared/${encodeURIComponent(id)}`);
+    if (!response.ok) throw new Error(`API ${response.status}`);
     const post = await response.json();
 
-    const raw =
-      post.imagen?.[0]?.large ??
-      post.imagen?.[0]?.medium ??
-      post.imagen?.[0]?.small;
-
+    const raw = post.imagen?.[0]?.large ?? post.imagen?.[0]?.medium ?? post.imagen?.[0]?.small;
     const imageUrl = resolveImage(raw);
-
     const title = escapeHtml(post.name || 'mylistys');
-
     const description = escapeHtml(
-      post.description?.trim() ||
-      post.typePostName ||
-      'Descubre y comparte contenido en mylistys'
+      post.description?.trim() || post.typePostName || 'Descubre y comparte contenido en mylistys'
     );
 
-    const html = buildHtml({
-      title,
-      description,
-      imageUrl,
-      canonicalUrl,
-      redirectUrl
-    });
+    const html = buildHtml({ title, description, imageUrl, canonicalUrl, redirectUrl });
 
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
-
-    if (isBot) {
-      return res.status(200).send(html);
-    }
-
-    return res.redirect(302, redirectUrl);
-
+    res.setHeader('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=60');
+    res.status(200).send(html);
   } catch (err) {
-    return res.redirect(302, redirectUrl);
+    // Fallback: sirve OG básico con logo por defecto y redirige
+    const html = buildHtml({
+      title: 'mylistys',
+      description: 'Descubre y comparte contenido en mylistys',
+      imageUrl: DEFAULT_IMAGE,
+      canonicalUrl,
+      redirectUrl,
+    });
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    res.status(200).send(html);
   }
 };
-

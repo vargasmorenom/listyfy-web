@@ -17,7 +17,7 @@ export class SocialmediaComponent {
   @Input() contentCount: number = 0;
 
   get hasContent(): boolean {
-    return this.contentCount > 0;
+    return this.contentCount > 0 && !!this.postId;
   }
 
   constructor() {
