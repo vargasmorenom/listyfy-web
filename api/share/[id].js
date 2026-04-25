@@ -51,33 +51,27 @@ module.exports = async function handler(req, res) {
   const id = req.query.id || (req.url || '').split('/').pop();
   const redirectUrl = `${APP_URL}/shared/${id}`;
   const canonicalUrl = `${APP_URL}/share/${id}`;
+
+  let title = 'mylistys';
+  let description = 'Descubre y comparte contenido en mylistys';
+  let imageUrl = DEFAULT_IMAGE;
+
   try {
-    const response = await fetch(`${API_BASE}shared/${encodeURIComponent(id)}`);
-    if (!response.ok) throw new Error(`API ${response.status}`);
-    const post = await response.json();
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 5000);
+    const response = await fetch(`${API_BASE}shared/${encodeURIComponent(id)}`, { signal: controller.signal });
+    clearTimeout(timeout);
 
-    const raw = post.imagen?.[0]?.large ?? post.imagen?.[0]?.medium ?? post.imagen?.[0]?.small;
-    const imageUrl = resolveImage(raw);
-    const title = escapeHtml(post.name || 'mylistys');
-    const description = escapeHtml(
-      post.description?.trim() || post.typePostName || 'Descubre y comparte contenido en mylistys'
-    );
+    if (response.ok) {
+      const post = await response.json();
+      const raw = post.imagen?.[0]?.large ?? post.imagen?.[0]?.medium ?? post.imagen?.[0]?.small;
+      imageUrl = resolveImage(raw);
+      title = escapeHtml(post.name || 'mylistys');
+      description = escapeHtml(post.description?.trim() || post.typePostName || description);
+    }
+  } catch (_) {}
 
-    const html = buildHtml({ title, description, imageUrl, canonicalUrl, redirectUrl });
-
-    res.setHeader('Content-Type', 'text/html; charset=utf-8');
-    res.setHeader('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=60');
-    res.status(200).send(html);
-  } catch (err) {
-    // Fallback: sirve OG básico con logo por defecto y redirige
-    const html = buildHtml({
-      title: 'mylistys',
-      description: 'Descubre y comparte contenido en mylistys',
-      imageUrl: DEFAULT_IMAGE,
-      canonicalUrl,
-      redirectUrl,
-    });
-    res.setHeader('Content-Type', 'text/html; charset=utf-8');
-    res.status(200).send(html);
-  }
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  res.setHeader('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=60');
+  return res.status(200).send(buildHtml({ title, description, imageUrl, canonicalUrl, redirectUrl }));
 };
