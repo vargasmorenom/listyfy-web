@@ -25,13 +25,14 @@ export class SocialmediaComponent {
   }
 
   private getShareUrl(): string {
-    return `${window.location.origin}/share/${this.postId}`;
+    return `${window.location.origin}/shared/${this.postId}`;
   }
 
   shareOnFacebook() {
     if (!this.hasContent) return;
     const url = encodeURIComponent(this.getShareUrl());
-    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+    // Usar endpoint moderno de Facebook en lugar de sharer.php
+    window.open(`https://www.facebook.com/sharer.php?u=${url}`, '_blank');
   }
 
   shareOnWhatsApp() {

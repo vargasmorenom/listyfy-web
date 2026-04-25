@@ -69,25 +69,52 @@ export class SharedPage implements OnInit, OnDestroy {
 
   private setOgTags(post: any): void {
     const appUrl   = environment.servicio[0].appUrl;
-    const raw      = post.imagen?.[0]?.large ?? post.imagen?.[0]?.medium;
-    const imageUrl = raw
-      ? (raw.startsWith('http') ? raw : this.urlfiles + raw)
-      : `${appUrl}/assets/logo/logoMyllistys.png`;
+    const urlfiles = environment.servicio[0].urlfiles;
+
+    // Obtener imagen - priorizar large, luego medium
+    let imageUrl: string;
+    if (post.imagen?.[0]) {
+      const imagePath = post.imagen[0].large || post.imagen[0].medium;
+      if (imagePath) {
+        imageUrl = imagePath.startsWith('http') ? imagePath : `${urlfiles}${imagePath}`;
+      } else {
+        imageUrl = `${appUrl}/assets/logo/logoMyllistys.png`;
+      }
+    } else {
+      imageUrl = `${appUrl}/assets/logo/logoMyllistys.png`;
+    }
+
     const description = post.description?.trim() || post.typePostName || 'mylistys';
+    const pageUrl = window.location.href;
 
     this.titleService.setTitle(`${post.name} | mylistys`);
-    [
-      { property: 'og:title',       content: post.name },
+
+    // Meta tags Open Graph + Twitter (igual que Twitter los lee)
+    const ogTags = [
+      { property: 'og:title', content: post.name },
       { property: 'og:description', content: description },
-      { property: 'og:image',       content: imageUrl },
-      { property: 'og:url',         content: window.location.href },
-      { property: 'og:type',        content: 'article' },
-    ].forEach(t => this.meta.updateTag(t));
-    [
-      { name: 'twitter:card',        content: 'summary_large_image' },
-      { name: 'twitter:title',       content: post.name },
+      { property: 'og:image', content: imageUrl },
+      { property: 'og:image:secure_url', content: imageUrl },
+      { property: 'og:image:type', content: 'image/jpeg' },
+      { property: 'og:image:width', content: '1200' },
+      { property: 'og:image:height', content: '630' },
+      { property: 'og:url', content: pageUrl },
+      { property: 'og:type', content: 'article' },
+      { property: 'og:site_name', content: 'mylistys' },
+    ];
+
+    const twitterTags = [
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:site', content: '@mylistys' },
+      { name: 'twitter:title', content: post.name },
       { name: 'twitter:description', content: description },
-      { name: 'twitter:image',       content: imageUrl },
-    ].forEach(t => this.meta.updateTag(t));
+      { name: 'twitter:image', content: imageUrl },
+    ];
+
+    ogTags.forEach(t => this.meta.updateTag(t));
+    twitterTags.forEach(t => this.meta.updateTag(t));
+
+    console.log('[OG] URL Imagen:', imageUrl);
+    console.log('[OG] Página:', pageUrl);
   }
 }
