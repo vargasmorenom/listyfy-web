@@ -13,7 +13,6 @@ import { PopupService } from 'src/app/services/popup.service';
 import { SocialmediaComponent } from 'src/app/shared/socialmedia/socialmedia.component';
 import { LikescountComponent } from 'src/app/shared/likescount/likescount.component';
 import { PostFacade } from 'src/app/facade/post.facade';
-import { SharedLinkService } from 'src/app/services/shared-link.service';
 import { SidebarLeftComponent } from 'src/app/shared/sidebar-left/sidebar-left.component';
 import { SidebarRightComponent } from 'src/app/shared/sidebar-right/sidebar-right.component';
 import { Subscription, Subject } from 'rxjs';
@@ -52,7 +51,6 @@ export class AdminlistPage implements OnInit, OnDestroy {
   public viewCount = 0;
   public urlfiles = environment.servicio[0].urlfiles;
   public shareUrl: string | null = null;
-  public shareToken: string | null = null;
   public generandoEnlace = false;
   private facadeSubs: Subscription[] = [];
   private destroy$ = new Subject<void>();
@@ -69,7 +67,6 @@ export class AdminlistPage implements OnInit, OnDestroy {
     public facade: PostFacade,
     private meta: Meta,
     private titleService: Title,
-    private sharedLinkService: SharedLinkService,
   ) {
     addIcons({ addCircle, menuOutline, layersOutline, heartOutline, heart });
   }
@@ -121,11 +118,6 @@ export class AdminlistPage implements OnInit, OnDestroy {
         if (post) {
           this.data = post;
           this.updateOgTags(post);
-          if (!this.shareToken) {
-            this.sharedLinkService.createToken(post._id)
-              .pipe(takeUntil(this.destroy$))
-              .subscribe({ next: ({ token }) => { this.shareToken = token; } });
-          }
         }
       }),
       this.facade.likeCount$.subscribe((count) => { this.likeCount = count; }),
@@ -166,7 +158,6 @@ export class AdminlistPage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.shareToken = null;
     this.shareUrl = null;
     this.resetOgTags();
     this.facadeSubs.forEach((sub) => sub.unsubscribe());
@@ -242,24 +233,7 @@ export class AdminlistPage implements OnInit, OnDestroy {
 
   generarEnlace() {
     if (!this.data?._id) return;
-    if (this.shareToken) {
-      this.shareUrl = `${window.location.origin}/share/${this.shareToken}`;
-      return;
-    }
-    this.generandoEnlace = true;
-    this.sharedLinkService.createToken(this.data._id)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: ({ token }) => {
-          this.shareToken = token;
-          this.shareUrl = `${window.location.origin}/share/${token}`;
-          this.generandoEnlace = false;
-        },
-        error: () => {
-          this.messToast.error('No se pudo generar el enlace', 'Error');
-          this.generandoEnlace = false;
-        },
-      });
+    this.shareUrl = `${window.location.origin}/shared/${this.data._id}`;
   }
 
   copiarEnlace() {
