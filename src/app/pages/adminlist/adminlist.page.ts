@@ -130,6 +130,7 @@ export class AdminlistPage implements OnInit, OnDestroy {
     const appUrl = environment.servicio[0].appUrl;
     const postUrl = `${appUrl}/adminlist?id=${post._id}`;
     const raw = post.imagen?.[0]?.large ?? post.imagen?.[0]?.medium;
+    console.log(raw);
     const imageUrl = raw
       ? (raw.startsWith('http') ? raw : this.urlfiles + raw)
       : `${appUrl}/assets/logo/logoMyllistys.png`;
