@@ -2,7 +2,7 @@
   "outputDirectory": "www",
   "buildCommand": "npm run build",
   "rewrites": [
-    { "source": "/share/:id", "destination": "/api/share/:id" },
+    { "source": "/share/:id", "destination": "https://api-mylistys-production.up.railway.app/share/:id" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
