@@ -43,8 +43,7 @@ export class SocialmediaComponent {
   }
 
   shareOnWhatsApp() {
-    const text = encodeURIComponent(this.postTitle ? `${this.postTitle} ` : '');
-    this.openShare((url) => `https://wa.me/?text=${text}${url}`);
+    this.openShare((url) => `https://wa.me/?text=${url}`);
   }
 
   shareOnTwitter() {
