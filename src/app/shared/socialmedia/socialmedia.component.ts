@@ -21,14 +21,15 @@ export class SocialmediaComponent {
     return this.contentCount > 0 && !!this.postId;
   }
 
-  private readonly appUrl = environment.servicio[0].appUrl;
+  private readonly backendUrl = environment.servicio[0].url.replace('/api/v1/', '');
+  private readonly appUrl    = environment.servicio[0].appUrl;
 
   constructor() {
     addIcons({ logoFacebook, logoWhatsapp, logoTwitter });
   }
 
   private getShareUrl(): string {
-    return `${this.appUrl}/share/${this.postId}`;
+    return `${this.backendUrl}/share/${this.postId}`;
   }
 
   private openShare(buildUrl: (url: string) => string): void {
@@ -37,7 +38,8 @@ export class SocialmediaComponent {
   }
 
   shareOnFacebook() {
-    this.openShare((url) => `https://www.facebook.com/sharer/sharer.php?u=${url}`);
+    const url = encodeURIComponent(`${this.appUrl}/share/${this.postId}`);
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
   }
 
   shareOnWhatsApp() {
