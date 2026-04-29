@@ -21,15 +21,14 @@ export class SocialmediaComponent {
     return this.contentCount > 0 && !!this.postId;
   }
 
-  private readonly backendUrl = environment.servicio[0].url.replace('/api/v1/', '');
-  private readonly appUrl    = environment.servicio[0].appUrl;
+  private readonly appUrl = environment.servicio[0].appUrl;
 
   constructor() {
     addIcons({ logoFacebook, logoWhatsapp, logoTwitter });
   }
 
   private getShareUrl(): string {
-    return `${this.backendUrl}/share/${this.postId}`;
+    return `${this.appUrl}/share/${this.postId}`;
   }
 
   private openShare(buildUrl: (url: string) => string): void {
