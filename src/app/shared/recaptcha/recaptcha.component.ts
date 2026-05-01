@@ -29,8 +29,8 @@ export class RecaptchaComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.loadScript().then(() => {
-      grecaptcha.enterprise.ready(() => {
-        this.widgetId = grecaptcha.enterprise.render(this.recaptchaEl.nativeElement, {
+      grecaptcha.ready(() => {
+        this.widgetId = grecaptcha.render(this.recaptchaEl.nativeElement, {
           sitekey: this.siteKey,
           callback: (token: string) =>
             this.zone.run(() => this.resolved.emit(token)),
@@ -43,19 +43,19 @@ export class RecaptchaComponent implements AfterViewInit, OnDestroy {
 
   reset(): void {
     if (this.widgetId !== null) {
-      grecaptcha.enterprise.reset(this.widgetId);
+      grecaptcha.reset(this.widgetId);
     }
     this.resolved.emit(null);
   }
 
   private loadScript(): Promise<void> {
     const SCRIPT_URL =
-      'https://www.google.com/recaptcha/enterprise.js?render=explicit';
-    if ((window as any).grecaptcha?.enterprise) return Promise.resolve();
+      'https://www.google.com/recaptcha/api.js?render=explicit';
+    if ((window as any).grecaptcha) return Promise.resolve();
     if (document.querySelector(`script[src="${SCRIPT_URL}"]`)) {
       return new Promise((resolve) => {
         const check = setInterval(() => {
-          if ((window as any).grecaptcha?.enterprise) {
+          if ((window as any).grecaptcha) {
             clearInterval(check);
             resolve();
           }
