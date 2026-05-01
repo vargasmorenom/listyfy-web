@@ -39,7 +39,6 @@ export class SocialmediaComponent {
   shareOnFacebook() {
   
     const url = encodeURIComponent(`${this.appUrl}/share/${this.postId}`);
-      console.log('Compartiendo en Facebook:', url);
     window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
   }
 
