@@ -3,6 +3,10 @@
   "buildCommand": "npm run build",
   "rewrites": [
     { "source": "/share/:id", "destination": "https://api-mylistys-production.up.railway.app/share/:id" },
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/(.*)", "destination": "/index.html" },
+        {
+      "source": "/share/:path*",
+      "destination": "https://api-mylistys-production.up.railway.app/share/:path*"
+    }
   ]
 }
