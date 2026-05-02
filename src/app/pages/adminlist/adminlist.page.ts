@@ -13,6 +13,7 @@ import { PopupService } from 'src/app/services/popup.service';
 import { SocialmediaComponent } from 'src/app/shared/socialmedia/socialmedia.component';
 import { LikescountComponent } from 'src/app/shared/likescount/likescount.component';
 import { PostFacade } from 'src/app/facade/post.facade';
+import { SharedLinkService } from 'src/app/services/shared-link.service';
 import { SidebarLeftComponent } from 'src/app/shared/sidebar-left/sidebar-left.component';
 import { SidebarRightComponent } from 'src/app/shared/sidebar-right/sidebar-right.component';
 import { Subscription, Subject } from 'rxjs';
@@ -67,6 +68,7 @@ export class AdminlistPage implements OnInit, OnDestroy {
     public facade: PostFacade,
     private meta: Meta,
     private titleService: Title,
+    private sharedLink: SharedLinkService,
   ) {
     addIcons({ addCircle, menuOutline, layersOutline, heartOutline, heart });
   }
@@ -118,12 +120,22 @@ export class AdminlistPage implements OnInit, OnDestroy {
         if (post) {
           this.data = post;
           this.updateOgTags(post);
+          if (this.usuario?.id) {
+            this.fetchShareUrl(post._id);
+          }
         }
       }),
       this.facade.likeCount$.subscribe((count) => { this.likeCount = count; }),
       this.facade.liked$.subscribe((liked) => { this.liked = liked; }),
       this.facade.viewCount$.subscribe((count) => { this.viewCount = count; }),
     );
+  }
+
+  private fetchShareUrl(postId: string): void {
+    this.sharedLink.createToken(postId).pipe(takeUntil(this.destroy$)).subscribe({
+      next: (res) => { this.shareUrl = res.shareUrl; },
+      error: () => {},
+    });
   }
 
   private updateOgTags(post: any): void {
@@ -233,8 +245,19 @@ export class AdminlistPage implements OnInit, OnDestroy {
   }
 
   generarEnlace() {
-    if (!this.data?._id) return;
-    this.shareUrl = `${window.location.origin}/shared/${this.data._id}`;
+    if (!this.data?._id || this.generandoEnlace) return;
+    if (this.shareUrl) { this.copiarEnlace(); return; }
+    this.generandoEnlace = true;
+    this.sharedLink.createToken(this.data._id).pipe(takeUntil(this.destroy$)).subscribe({
+      next: (res) => {
+        this.shareUrl = res.shareUrl;
+        this.generandoEnlace = false;
+      },
+      error: () => {
+        this.generandoEnlace = false;
+        this.messToast.error('Error al generar el enlace', 'Error');
+      },
+    });
   }
 
   copiarEnlace() {

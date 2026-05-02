@@ -9,8 +9,8 @@ export class SharedLinkService {
 
   constructor(private http: HttpClient) {}
 
-  createToken(postId: string): Observable<{ token: string }> {
-    return this.http.post<{ token: string }>(this.url + 'share', { postId });
+  createToken(postId: string): Observable<{ token: string; shareUrl: string }> {
+    return this.http.post<{ token: string; shareUrl: string }>(this.url + 'share', { postId });
   }
 
   revokeToken(token: string): Observable<{ message: string }> {

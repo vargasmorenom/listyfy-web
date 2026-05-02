@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 import { IonIcon } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { logoFacebook, logoWhatsapp, logoTwitter } from 'ionicons/icons';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-socialmedia',
@@ -13,32 +12,26 @@ import { environment } from 'src/environments/environment';
 })
 export class SocialmediaComponent {
   @Input() red: number = 0;
-  @Input() postId: string = '';
+  @Input() shareUrl: string = '';
   @Input() postTitle: string = '';
   @Input() contentCount: number = 0;
 
   get hasContent(): boolean {
-    return this.contentCount > 0 && !!this.postId;
+    return this.contentCount > 0 && !!this.shareUrl;
   }
-
-  private readonly appUrl = environment.servicio[0].appUrl;
 
   constructor() {
     addIcons({ logoFacebook, logoWhatsapp, logoTwitter });
   }
 
-  private getShareUrl(): string {
-    return `${this.appUrl}/share/${this.postId}`;
-  }
-
   private openShare(buildUrl: (url: string) => string): void {
     if (!this.hasContent) return;
-    window.open(buildUrl(encodeURIComponent(this.getShareUrl())), '_blank');
+    window.open(buildUrl(encodeURIComponent(this.shareUrl)), '_blank');
   }
 
   shareOnFacebook() {
-  
-    const url = encodeURIComponent(`${this.appUrl}/share/${this.postId}`);
+    if (!this.hasContent) return;
+    const url = encodeURIComponent(this.shareUrl);
     window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
   }
 
