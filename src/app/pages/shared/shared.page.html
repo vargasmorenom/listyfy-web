@@ -1,17 +1,17 @@
 <ion-content>
 
   @if (showTutorial) {
-    <div class="tutorial-widget">
-      <button class="tutorial-close" (click)="showTutorial = false" title="Cerrar">✕</button>
-      <p class="tutorial-label">¿Cómo usar mylistys?</p>
-      <iframe
-        class="tutorial-iframe"
-        src="https://www.youtube.com/embed/tbV-RbMD7qw?autoplay=1&mute=1"
-        title="Tutorial mylistys"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen>
-      </iframe>
+    <div class="tutorial-overlay" (click)="showTutorial = false">
+      <div class="tutorial-popup" (click)="$event.stopPropagation()">
+        <button class="tutorial-close" (click)="showTutorial = false">✕</button>
+        <iframe
+          src="https://www.youtube.com/embed/tbV-RbMD7qw?autoplay=1&mute=1&controls=0&modestbranding=1&rel=0&showinfo=0"
+          title="Tutorial mylistys"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
     </div>
   }
 
