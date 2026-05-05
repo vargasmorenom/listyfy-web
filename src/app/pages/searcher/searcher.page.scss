@@ -49,6 +49,68 @@ ion-searchbar::part(search-icon) { color: #6b7280; }
 ion-searchbar::part(input) { font-size: 14px; font-weight: 500; }
 ion-searchbar.searchbar-has-focus { --box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12); }
 
+/* ── Secciones ── */
+.section-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--app-listyfy-color);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0 16px 6px;
+  margin: 8px 0 0;
+}
+
+/* ── Canales ── */
+.channels-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0 16px 12px;
+}
+
+.channel-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: var(--ion-item-background, #fff);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+  cursor: pointer;
+  transition: box-shadow 0.15s;
+
+  &:active { box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); }
+}
+
+.channel-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.channel-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow: hidden;
+}
+
+.channel-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--ion-text-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.channel-desc {
+  font-size: 0.75rem;
+  color: var(--ion-color-step-500, #888);
+}
+
 :host-context(.ion-palette-dark) {
   ion-searchbar {
     --background: #2a2a2a;

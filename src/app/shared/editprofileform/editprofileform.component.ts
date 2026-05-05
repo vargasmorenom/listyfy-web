@@ -27,7 +27,7 @@ const ARRAY_FIELDS = ['linksString', 'socialMediaString', 'instantMessagesString
 const MAX_ITEMS = 3;
 
 const URL_REGEX = /^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)$/;
-const IM_REGEX = /^(whatsapp|telegram|signal|viber|line|wechat|skype|discord):\+?[0-9]{7,15}$/i;
+const IM_REGEX = /^(whatsapp|telegram|signal|viber|line|wechat|skype|discord|snapchat):.{3,}$/i;
 
 @Component({
   selector: 'app-editprofileform',
@@ -55,6 +55,7 @@ export class EditprofileformComponent implements OnInit, OnDestroy {
   public title!: string;
   public itemsMap: Record<string, string[]> = {};
   public touchedMap: Record<string, boolean[]> = {};
+  readonly messagingApps = ['WhatsApp', 'Telegram', 'Signal', 'Line', 'WeChat', 'Snapchat', 'Viber'];
 
   public fileData: File | null = null;
   public imagenCarga: string | ArrayBuffer | null = null;
@@ -80,8 +81,23 @@ export class EditprofileformComponent implements OnInit, OnDestroy {
       this.currentImageUrl = medium.startsWith('http') ? medium : this.urlBack + medium;
     }
 
+    const FIELD_MAP: Record<string, string> = {
+      linksString: 'links',
+      socialMediaString: 'socialMedia',
+      instantMessagesString: 'instantMessages',
+    };
+
     ARRAY_FIELDS.forEach((fieldName) => {
-      const raw: string = this.form.value[fieldName] ?? '';
+      let raw: string = this.form.value[fieldName] ?? '';
+      if (!raw && id) {
+        const apiKey = FIELD_MAP[fieldName] ?? fieldName;
+        const apiVal = id[apiKey];
+        if (apiVal) {
+          raw = Array.isArray(apiVal)
+            ? apiVal.map((item: any) => (typeof item === 'object' && item !== null ? (item.r ?? '') : String(item))).filter(Boolean).join(',')
+            : String(apiVal);
+        }
+      }
       const items = raw.split(',').map((s: string) => s.trim()).filter(Boolean);
       this.itemsMap[fieldName] = items.length ? items.slice(0, MAX_ITEMS) : [''];
       this.touchedMap[fieldName] = this.itemsMap[fieldName].map(() => false);
@@ -130,6 +146,16 @@ export class EditprofileformComponent implements OnInit, OnDestroy {
 
   markTouched(fieldName: string, index: number) {
     this.touchedMap[fieldName][index] = true;
+  }
+
+  selectMessagingApp(fieldName: string, index: number, app: string) {
+    const prefix = app.toLowerCase() + ':';
+    const current = this.itemsMap[fieldName][index] || '';
+    const existingValue = current.includes(':') ? current.split(':').slice(1).join(':') : current;
+    const items = [...this.itemsMap[fieldName]];
+    items[index] = prefix + existingValue;
+    this.itemsMap[fieldName] = items;
+    this.syncField(fieldName);
   }
 
   getItemError(fieldName: string, value: string, index: number): string | null {

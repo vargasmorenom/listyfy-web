@@ -9,7 +9,7 @@ ion-title {
 }
 
 ion-buttons ion-button {
-  --color: #ffffff;
+  --background: #f39c12;
 }
 
 /* ── Content: usa variables de Ionic que cambian con el tema ── */
@@ -207,6 +207,31 @@ ion-textarea::part(label) {
 
 .item-error-msg {
   margin-top: -0.2rem;
+}
+
+/* ── Chips mensajería ── */
+.messaging-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding: 0.3rem 0 0.1rem;
+}
+
+.app-chip {
+  background: var(--ion-color-light);
+  color: #f39c12;
+  border: 1px solid #f39c12;
+  border-radius: 20px;
+  padding: 0.2rem 0.7rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+
+  &:hover, &:active {
+    background: #f39c12;
+    color: #fff;
+  }
 }
 
 /* ── Botón guardar ── */

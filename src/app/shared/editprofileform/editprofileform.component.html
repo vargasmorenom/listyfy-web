@@ -67,7 +67,7 @@
               <ion-item lines="none" class="input-item array-input-item"
                 [class.item-error]="getItemError(item.name, entry, i)">
                 <ion-input
-                  [value]="entry"
+                  [value]="itemsMap[item.name][i]"
                   [placeholder]="item.placeholder || ''"
                   (ionInput)="updateItem(item.name, i, $event)"
                   (ionBlur)="markTouched(item.name, i)">
@@ -79,6 +79,13 @@
                 </button>
               }
             </div>
+            @if (item.name === 'instantMessagesString') {
+              <div class="messaging-chips">
+                @for (app of messagingApps; track app) {
+                  <button type="button" class="app-chip" (click)="selectMessagingApp(item.name, i, app)">{{ app }}</button>
+                }
+              </div>
+            }
             @if (getItemError(item.name, entry, i); as err) {
               <div class="error-message item-error-msg">{{ err }}</div>
             }

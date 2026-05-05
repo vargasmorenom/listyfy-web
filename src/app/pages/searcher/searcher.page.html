@@ -6,17 +6,44 @@
 
   <ion-content class="feed-center" [fullscreen]="true">
     <app-back></app-back>
-      <ion-searchbar
-        show-clear-button="focus"
-        debounce="500"
-        (ionInput)="onSearch($event)"
-        placeholder="Buscar (mínimo 6 caracteres)..."
-      ></ion-searchbar>
-      <app-content-list [entityNames]="items"></app-content-list>
-      <ion-infinite-scroll (ionInfinite)="loadMore($event)">
-        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Cargando más...">
-        </ion-infinite-scroll-content>
-      </ion-infinite-scroll>
+    <ion-searchbar
+      show-clear-button="focus"
+      debounce="500"
+      (ionInput)="onSearch($event)"
+      placeholder="Buscar (mínimo 6 caracteres)..."
+    ></ion-searchbar>
+
+    @if (channels.length > 0) {
+      <div class="channels-section">
+        <h3 class="section-title">Canales</h3>
+        <div class="channels-list">
+          @for (ch of channels; track ch._id) {
+            <div class="channel-card" (click)="verCanal(ch.userBy)">
+              <img class="channel-avatar"
+                [src]="resolveImg(ch.profilePic?.medium || ch.profilePic?.small)"
+                (error)="$any($event.target).src = resolveImg('')"
+                alt="Avatar" />
+              <div class="channel-info">
+                <span class="channel-name">{{ ch.chanelName }}</span>
+                @if (ch.description) {
+                  <span class="channel-desc">{{ ch.description | slice:0:60 }}{{ ch.description.length > 60 ? '…' : '' }}</span>
+                }
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+    @if (posts.length > 0) {
+      <h3 class="section-title">Publicaciones</h3>
+    }
+    <app-content-list [entityNames]="posts"></app-content-list>
+
+    <ion-infinite-scroll (ionInfinite)="loadMore($event)">
+      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Cargando más...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
   </ion-content>
 
   <aside class="sidebar sidebar-right">
