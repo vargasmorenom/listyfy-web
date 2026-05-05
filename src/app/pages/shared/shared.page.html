@@ -1,5 +1,20 @@
 <ion-content>
 
+  @if (showTutorial) {
+    <div class="tutorial-widget">
+      <button class="tutorial-close" (click)="showTutorial = false" title="Cerrar">✕</button>
+      <p class="tutorial-label">¿Cómo usar mylistys?</p>
+      <iframe
+        class="tutorial-iframe"
+        src="https://www.youtube.com/embed/tbV-RbMD7qw"
+        title="Tutorial mylistys"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+  }
+
   <div class="top-bar">
     <a href="https://www.mylistys.com" class="brand-link">
       <img src="assets/logo/logoMyllistys.png" alt="mylistys" class="brand-logo" />
