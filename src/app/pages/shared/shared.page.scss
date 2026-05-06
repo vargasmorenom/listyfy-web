@@ -46,14 +46,14 @@ ion-content {
   right: 0;
   background: none;
   border: none;
-  color: #ffffff;
+  color: #e74c3c;
   font-size: 22px;
   cursor: pointer;
   line-height: 1;
   padding: 4px 8px;
-  opacity: 0.8;
+  opacity: 0.9;
 
-  &:hover { opacity: 1; }
+  &:hover { opacity: 1; color: #ff2d2d; }
 }
 
 :host-context(.ion-palette-dark) ion-content {
