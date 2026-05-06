@@ -3,6 +3,7 @@ import { PopupService } from 'src/app/services/popup.service';
 import { ViewFacebookComponent } from '../view-facebook/view-facebook.component';
 import { DeleteContentComponent } from '../delete-content/delete-content.component';
 import { IonIcon, IonCard, IonCardContent } from '@ionic/angular/standalone';
+import { TranslatePipe } from '@ngx-translate/core';
 import { addIcons } from 'ionicons';
 import { logoFacebook } from 'ionicons/icons';
 
@@ -10,7 +11,7 @@ import { logoFacebook } from 'ionicons/icons';
   selector: 'app-facebook',
   templateUrl: './facebook.component.html',
   styleUrls: ['./facebook.component.scss'],
-  imports: [IonIcon, IonCard, IonCardContent, DeleteContentComponent],
+  imports: [TranslatePipe, IonIcon, IonCard, IonCardContent, DeleteContentComponent],
   standalone: true,
 })
 export class FacebookComponent implements OnInit {

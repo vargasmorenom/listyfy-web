@@ -86,5 +86,8 @@
       "pass_especial": "One special character",
       "pass_min": "Minimum 8 characters"
     }
+  },
+  "content": {
+    "click_to_view": "Click to view"
   }
 }

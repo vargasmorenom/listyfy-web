@@ -7,6 +7,9 @@
       <ion-card-content>
         <p class="titulo">{{ item.titulo | slice:0:120 }}{{ item.titulo?.length > 120 ? '...' : '' }}</p>
         <p class="creador"><strong>Autor</strong>: <a [href]="item.autorlink" [textContent]="'@' + item.autor"></a></p>
+        <div class="hover-slide">
+          <span>{{ 'content.click_to_view' | translate }}</span>
+        </div>
       </ion-card-content>
     </ion-card>
   </div>

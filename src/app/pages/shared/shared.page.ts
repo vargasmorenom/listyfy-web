@@ -26,7 +26,6 @@ export class SharedPage implements OnInit, OnDestroy {
   data: any = null;
   loading = true;
   error = false;
-  showTutorial = true;
   urlfiles = environment.servicio[0].urlfiles;
   private destroy$ = new Subject<void>();
 

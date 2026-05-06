@@ -3,13 +3,14 @@ import { SlicePipe } from '@angular/common';
 import { PopupService } from 'src/app/services/popup.service';
 import { ViewYoutubeComponent } from '../view-youtube/view-youtube.component';
 import { DeleteContentComponent } from '../delete-content/delete-content.component';
+import { TranslatePipe } from '@ngx-translate/core';
 import { IonIcon, IonCard, IonCardContent } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-youtube',
   templateUrl: './youtube.component.html',
   styleUrls: ['./youtube.component.scss'],
-  imports: [SlicePipe, IonIcon, IonCard, IonCardContent, DeleteContentComponent],
+  imports: [SlicePipe, TranslatePipe, IonIcon, IonCard, IonCardContent, DeleteContentComponent],
   standalone: true,
 })
 export class YoutubeComponent implements OnInit {

@@ -3,6 +3,7 @@ import { PopupService } from 'src/app/services/popup.service';
 import { ViewTiktokComponent } from '../view-tiktok/view-tiktok.component';
 import { DeleteContentComponent } from '../delete-content/delete-content.component';
 import { SlicePipe } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 import {
   IonIcon,
   IonCard,
@@ -16,6 +17,7 @@ import {
   standalone: true,
   imports: [
     SlicePipe,
+    TranslatePipe,
     IonIcon,
     IonCard,
     IonCardContent,

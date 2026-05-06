@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { PopupService } from 'src/app/services/popup.service';
 import { ViewTelegramComponent } from '../view-telegram/view-telegram.component';
 import { DeleteContentComponent } from '../delete-content/delete-content.component';
+import { TranslatePipe } from '@ngx-translate/core';
 import { IonIcon, IonCard, IonCardContent } from '@ionic/angular/standalone';
 
 @Component({
@@ -9,7 +10,7 @@ import { IonIcon, IonCard, IonCardContent } from '@ionic/angular/standalone';
   templateUrl: './telegram.component.html',
   styleUrls: ['./telegram.component.scss'],
   standalone: true,
-  imports: [IonIcon, IonCard, IonCardContent, DeleteContentComponent],
+  imports: [TranslatePipe, IonIcon, IonCard, IonCardContent, DeleteContentComponent],
 })
 export class TelegramComponent implements OnInit {
   @Input() contenido!: any[];

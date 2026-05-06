@@ -1,20 +1,5 @@
 <ion-content>
 
-  @if (showTutorial) {
-    <div class="tutorial-overlay" (click)="showTutorial = false">
-      <div class="tutorial-popup" (click)="$event.stopPropagation()">
-        <button class="tutorial-close" (click)="showTutorial = false">✕</button>
-        <iframe
-          src="https://www.youtube.com/embed/tbV-RbMD7qw?autoplay=1&mute=1&controls=0&modestbranding=1&rel=0&showinfo=0"
-          title="Tutorial mylistys"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen>
-        </iframe>
-      </div>
-    </div>
-  }
-
   <div class="top-bar">
     <a href="https://www.mylistys.com" class="brand-link">
       <img src="assets/logo/logoMyllistys.png" alt="mylistys" class="brand-logo" />
