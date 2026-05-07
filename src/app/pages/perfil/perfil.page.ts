@@ -57,6 +57,7 @@ export class PerfilPage implements OnInit, OnDestroy {
   public idConsult!: string;
   public ini = 1;
   public fin = 3;
+  public noMoreItems = false;
   public urlfiles = environment.servicio[0].urlfiles;
   private destroy$ = new Subject<void>();
 
@@ -189,10 +190,17 @@ export class PerfilPage implements OnInit, OnDestroy {
     });
   }
 
-  loadItems() {
+  loadItems(event?: any) {
     this.posted.getPostedId(this.idConsult, this.ini, this.fin).pipe(takeUntil(this.destroy$)).subscribe((data: any) => {
-      this.items = this.items.concat(data);
-      this.ini++;
+      if (data && data.length > 0) {
+        this.items = this.items.concat(data);
+        this.ini++;
+      } else {
+        this.noMoreItems = true;
+      }
+      if (event?.target) {
+        event.target.complete();
+      }
     });
   }
 
@@ -202,9 +210,6 @@ export class PerfilPage implements OnInit, OnDestroy {
   }
 
   loadMore(event: any) {
-    setTimeout(() => {
-      this.loadItems();
-      event.target.complete();
-    }, 500);
+    this.loadItems(event);
   }
 }
