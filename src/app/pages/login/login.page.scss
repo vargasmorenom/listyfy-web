@@ -83,6 +83,33 @@
   }
 }
 
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 20px 0 14px;
+  gap: 10px;
+
+  &::before,
+  &::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.25);
+  }
+
+  span {
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.55);
+  }
+}
+
+.google-btn-wrapper {
+  display: flex;
+  justify-content: center;
+  min-height: 44px;
+  margin-bottom: 4px;
+}
+
 .login-links {
   display: flex;
   justify-content: space-between;

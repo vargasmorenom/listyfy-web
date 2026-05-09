@@ -19,6 +19,7 @@ export const environment = {
       recaptchaEnabled: false,
       defaultAvatar: 'assets/logo/perfil02.png',
       appName: 'mylistys',
+      googleClientId: '',
     },
   ],
 };

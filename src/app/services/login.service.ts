@@ -22,6 +22,13 @@ export class LoginService {
     });
   }
 
+  loginWithGoogle(idToken: string): Observable<HttpResponse<any>> {
+    return this.http.post<any>(this.url + 'auth/google', { idToken }, {
+      observe: 'response',
+      withCredentials: true,
+    });
+  }
+
   recoveryRequest(email: string, recaptchaToken: string): Observable<HttpResponse<any>> {
     return this.http.post<any>(this.url + 'recovery', { email, recaptchaToken }, {
       observe: 'response',

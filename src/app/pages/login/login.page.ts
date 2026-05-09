@@ -1,5 +1,5 @@
 import { environment } from './../../../environments/environment';
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { FormsModule, ReactiveFormsModule, FormGroup } from '@angular/forms';
@@ -11,6 +11,7 @@ import { login } from 'src/app/configs/login';
 import { LoginService } from 'src/app/services/login.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { GoogleAuthService, GoogleUser } from 'src/app/services/google-auth.service';
 import { RecaptchaComponent } from 'src/app/shared/recaptcha/recaptcha.component';
 
 import {
@@ -39,8 +40,9 @@ import { TranslatePipe } from '@ngx-translate/core';
     RecaptchaComponent,
   ],
 })
-export class LoginPage implements OnInit, OnDestroy {
+export class LoginPage implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('recaptchaRef') recaptchaRef!: RecaptchaComponent;
+  @ViewChild('googleSignInBtn') googleSignInBtn!: ElementRef<HTMLDivElement>;
 
   backgroundClasses: string[] = ['background-1', 'background-2', 'background-3'];
   currentBackgroundClass: string = this.backgroundClasses[0];
@@ -62,7 +64,8 @@ export class LoginPage implements OnInit, OnDestroy {
     public messToast: ToastrService,
     public loginservice: LoginService,
     public storage: StorageService,
-    private auth: AuthService
+    private auth: AuthService,
+    private googleAuth: GoogleAuthService,
   ) {
     this.formCreate = login;
     this.url = environment.servicio[0].key;
@@ -79,6 +82,19 @@ export class LoginPage implements OnInit, OnDestroy {
   }
 
   ngOnInit() {}
+
+  ngAfterViewInit() {
+    this.googleAuth.signInResult.pipe(takeUntil(this.destroy$)).subscribe((result) => {
+      if (result.error) {
+        this.messToast.warning(result.error);
+        return;
+      }
+      if (result.user) {
+        this.handleGoogleUser(result.user);
+      }
+    });
+    this.googleAuth.renderButton(this.googleSignInBtn.nativeElement);
+  }
 
   ngOnDestroy() {
     clearInterval(this.bgInterval);
@@ -126,6 +142,27 @@ export class LoginPage implements OnInit, OnDestroy {
       },
       error: () => {
         this.recaptchaRef?.reset();
+      },
+    });
+  }
+
+  private handleGoogleUser(user: GoogleUser) {
+    this.loginservice.loginWithGoogle(user.idToken).pipe(takeUntil(this.destroy$)).subscribe({
+      next: (datos) => {
+        if (datos.status === 200) {
+          const token = datos.body.token;
+          const usuario = { user: datos.body.usuario, id: datos.body.id, valores: token };
+          this.storage.set('usuario', usuario);
+          this.auth.login(token);
+          this.storage.set(datos.body.id, datos.body.perfil);
+          this.messToast.success('Bienvenido a mylistys: ' + user.name);
+          setTimeout(() => {
+            this.router.navigateByUrl('/', { replaceUrl: true });
+          }, 2000);
+        }
+      },
+      error: () => {
+        this.messToast.error('El inicio de sesión con Google aún no está disponible. Intenta más tarde.');
       },
     });
   }
