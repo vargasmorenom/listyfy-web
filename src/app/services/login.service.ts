@@ -23,7 +23,7 @@ export class LoginService {
   }
 
   loginWithGoogle(idToken: string): Observable<HttpResponse<any>> {
-    return this.http.post<any>(this.url + 'auth/google', { idToken }, {
+    return this.http.post<any>(this.url + 'google', { idToken }, {
       observe: 'response',
       withCredentials: true,
     });
