@@ -55,7 +55,7 @@
         <strong>{{ likeCount }}</strong>
         <span class="stat-label">{{ 'perfil.likes' | translate }}</span>
       </ion-col>
-      <ion-col>
+      <ion-col class="stat-clickable" (click)="followingClicked.emit()">
         <strong>{{ followingCount }}</strong>
         <span class="stat-label">{{ 'perfil.siguiendo' | translate }}</span>
       </ion-col>

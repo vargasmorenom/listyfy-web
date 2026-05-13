@@ -102,6 +102,11 @@ export const routes: Routes = [
         canActivate: [accessUserGuard],
         loadComponent: () => import('./pages/config/config.page').then( m => m.ConfigPage)
       },
+      {
+        path: 'siguiendo',
+        canActivate: [accessUserGuard],
+        loadComponent: () => import('./pages/siguiendo/siguiendo.page').then((m) => m.SiguiendoPage),
+      },
     ]
   },
   {

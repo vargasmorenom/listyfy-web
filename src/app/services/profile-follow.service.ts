@@ -35,4 +35,10 @@ export class ProfileFollowService {
   toggleFollow(idprofile: string, followerid: string): Observable<FollowResult> {
     return this.http.post<FollowResult>(this.url + 'addfollow', { idprofile, followerid });
   }
+
+  getFollowingList(profileid: string): Observable<any[]> {
+    return this.http.get<any[]>(this.url + 'getfollowinglist', {
+      params: { profileid },
+    });
+  }
 }

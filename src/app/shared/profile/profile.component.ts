@@ -40,6 +40,7 @@ export class ProfileComponent implements OnInit {
   @Input() followingCount: number = 0;
   @Output() likeToggled = new EventEmitter<void>();
   @Output() followToggled = new EventEmitter<void>();
+  @Output() followingClicked = new EventEmitter<void>();
   @Output() profileImageUpdated = new EventEmitter<void>();
   public page!: string;
   public dcimg: string = '';

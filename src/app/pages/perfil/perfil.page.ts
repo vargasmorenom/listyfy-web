@@ -204,6 +204,12 @@ export class PerfilPage implements OnInit, OnDestroy {
     });
   }
 
+  verSiguiendo() {
+    if (this.idConsult) {
+      this.router.navigate(['siguiendo'], { queryParams: { profileId: this.idConsult } });
+    }
+  }
+
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
