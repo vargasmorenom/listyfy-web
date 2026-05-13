@@ -25,6 +25,7 @@
   display: flex;
   border-radius: 1.4em;
   align-items: center;
+  justify-content: space-between;
   margin-top: 1em;
   margin-left: 1em;
   height: auto;
@@ -32,22 +33,65 @@
   z-index: 100;
 }
 .card-usuario:hover {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Sombra al pasar el mouse */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   background: radial-gradient(circle, rgba(245, 197, 64, 0.623) 0%, rgba(236, 240, 14, 0) 100%);
   text-shadow: 2px 2px 5px rgba(69, 59, 214, 0.5);
   animation: shine 3s infinite;
+}
+.card-usuario-info {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  flex: 1;
+  overflow: hidden;
 }
 .card-usuario img {
   width: 40px;
   height: auto;
   border-radius: 50%;
   border: 2px solid rgb(195, 197, 188);
+  flex-shrink: 0;
 }
 
 .card-usuario span {
   margin-left: 0.8em;
   font-weight: bold;
   color: white;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.follow-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  border-radius: 0 1.4em 1.4em 0;
+  transition: background 0.2s;
+  flex-shrink: 0;
+
+  ion-icon {
+    font-size: 18px;
+    pointer-events: none;
+  }
+
+  &:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.25);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+
+  &.following ion-icon {
+    color: #ff9d9d;
+  }
 }
 
 .card-image {
