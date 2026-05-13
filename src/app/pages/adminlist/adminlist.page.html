@@ -10,11 +10,22 @@
 
       @if (data._id && usuario?.id !== data.postedBy) {
         <div class="userVal">
-          <ion-card class="linkprofile" (click)="profileview(data.postedBy)">
-            <img [src]="resolveImg(typeof data.profileId === 'object' ? data.profileId?.profilePic?.small : null)" alt="Avatar" />
-            <ion-card-header>
-              <ion-card-title>{{typeof data.profileId === 'object' ? data.profileId?.chanelName : data.chanelName}}</ion-card-title>
-            </ion-card-header>
+          <ion-card class="linkprofile">
+            <div class="linkprofile-info" (click)="profileview(data.postedBy)">
+              <img [src]="resolveImg(typeof data.profileId === 'object' ? data.profileId?.profilePic?.small : null)" alt="Avatar" />
+              <ion-card-header>
+                <ion-card-title>{{typeof data.profileId === 'object' ? data.profileId?.chanelName : data.chanelName}}</ion-card-title>
+              </ion-card-header>
+            </div>
+            @if (usuario) {
+              <button class="follow-btn-bar"
+                      [class.following]="following"
+                      [disabled]="followLoading"
+                      (click)="toggleFollow($event)">
+                <ion-icon [name]="following ? 'person-remove-outline' : 'person-add-outline'"></ion-icon>
+                <span>{{ following ? 'Siguiendo' : 'Seguir' }}</span>
+              </button>
+            }
           </ion-card>
         </div>
       }

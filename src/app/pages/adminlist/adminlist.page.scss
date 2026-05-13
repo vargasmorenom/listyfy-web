@@ -55,6 +55,7 @@ ion-content {
   width: 100%;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 14px;
   padding: 12px 16px;
   border-radius: 18px;
@@ -75,12 +76,68 @@ ion-content {
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid #e0e0e0;
+    flex-shrink: 0;
   }
 
   ion-card-title {
     font-size: 18px;
     font-weight: 600;
     color: #303d5c;
+  }
+}
+
+.linkprofile-info {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex: 1;
+  cursor: pointer;
+  overflow: hidden;
+
+  ion-card-header { padding: 0; }
+  ion-card-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.follow-btn-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 2px solid #303d5c;
+  background: transparent;
+  color: #303d5c;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+  flex-shrink: 0;
+
+  ion-icon { font-size: 16px; }
+
+  &:hover:not(:disabled) {
+    background: #303d5c;
+    color: #fff;
+  }
+
+  &.following {
+    background: #303d5c;
+    color: #fff;
+    border-color: #303d5c;
+
+    &:hover:not(:disabled) {
+      background: #c0392b;
+      border-color: #c0392b;
+    }
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: default;
   }
 }
 

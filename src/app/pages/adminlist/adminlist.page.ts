@@ -7,6 +7,7 @@ import { Meta, Title } from '@angular/platform-browser';
 import { PostedsService } from 'src/app/services/posteds.service';
 import { ToastrService } from 'ngx-toastr';
 import { StorageService } from 'src/app/services/storage.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { BackComponent } from 'src/app/shared/back/back.component';
 import { ShowcontentComponent } from 'src/app/shared/showcontent/showcontent.component';
 import { PopupService } from 'src/app/services/popup.service';
@@ -14,12 +15,13 @@ import { SocialmediaComponent } from 'src/app/shared/socialmedia/socialmedia.com
 import { LikescountComponent } from 'src/app/shared/likescount/likescount.component';
 import { PostFacade } from 'src/app/facade/post.facade';
 import { SharedLinkService } from 'src/app/services/shared-link.service';
+import { ProfileFollowService } from 'src/app/services/profile-follow.service';
 import { SidebarLeftComponent } from 'src/app/shared/sidebar-left/sidebar-left.component';
 import { SidebarRightComponent } from 'src/app/shared/sidebar-right/sidebar-right.component';
 import { Subscription, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { addIcons } from 'ionicons';
-import { addCircle, menuOutline, layersOutline, heartOutline, heart } from 'ionicons/icons';
+import { addCircle, menuOutline, layersOutline, heartOutline, heart, personAddOutline, personRemoveOutline } from 'ionicons/icons';
 import { environment } from 'src/environments/environment';
 import { EditcontentlistComponent } from 'src/app/shared/editcontentlist/editcontentlist.component';
 import { NewcontentpopupComponent } from 'src/app/shared/newcontentpopup/newcontentpopup.component';
@@ -53,6 +55,8 @@ export class AdminlistPage implements OnInit, OnDestroy {
   public urlfiles = environment.servicio[0].urlfiles;
   public shareUrl: string | null = null;
   public generandoEnlace = false;
+  public following = false;
+  public followLoading = false;
   private facadeSubs: Subscription[] = [];
   private destroy$ = new Subject<void>();
   private initialized = false;
@@ -65,12 +69,14 @@ export class AdminlistPage implements OnInit, OnDestroy {
     private posted: PostedsService,
     public messToast: ToastrService,
     private storage: StorageService,
+    private authService: AuthService,
+    private profileFollowService: ProfileFollowService,
     public facade: PostFacade,
     private meta: Meta,
     private titleService: Title,
     private sharedLink: SharedLinkService,
   ) {
-    addIcons({ addCircle, menuOutline, layersOutline, heartOutline, heart });
+    addIcons({ addCircle, menuOutline, layersOutline, heartOutline, heart, personAddOutline, personRemoveOutline });
   }
 
   resolveImg(path: string): string {
@@ -122,6 +128,7 @@ export class AdminlistPage implements OnInit, OnDestroy {
           this.updateOgTags(post);
           if (this.usuario?.id) {
             this.fetchShareUrl(post._id);
+            this.loadFollowStatus(post);
           }
         }
       }),
@@ -129,6 +136,39 @@ export class AdminlistPage implements OnInit, OnDestroy {
       this.facade.liked$.subscribe((liked) => { this.liked = liked; }),
       this.facade.viewCount$.subscribe((count) => { this.viewCount = count; }),
     );
+  }
+
+  private loadFollowStatus(post: any) {
+    const profileId = typeof post.profileId === 'object' ? post.profileId?._id : null;
+    const myProfile = this.authService.getProfile();
+    if (!profileId || !myProfile?._id || profileId === myProfile._id) return;
+    this.profileFollowService.getFollowStatus(profileId, myProfile._id)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({ next: (status) => { this.following = status.following; } });
+  }
+
+  toggleFollow(event: Event) {
+    event.stopPropagation();
+    const profileId = typeof this.data.profileId === 'object' ? this.data.profileId?._id : null;
+    const myProfile = this.authService.getProfile();
+    if (!profileId || !myProfile?._id || this.followLoading) return;
+
+    const wasFollowing = this.following;
+    this.following = !wasFollowing;
+    this.followLoading = true;
+
+    this.profileFollowService.toggleFollow(profileId, myProfile._id)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (res) => {
+          this.following = res.action === 'follow';
+          this.followLoading = false;
+        },
+        error: () => {
+          this.following = wasFollowing;
+          this.followLoading = false;
+        },
+      });
   }
 
   private fetchShareUrl(postId: string): void {
