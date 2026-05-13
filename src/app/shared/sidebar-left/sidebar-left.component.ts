@@ -6,6 +6,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { ProfileFollowService } from 'src/app/services/profile-follow.service';
 import { ProfileLikeService } from 'src/app/services/profile-like.service';
+import { SocketLikeService } from 'src/app/services/socket-like.service';
 import { environment } from 'src/environments/environment';
 import { addIcons } from 'ionicons';
 import {
@@ -28,6 +29,7 @@ export class SidebarLeftComponent implements OnInit, OnDestroy {
   followersCount = 0;
   followingCount = 0;
   likesCount = 0;
+  myProfileId = '';
   currentUrl = '';
   private urlfiles = environment.servicio[0].urlfiles;
   private destroy$ = new Subject<void>();
@@ -36,6 +38,7 @@ export class SidebarLeftComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private profileFollowService: ProfileFollowService,
     private profileLikeService: ProfileLikeService,
+    private socketService: SocketLikeService,
     private router: Router,
   ) {
     addIcons({ peopleOutline, personAddOutline, heartOutline, listOutline, settingsOutline, homeOutline, searchOutline, addCircleOutline, analyticsOutline, logOutOutline });
@@ -51,12 +54,42 @@ export class SidebarLeftComponent implements OnInit, OnDestroy {
     this.authService.isLoggedIn$
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => this.loadSession());
+
+    // Actualización inmediata al seguir/dejar de seguir desde cualquier parte de la app
+    this.profileFollowService.followChanged$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(event => {
+        if (!this.myProfileId) return;
+        // Yo seguí o dejé de seguir a alguien → actualizar "Siguiendo"
+        if (event.followerid === this.myProfileId) {
+          this.followingCount = event.countFollowing;
+        }
+        // Alguien me siguió o dejó de seguirme → actualizar "Seguidores"
+        if (event.idprofile === this.myProfileId) {
+          this.followersCount = event.countFollowers;
+        }
+      });
+
+    // Actualización en tiempo real desde otros usuarios vía socket
+    this.socketService.on<any>('follow:updated')
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(data => {
+        if (!this.myProfileId) return;
+        if (data.idprofile === this.myProfileId) {
+          this.followersCount = data.countFollowers;
+        }
+        if (data.followerid === this.myProfileId) {
+          this.followingCount += data.action === 'follow' ? 1 : -1;
+        }
+      });
   }
 
   private loadSession() {
     this.userSession = this.authService.getSession();
     const profile = this.authService.getProfile();
     this.profilePic = 'assets/logo/perfil02.png';
+    this.myProfileId = profile?._id ?? '';
+
     if (profile?.profilePic?.medium) {
       const pic = profile.profilePic.medium;
       this.profilePic = pic?.startsWith('http') ? pic : this.urlfiles + pic;
@@ -84,6 +117,18 @@ export class SidebarLeftComponent implements OnInit, OnDestroy {
             error: () => {},
           });
       }
+    }
+  }
+
+  verSeguidores() {
+    if (this.myProfileId) {
+      this.router.navigate(['/seguidores'], { queryParams: { profileId: this.myProfileId } });
+    }
+  }
+
+  verSiguiendo() {
+    if (this.myProfileId) {
+      this.router.navigate(['/siguiendo'], { queryParams: { profileId: this.myProfileId } });
     }
   }
 

@@ -14,13 +14,13 @@ import { AuthService } from 'src/app/services/auth.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-siguiendo',
-  templateUrl: './siguiendo.page.html',
-  styleUrls: ['./siguiendo.page.scss'],
+  selector: 'app-seguidores',
+  templateUrl: './seguidores.page.html',
+  styleUrls: ['./seguidores.page.scss'],
   standalone: true,
   imports: [IonContent, IonIcon, BackComponent, SidebarLeftComponent, SidebarRightComponent],
 })
-export class SiguiendoPage implements OnInit, OnDestroy {
+export class SeguidoresPage implements OnInit, OnDestroy {
   items: any[] = [];
   loading = true;
   isOwnProfile = false;
@@ -33,9 +33,9 @@ export class SiguiendoPage implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private navCtrl: NavController,
-    private alertController: AlertController,
     private followService: ProfileFollowService,
     private authService: AuthService,
+    private alertController: AlertController,
   ) {
     addIcons({ personRemoveOutline });
   }
@@ -52,11 +52,11 @@ export class SiguiendoPage implements OnInit, OnDestroy {
   private loadList() {
     this.loading = true;
     this.followService
-      .getFollowingList(this.profileId)
+      .getFollowersList(this.profileId)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (data) => {
-          console.log('Seguidores cargados:', data);
+          
           this.items = data ?? [];
           this.loading = false;
         },
@@ -64,38 +64,34 @@ export class SiguiendoPage implements OnInit, OnDestroy {
       });
   }
 
-  async confirmUnfollow(item: any) {
+  async confirmRemove(item: any) {
     const alert = await this.alertController.create({
-      header: 'Dejar de seguir',
-      message: `¿Deseas dejar de seguir a "${item.chanelName}"?`,
+      header: 'Eliminar seguidor',
+      message: `¿Deseas eliminar a "${item.chanelName}" de tus seguidores?`,
       buttons: [
         { text: 'Cancelar', role: 'cancel' },
         {
-          text: 'Dejar de seguir',
+          text: 'Eliminar',
           role: 'confirm',
           cssClass: 'alert-button-danger',
-          handler: () => this.unfollow(item),
+          handler: () => this.removeFollower(item),
         },
       ],
     });
     await alert.present();
   }
 
-  private unfollow(item: any) {
-    const myProfile = this.authService.getProfile();
-    if (!myProfile?._id) return;
-    const profileId = item._id;
-
-    this.items = this.items.filter((i) => i._id !== profileId);
+  private removeFollower(item: any) {
+    const followerProfileId = item._id;
+    this.items = this.items.filter((i) => i._id !== followerProfileId);
 
     this.followService
-      .toggleFollow(profileId, myProfile._id)
+      .toggleFollow(this.profileId, followerProfileId)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         error: () => { this.items = [...this.items, item]; },
       });
   }
-
 
   verPerfil(item: any) {
  

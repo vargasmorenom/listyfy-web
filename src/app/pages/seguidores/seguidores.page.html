@@ -7,8 +7,8 @@
   <ion-content class="feed-center" [fullscreen]="true">
     <app-back></app-back>
 
-    <div class="siguiendo-container">
-      <h2 class="page-title">Siguiendo</h2>
+    <div class="seguidores-container">
+      <h2 class="page-title">Seguidores</h2>
 
       @if (loading) {
         <div class="skeleton-list">
@@ -24,7 +24,7 @@
       @if (!loading && items.length === 0) {
         <div class="empty-state">
           <ion-icon name="person-remove-outline"></ion-icon>
-          <p>No sigues a ningún usuario todavía.</p>
+          <p>Aún no tienes seguidores.</p>
         </div>
       }
 
@@ -33,7 +33,7 @@
           <div class="follow-info" (click)="verPerfil(item.userBy)">
             <img
               class="follow-avatar"
-              [src]="resolveImg(item.profilePic?.medium)"
+              [src]="resolveImg(item.profilePic?.[0]?.medium ?? item.profilePic?.medium)"
               (error)="$any($event.target).src = defaultAvatar"
               alt="Avatar"
             />
@@ -45,7 +45,7 @@
             </div>
           </div>
           @if (isOwnProfile) {
-            <button class="unfollow-btn" (click)="confirmUnfollow(item)" title="Dejar de seguir">
+            <button class="remove-btn" (click)="confirmRemove(item)" title="Eliminar seguidor">
               <ion-icon name="person-remove-outline"></ion-icon>
             </button>
           }

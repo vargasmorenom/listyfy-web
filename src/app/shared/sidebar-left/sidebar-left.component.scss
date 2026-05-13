@@ -59,6 +59,17 @@
   flex: 1;
 }
 
+.stat-clickable {
+  cursor: pointer;
+  border-radius: 8px;
+  padding: 6px 4px;
+  transition: background 0.15s ease;
+
+  &:hover {
+    background: rgba(58, 127, 243, 0.1);
+  }
+}
+
 .stat-value {
   font-size: 1.2rem;
   font-weight: 700;

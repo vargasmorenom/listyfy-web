@@ -80,7 +80,7 @@ export class PerfilPage implements OnInit, OnDestroy {
 
     this.param.queryParams.pipe(takeUntil(this.destroy$)).subscribe(params => {
       const paramId = params['id'];
-
+     console.log('ID del perfil a cargar:', paramId);
       if (paramId) {
         const sessionUser = this.storage.get('usuario');
         this.isOwnProfile = sessionUser?.id === paramId;
@@ -115,7 +115,7 @@ export class PerfilPage implements OnInit, OnDestroy {
   dataPerfil(id: any) {
     this.idConsult = id;
     this.perfil.seachProfile(id).pipe(takeUntil(this.destroy$)).subscribe((data: any) => {
-      if (data) {
+      if (data?._id) {
         this.perfilSession = data;
         this.likeCount = data.likeNumber ?? 0;
         if (this.session) {
@@ -204,9 +204,15 @@ export class PerfilPage implements OnInit, OnDestroy {
     });
   }
 
+  verSeguidores() {
+    if (this.perfilSession?._id) {
+      this.router.navigate(['seguidores'], { queryParams: { profileId: this.perfilSession._id } });
+    }
+  }
+
   verSiguiendo() {
-    if (this.idConsult) {
-      this.router.navigate(['siguiendo'], { queryParams: { profileId: this.idConsult } });
+    if (this.perfilSession?._id) {
+      this.router.navigate(['siguiendo'], { queryParams: { profileId: this.perfilSession._id } });
     }
   }
 

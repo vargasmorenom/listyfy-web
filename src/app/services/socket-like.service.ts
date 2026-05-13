@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
@@ -11,10 +11,10 @@ export class SocketLikeService {
   private socket: Socket;
   private url: string = new URL(environment.servicio[0].url).origin;
 
-  constructor() {
+  constructor(private ngZone: NgZone) {
     this.socket = io(this.url, {
       transports: ['websocket'],
-      withCredentials: true
+      withCredentials: true,
     });
 
     this.socket.on('connect', () => {
@@ -40,7 +40,8 @@ export class SocketLikeService {
       console.log('[Socket] Escuchando evento:', event);
       this.socket.on(event, (data: T) => {
         console.log('[Socket] Recibido:', event, data);
-        observer.next(data);
+        // Ejecutar dentro del NgZone para que Angular detecte el cambio
+        this.ngZone.run(() => observer.next(data));
       });
       return () => this.socket.off(event);
     });

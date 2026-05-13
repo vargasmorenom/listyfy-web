@@ -11,12 +11,12 @@
   <!-- Card: estadísticas -->
   <div class="sidebar-card">
     <div class="profile-stats">
-      <div class="stat-item">
+      <div class="stat-item stat-clickable" (click)="verSeguidores()">
         <span class="stat-value">{{ followersCount }}</span>
         <span class="stat-label">Seguidores</span>
       </div>
       <div class="stat-divider"></div>
-      <div class="stat-item">
+      <div class="stat-item stat-clickable" (click)="verSiguiendo()">
         <span class="stat-value">{{ followingCount }}</span>
         <span class="stat-label">Siguiendo</span>
       </div>

@@ -47,7 +47,7 @@
       </ion-row>
     }
     <ion-row class="staticDataValue">
-      <ion-col>
+      <ion-col class="stat-clickable" (click)="followersClicked.emit()">
         <strong>{{ followersCount }}</strong>
         <span class="stat-label">{{ 'perfil.seguidores' | translate }}</span>
       </ion-col>

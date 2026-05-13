@@ -10,13 +10,14 @@ import { AppComponent } from './app/app.component';
 import { authValidInterceptor } from './app/middleware/auth-valid.interceptor';
 import { erroresInterceptor } from './app/middleware/errores.interceptor';
 import { errorConexionInterceptor } from './app/middleware/errorConexion.interceptor';
-import { ModalController, PopoverController } from '@ionic/angular';
+import { AlertController, ModalController, PopoverController } from '@ionic/angular';
 import { provideTranslateService } from '@ngx-translate/core';
 import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 
 bootstrapApplication(AppComponent, {
   providers: [
     { provide: RouteReuseStrategy, useClass: HomeReuseStrategy },
+    { provide: AlertController },
     { provide: ModalController },
     { provide: PopoverController },
     provideIonicAngular(),
