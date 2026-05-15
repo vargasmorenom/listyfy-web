@@ -103,6 +103,18 @@ export class ContentListComponent implements OnInit, OnChanges, OnDestroy {
     return this.urlfiles + path;
   }
 
+  getTipoImg(typePostName: string): string {
+    const map: Record<string, string> = {
+      'Twitter-or-X': 'assets/fondos/x-twitter.jpg',
+      'Facebook': 'assets/fondos/facebook.jpg',
+      'Instagram': 'assets/fondos/instagram.jpg',
+      'TikTok': 'assets/fondos/tiktok.jpg',
+      'Youtube': 'assets/fondos/youtube.jpg',
+      'LinkedIn': 'assets/fondos/lin.jpg',
+    };
+    return map[typePostName] ?? 'assets/fondos/fondo1.jpg';
+  }
+
   seeContent(id: string) {
     this.router.navigate(['adminlist'], {
       queryParams: { id: id },

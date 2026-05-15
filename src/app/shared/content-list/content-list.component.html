@@ -18,8 +18,12 @@
     }
 
     <div class="card-background" (click)="seeContent(item._id)">
-      @for (itemA of item.imagen; track $index) {
-        <img [src]="resolveImg(itemA.small)" />
+      @if (item.imagen && item.imagen.length > 0) {
+        @for (itemA of item.imagen; track $index) {
+          <img [src]="resolveImg(itemA.small)" />
+        }
+      } @else {
+        <img class="tipo-fondo-img" [src]="getTipoImg(item.typePostName)" [alt]="item.typePostName" />
       }
       <div class="card-content">
         <div class="card-info">
