@@ -4,14 +4,14 @@ import { PopupService } from 'src/app/services/popup.service';
 import { ViewTwitterComponent } from '../view-twitter/view-twitter.component';
 import { DeleteContentComponent } from '../delete-content/delete-content.component';
 import { TranslatePipe } from '@ngx-translate/core';
-import { IonIcon, IonCard, IonCardContent } from '@ionic/angular/standalone';
+import { IonCard, IonCardContent } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-x-twitter',
   templateUrl: './x-twitter.component.html',
   styleUrls: ['./x-twitter.component.scss'],
   standalone: true,
-  imports: [SlicePipe, TranslatePipe, IonIcon, IonCard, IonCardContent, DeleteContentComponent],
+  imports: [SlicePipe, TranslatePipe, IonCard, IonCardContent, DeleteContentComponent],
 })
 export class XTwitterComponent implements OnInit {
   @Input() contenido!: any;

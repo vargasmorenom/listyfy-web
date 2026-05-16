@@ -89,5 +89,18 @@
   },
   "content": {
     "click_to_view": "Click para ver"
+  },
+  "adminlist": {
+    "tipo_contenido": "Tipo de Contenido",
+    "editar_contenido": "Editar Contenido",
+    "borrar_contenido": "Borrar Contenido",
+    "seguir": "Seguir",
+    "siguiendo": "Siguiendo",
+    "generando": "Generando...",
+    "generar_enlace": "Generar enlace público",
+    "copiar": "Copiar",
+    "agregar_contenido": "Agregar Contenido",
+    "limite_alcanzado": "Límite de 10 artículos alcanzado",
+    "contador_limite": "/10"
   }
 }

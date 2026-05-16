@@ -25,6 +25,7 @@ import { addCircle, menuOutline, layersOutline, heartOutline, heart, personAddOu
 import { environment } from 'src/environments/environment';
 import { EditcontentlistComponent } from 'src/app/shared/editcontentlist/editcontentlist.component';
 import { NewcontentpopupComponent } from 'src/app/shared/newcontentpopup/newcontentpopup.component';
+import { TranslatePipe } from '@ngx-translate/core';
 import {
   IonContent, IonImg, IonChip, IonCard, IonCol, IonRow, IonGrid,
   IonCardHeader, IonList, IonItem, IonPopover, IonCardTitle,
@@ -41,7 +42,7 @@ import {
     IonButton, IonCardTitle, LikescountComponent, IonCardHeader, IonCard,
     IonList, IonItem, IonContent, CommonModule, FormsModule, BackComponent,
     IonIcon, IonGrid, IonRow, IonCol, IonImg, IonChip,
-    SidebarLeftComponent, SidebarRightComponent,
+    SidebarLeftComponent, SidebarRightComponent, TranslatePipe,
   ],
 })
 export class AdminlistPage implements OnInit, OnDestroy {
@@ -84,6 +85,7 @@ export class AdminlistPage implements OnInit, OnDestroy {
     if (path.startsWith('http')) return path;
     return this.urlfiles + path;
   }
+
 
   validarEdit() {
     return this.storage.get('usuario');

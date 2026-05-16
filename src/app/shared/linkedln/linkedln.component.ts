@@ -3,14 +3,14 @@ import { PopupService } from 'src/app/services/popup.service';
 import { ViewLinkedinComponent } from '../view-linkedin/view-linkedin.component';
 import { DeleteContentComponent } from '../delete-content/delete-content.component';
 import { TranslatePipe } from '@ngx-translate/core';
-import { IonIcon, IonCard, IonCardContent } from '@ionic/angular/standalone';
+import { IonCard, IonCardContent } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-linkedln',
   templateUrl: './linkedln.component.html',
   styleUrls: ['./linkedln.component.scss'],
   standalone: true,
-  imports: [TranslatePipe, IonIcon, IonCard, IonCardContent, DeleteContentComponent],
+  imports: [TranslatePipe, IonCard, IonCardContent, DeleteContentComponent],
 })
 export class LinkedlnComponent implements OnInit {
   @Input() contenido: any;

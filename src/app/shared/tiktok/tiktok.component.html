@@ -2,11 +2,18 @@
   <div class="tiktok" id="{{ item.id }}">
     <app-delete-content [idContent]="item.id" [idpost]="idpost" [session]="session"></app-delete-content>
     <ion-card class="contentTiktok" (click)="viewcontent(item)">
-      <img alt="Silhouette of mountains" src="../../../assets/fondos/tiktok-7406196_640.png" />
-      <ion-icon name="play-circle"></ion-icon>
+      <div class="preview-banner">
+        <img alt="TikTok" src="assets/fondos/tiktok.jpg" />
+      </div>
       <ion-card-content>
-        <p class="titulo">{{ item.titulo | slice:0:120 }}{{ item.titulo?.length > 120 ? '...' : '' }}</p>
-        <p class="creador"><strong>Autor</strong>: <a [href]="item.autorlink" [textContent]="'@' + item.autor"></a></p>
+        <p class="linea-tipo">
+          <span class="tipo">{{ item.tipo }}</span>
+          <span class="titulo">{{ item.titulo }}</span>
+        </p>
+        @if (item.titulocortado) {
+          <p class="titulocortado">{{ item.titulocortado | slice:0:100 }}{{ item.titulocortado?.length > 100 ? '...' : '' }}</p>
+        }
+        <p class="autor"><a [href]="item.autorlink">&#64;{{ item.autor }}</a></p>
         <div class="hover-slide">
           <span>{{ 'content.click_to_view' | translate }}</span>
         </div>

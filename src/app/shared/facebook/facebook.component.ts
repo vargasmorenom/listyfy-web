@@ -2,16 +2,14 @@ import { Component, OnInit, Input } from '@angular/core';
 import { PopupService } from 'src/app/services/popup.service';
 import { ViewFacebookComponent } from '../view-facebook/view-facebook.component';
 import { DeleteContentComponent } from '../delete-content/delete-content.component';
-import { IonIcon, IonCard, IonCardContent } from '@ionic/angular/standalone';
+import { IonCard, IonCardContent } from '@ionic/angular/standalone';
 import { TranslatePipe } from '@ngx-translate/core';
-import { addIcons } from 'ionicons';
-import { logoFacebook } from 'ionicons/icons';
 
 @Component({
   selector: 'app-facebook',
   templateUrl: './facebook.component.html',
   styleUrls: ['./facebook.component.scss'],
-  imports: [TranslatePipe, IonIcon, IonCard, IonCardContent, DeleteContentComponent],
+  imports: [TranslatePipe, IonCard, IonCardContent, DeleteContentComponent],
   standalone: true,
 })
 export class FacebookComponent implements OnInit {
@@ -19,9 +17,7 @@ export class FacebookComponent implements OnInit {
   @Input() idpost!: any;
   @Input() session: boolean = false;
 
-  constructor(public popUp: PopupService) {
-    addIcons({ logoFacebook });
-  }
+  constructor(public popUp: PopupService) {}
 
   ngOnInit() {}
 

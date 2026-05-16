@@ -19,15 +19,15 @@
 }
 
 .preview-banner {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 140px;
+  position: relative;
+  width: 100%;
   background: #000000;
+  overflow: hidden;
 
-  ion-icon {
-    font-size: 5rem;
-    color: white;
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
   }
 }
 

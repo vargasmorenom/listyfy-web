@@ -4,14 +4,14 @@ import { PopupService } from 'src/app/services/popup.service';
 import { ViewInstagramComponent } from '../view-instagram/view-instagram.component';
 import { DeleteContentComponent } from '../delete-content/delete-content.component';
 import { TranslatePipe } from '@ngx-translate/core';
-import { IonIcon, IonCard, IonCardContent } from '@ionic/angular/standalone';
+import { IonCard, IonCardContent } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-instagram',
   templateUrl: './instagram.component.html',
   styleUrls: ['./instagram.component.scss'],
   standalone: true,
-  imports: [SlicePipe, TranslatePipe, IonIcon, IonCard, IonCardContent, DeleteContentComponent],
+  imports: [SlicePipe, TranslatePipe, IonCard, IonCardContent, DeleteContentComponent],
 })
 export class InstagramComponent implements OnInit {
   @Input() contenido!: any;

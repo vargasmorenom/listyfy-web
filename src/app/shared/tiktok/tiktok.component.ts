@@ -4,11 +4,7 @@ import { ViewTiktokComponent } from '../view-tiktok/view-tiktok.component';
 import { DeleteContentComponent } from '../delete-content/delete-content.component';
 import { SlicePipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
-import {
-  IonIcon,
-  IonCard,
-  IonCardContent,
-} from '@ionic/angular/standalone';
+import { IonCard, IonCardContent } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-tiktok',
@@ -18,7 +14,6 @@ import {
   imports: [
     SlicePipe,
     TranslatePipe,
-    IonIcon,
     IonCard,
     IonCardContent,
     DeleteContentComponent,
