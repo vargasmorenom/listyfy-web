@@ -5,7 +5,7 @@
         <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>Términos y Condiciones</ion-title>
+    <ion-title>{{ 'terminos.toolbar' | translate }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -13,246 +13,161 @@
   <div class="terms-container">
 
     <div class="terms-header">
-      <h1>Términos y Condiciones de Uso</h1>
+      <h1>{{ 'terminos.titulo' | translate }}</h1>
       <p class="app-name">{{ appName }}</p>
-      <p class="last-updated">Última actualización: {{ lastUpdated }}</p>
+      <p class="last-updated">{{ 'terminos.actualizacion' | translate }}: {{ lastUpdated }}</p>
     </div>
 
     <div class="terms-intro">
-      <p>
-        Bienvenido a <strong>{{ appName }}</strong>. Al acceder y utilizar nuestra plataforma, usted acepta
-        cumplir estos Términos y Condiciones. Si no está de acuerdo con alguna de estas condiciones, le
-        pedimos que no utilice nuestros servicios.
-      </p>
+      <p [innerHTML]="'terminos.intro' | translate:{ appName: appName }"></p>
     </div>
 
     <!-- Sección 1 -->
     <div class="terms-section">
-      <h2><span class="section-num">1.</span> Aceptación de los Términos</h2>
-      <p>
-        Al registrarse, acceder o utilizar {{ appName }}, usted declara tener al menos 13 años de edad y
-        capacidad legal para aceptar estos términos en su jurisdicción. Si utiliza la plataforma en nombre
-        de una organización, declara tener autoridad para vincular a dicha organización con estos términos.
-      </p>
+      <h2><span class="section-num">1.</span> {{ 'terminos.s1.titulo' | translate }}</h2>
+      <p>{{ 'terminos.s1.contenido' | translate:{ appName: appName } }}</p>
     </div>
 
     <!-- Sección 2 -->
     <div class="terms-section">
-      <h2><span class="section-num">2.</span> Descripción del Servicio</h2>
-      <p>
-        {{ appName }} es una plataforma social que permite a los usuarios crear, compartir y descubrir listas
-        de contenido. Nos reservamos el derecho de modificar, suspender o discontinuar el servicio en
-        cualquier momento, con o sin previo aviso.
-      </p>
+      <h2><span class="section-num">2.</span> {{ 'terminos.s2.titulo' | translate }}</h2>
+      <p>{{ 'terminos.s2.contenido' | translate:{ appName: appName } }}</p>
     </div>
 
     <!-- Sección 3 - CONTENIDO PROHIBIDO -->
     <div class="terms-section prohibited">
-      <h2><span class="section-num">3.</span> Contenido Prohibido</h2>
-      <p>Queda estrictamente prohibido publicar, compartir, transmitir o almacenar en nuestra plataforma cualquier contenido que:</p>
+      <h2><span class="section-num">3.</span> {{ 'terminos.s3.titulo' | translate }}</h2>
+      <p>{{ 'terminos.s3.intro' | translate }}</p>
 
       <div class="prohibition-card">
         <div class="prohibition-icon">🔞</div>
         <div class="prohibition-body">
-          <h3>Pornografía y Contenido Sexual Explícito</h3>
-          <p>
-            Se prohíbe todo contenido de naturaleza pornográfica o sexualmente explícito, incluyendo
-            imágenes, videos, textos o cualquier material que muestre actos sexuales explícitos o desnudez
-            con fines sexuales. Esto aplica especialmente a cualquier contenido que involucre a menores de
-            edad de cualquier forma sexual, lo cual constituye un delito grave perseguido por la ley.
-          </p>
+          <h3>{{ 'terminos.s3.p1_titulo' | translate }}</h3>
+          <p>{{ 'terminos.s3.p1_texto' | translate }}</p>
         </div>
       </div>
 
       <div class="prohibition-card">
         <div class="prohibition-icon">🛡️</div>
         <div class="prohibition-body">
-          <h3>Violencia contra Menores de Edad</h3>
-          <p>
-            Se prohíbe absolutamente cualquier contenido que muestre, promueva, glorifique o incite
-            a la violencia física, psicológica, sexual o de cualquier otra índole contra menores de edad.
-            Todo material que represente abuso, explotación o maltrato infantil será eliminado de inmediato
-            y reportado a las autoridades competentes. La protección integral de niños, niñas y adolescentes
-            es una prioridad no negociable en nuestra plataforma.
-          </p>
+          <h3>{{ 'terminos.s3.p2_titulo' | translate }}</h3>
+          <p>{{ 'terminos.s3.p2_texto' | translate }}</p>
         </div>
       </div>
 
       <div class="prohibition-card">
         <div class="prohibition-icon">⚠️</div>
         <div class="prohibition-body">
-          <h3>Violencia y Contenido Perturbador</h3>
-          <p>
-            Se prohíbe compartir contenido que muestre violencia gráfica extrema, torturas, ejecuciones
-            o actos crueles con el fin de intimidar, amenazar o causar daño emocional a otros usuarios.
-            No se permite el uso de la plataforma para realizar amenazas directas o indirectas contra
-            personas o grupos.
-          </p>
+          <h3>{{ 'terminos.s3.p3_titulo' | translate }}</h3>
+          <p>{{ 'terminos.s3.p3_texto' | translate }}</p>
         </div>
       </div>
 
       <div class="prohibition-card">
         <div class="prohibition-icon">📢</div>
         <div class="prohibition-body">
-          <h3>Discursos de Odio</h3>
-          <p>
-            Se prohíbe todo contenido que promueva, incite o glorifique el odio, la discriminación o
-            la violencia contra personas o grupos en razón de su raza, etnia, nacionalidad, religión,
-            género, orientación sexual, identidad de género, discapacidad o cualquier otra característica
-            protegida. No se permiten insultos, estereotipos denigrantes ni lenguaje deshumanizante
-            dirigido a grupos o individuos.
-          </p>
+          <h3>{{ 'terminos.s3.p4_titulo' | translate }}</h3>
+          <p>{{ 'terminos.s3.p4_texto' | translate }}</p>
         </div>
       </div>
 
       <div class="prohibition-card">
         <div class="prohibition-icon">🚫</div>
         <div class="prohibition-body">
-          <h3>Información Falsa y Desinformación</h3>
-          <p>
-            Se prohíbe la publicación deliberada de información falsa, engañosa o manipulada que pueda
-            causar daño real a personas, comunidades o instituciones. Esto incluye noticias fabricadas,
-            teorías de conspiración sin fundamento, información médica falsa y contenido manipulado
-            (deepfakes) destinados a engañar. {{ appName }} podrá etiquetar, restringir o eliminar
-            contenido que haya sido verificado como desinformación por fuentes confiables.
-          </p>
+          <h3>{{ 'terminos.s3.p5_titulo' | translate }}</h3>
+          <p>{{ 'terminos.s3.p5_texto' | translate:{ appName: appName } }}</p>
         </div>
       </div>
 
       <div class="prohibition-card">
         <div class="prohibition-icon">💸</div>
         <div class="prohibition-body">
-          <h3>Estafas y Fraudes Económicos</h3>
-          <p>
-            Se prohíbe utilizar la plataforma para realizar o promover esquemas de fraude financiero,
-            estafas piramidales, phishing, suplantación de identidad con fines económicos, venta de
-            productos o servicios fraudulentos, o cualquier actividad destinada a obtener dinero o datos
-            personales de otros usuarios de forma engañosa. Los usuarios afectados pueden reportar estas
-            conductas directamente a las autoridades competentes y a nuestro equipo de seguridad.
-          </p>
+          <h3>{{ 'terminos.s3.p6_titulo' | translate }}</h3>
+          <p>{{ 'terminos.s3.p6_texto' | translate }}</p>
         </div>
       </div>
 
       <div class="prohibition-card">
         <div class="prohibition-icon">💊</div>
         <div class="prohibition-body">
-          <h3>Actividades Ilegales</h3>
-          <p>
-            Se prohíbe el uso de la plataforma para promover, facilitar o llevar a cabo actividades
-            ilegales, incluyendo la venta o distribución de sustancias controladas, armas, productos
-            falsificados, material con derechos de autor pirateado u otras actividades contrarias a la ley.
-          </p>
+          <h3>{{ 'terminos.s3.p7_titulo' | translate }}</h3>
+          <p>{{ 'terminos.s3.p7_texto' | translate }}</p>
         </div>
       </div>
     </div>
 
     <!-- Sección 4 -->
     <div class="terms-section">
-      <h2><span class="section-num">4.</span> Responsabilidad del Usuario sobre el Contenido</h2>
-      <p>
-        Usted es el único responsable del contenido que publica en {{ appName }}. Al publicar contenido,
-        garantiza que:
-      </p>
+      <h2><span class="section-num">4.</span> {{ 'terminos.s4.titulo' | translate }}</h2>
+      <p>{{ 'terminos.s4.intro' | translate:{ appName: appName } }}</p>
       <ul>
-        <li>Cuenta con todos los derechos y licencias necesarios sobre dicho contenido.</li>
-        <li>El contenido no infringe derechos de terceros ni viola ninguna ley aplicable.</li>
-        <li>El contenido cumple con todos los estándares establecidos en estos Términos.</li>
-        <li>Ha obtenido el consentimiento de las personas que aparecen o se mencionan en el contenido.</li>
+        <li>{{ 'terminos.s4.li1' | translate }}</li>
+        <li>{{ 'terminos.s4.li2' | translate }}</li>
+        <li>{{ 'terminos.s4.li3' | translate }}</li>
+        <li>{{ 'terminos.s4.li4' | translate }}</li>
       </ul>
     </div>
 
     <!-- Sección 5 -->
     <div class="terms-section">
-      <h2><span class="section-num">5.</span> Sistema de Moderación y Reporte</h2>
-      <p>
-        {{ appName }} cuenta con un sistema de moderación de contenido que opera de la siguiente manera:
-      </p>
+      <h2><span class="section-num">5.</span> {{ 'terminos.s5.titulo' | translate }}</h2>
+      <p>{{ 'terminos.s5.intro' | translate:{ appName: appName } }}</p>
       <ul>
-        <li><strong>Reporte de usuarios:</strong> cualquier usuario puede reportar contenido que considere
-          violatorio de estos términos mediante la opción de reporte disponible en cada publicación.</li>
-        <li><strong>Revisión:</strong> nuestro equipo revisará los reportes recibidos y tomará las medidas
-          correspondientes en el menor tiempo posible.</li>
-        <li><strong>Eliminación inmediata:</strong> el contenido que involucre a menores de edad de forma
-          inapropiada o material ilegal será eliminado de inmediato sin previo aviso.</li>
-        <li><strong>Cooperación con autoridades:</strong> colaboraremos con las autoridades competentes
-          cuando se detecte contenido que pueda constituir un delito.</li>
+        <li [innerHTML]="'terminos.s5.li1' | translate"></li>
+        <li [innerHTML]="'terminos.s5.li2' | translate"></li>
+        <li [innerHTML]="'terminos.s5.li3' | translate"></li>
+        <li [innerHTML]="'terminos.s5.li4' | translate"></li>
       </ul>
     </div>
 
     <!-- Sección 6 -->
     <div class="terms-section">
-      <h2><span class="section-num">6.</span> Consecuencias por Incumplimiento</h2>
-      <p>El incumplimiento de estos Términos puede resultar en:</p>
+      <h2><span class="section-num">6.</span> {{ 'terminos.s6.titulo' | translate }}</h2>
+      <p>{{ 'terminos.s6.intro' | translate }}</p>
       <ul>
-        <li>Eliminación del contenido infractor.</li>
-        <li>Advertencia formal al usuario responsable.</li>
-        <li>Suspensión temporal o permanente de la cuenta.</li>
-        <li>Reporte a las autoridades policiales o judiciales competentes en casos de actividad ilegal.</li>
-        <li>Acciones legales por daños y perjuicios causados a terceros o a la plataforma.</li>
+        <li>{{ 'terminos.s6.li1' | translate }}</li>
+        <li>{{ 'terminos.s6.li2' | translate }}</li>
+        <li>{{ 'terminos.s6.li3' | translate }}</li>
+        <li>{{ 'terminos.s6.li4' | translate }}</li>
+        <li>{{ 'terminos.s6.li5' | translate }}</li>
       </ul>
     </div>
 
     <!-- Sección 7 -->
     <div class="terms-section">
-      <h2><span class="section-num">7.</span> Privacidad y Protección de Datos</h2>
-      <p>
-        El tratamiento de sus datos personales se rige por nuestra Política de Privacidad, la cual forma
-        parte integral de estos Términos. Al usar {{ appName }}, usted consiente la recopilación y
-        procesamiento de sus datos conforme a dicha política y a la legislación aplicable en materia de
-        protección de datos personales.
-      </p>
+      <h2><span class="section-num">7.</span> {{ 'terminos.s7.titulo' | translate }}</h2>
+      <p>{{ 'terminos.s7.contenido' | translate:{ appName: appName } }}</p>
     </div>
 
     <!-- Sección 8 -->
     <div class="terms-section">
-      <h2><span class="section-num">8.</span> Propiedad Intelectual</h2>
-      <p>
-        {{ appName }} y sus elementos (logo, diseño, software, contenido propio) están protegidos por
-        derechos de propiedad intelectual. Al publicar contenido en la plataforma, usted otorga a
-        {{ appName }} una licencia no exclusiva, mundial y libre de regalías para mostrar, distribuir y
-        promover dicho contenido dentro del servicio. Usted conserva la titularidad de su contenido.
-      </p>
+      <h2><span class="section-num">8.</span> {{ 'terminos.s8.titulo' | translate }}</h2>
+      <p>{{ 'terminos.s8.contenido' | translate:{ appName: appName } }}</p>
     </div>
 
     <!-- Sección 9 -->
     <div class="terms-section">
-      <h2><span class="section-num">9.</span> Limitación de Responsabilidad</h2>
-      <p>
-        {{ appName }} no será responsable por el contenido publicado por sus usuarios. La plataforma
-        actúa como intermediaria y adopta medidas razonables para prevenir el contenido prohibido,
-        pero no puede garantizar la revisión en tiempo real de todo el material publicado.
-        Los usuarios asumen plena responsabilidad por sus acciones dentro de la plataforma.
-      </p>
+      <h2><span class="section-num">9.</span> {{ 'terminos.s9.titulo' | translate }}</h2>
+      <p>{{ 'terminos.s9.contenido' | translate:{ appName: appName } }}</p>
     </div>
 
     <!-- Sección 10 -->
     <div class="terms-section">
-      <h2><span class="section-num">10.</span> Modificaciones a los Términos</h2>
-      <p>
-        Nos reservamos el derecho de modificar estos Términos en cualquier momento. Notificaremos los
-        cambios significativos a través de la plataforma o por correo electrónico. El uso continuado
-        del servicio después de la notificación implica la aceptación de los nuevos términos.
-      </p>
+      <h2><span class="section-num">10.</span> {{ 'terminos.s10.titulo' | translate }}</h2>
+      <p>{{ 'terminos.s10.contenido' | translate }}</p>
     </div>
 
     <!-- Sección 11 -->
     <div class="terms-section">
-      <h2><span class="section-num">11.</span> Contacto</h2>
-      <p>
-        Si tiene preguntas sobre estos Términos, desea reportar contenido inapropiado o necesita
-        asistencia, puede comunicarse con nuestro equipo a través de los canales disponibles en
-        la plataforma o a través de nuestra sección de ayuda.
-      </p>
+      <h2><span class="section-num">11.</span> {{ 'terminos.s11.titulo' | translate }}</h2>
+      <p>{{ 'terminos.s11.contenido' | translate }}</p>
     </div>
 
     <div class="terms-footer">
-      <p>
-        Al utilizar <strong>{{ appName }}</strong>, usted confirma que ha leído, comprendido y acepta
-        todos los términos y condiciones establecidos en este documento.
-      </p>
+      <p [innerHTML]="'terminos.footer.texto' | translate:{ appName: appName }"></p>
       <ion-button expand="block" color="primary" (click)="goBack()" class="back-btn">
         <ion-icon name="arrow-back-outline" slot="start"></ion-icon>
-        Volver
+        {{ 'terminos.footer.volver' | translate }}
       </ion-button>
     </div>
 

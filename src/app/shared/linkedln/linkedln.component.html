@@ -8,6 +8,7 @@
       </app-delete-content>
       <ion-card class="contentLinkedin" (click)="viewcontent(item)">
         <div class="preview-banner">
+          <app-click-hint [itemId]="item.idpost ?? item.id"></app-click-hint>
           <img src="assets/fondos/lin.jpg" alt="LinkedIn" />
         </div>
         <ion-card-content>

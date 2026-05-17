@@ -46,6 +46,12 @@ html {
   font-size: 19px;
 }
 
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+}
+
 :root {
   /* Variables Globales de la App */
   --app-color-primario: #3a7ff3;
@@ -144,6 +150,11 @@ img {
 @keyframes imgFadeIn {
   from { opacity: 0; }
   to   { opacity: 1; }
+}
+
+/* ── preview-banner: necesario para posicionar el click-hint ── */
+.preview-banner {
+  position: relative;
 }
 
 /* ── Scrollbar invisible ── */

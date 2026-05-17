@@ -1,34 +1,49 @@
-ion-header {
-  background: #303d5c;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1px;
-  gap: 1px;
-}
-ion-button {
+ion-toolbar.app-toolbar {
   --background: #303d5c;
-  --color: white;
-  border: none;
-  border-radius: 6px;
-  font-size: 16px;
-  cursor: pointer;
+  --color: #ffffff;
+  --border-color: transparent;
+  --min-height: 56px;
 }
 
-ion-img {
-  width: 300px;
-  padding: 10px;
-  object-fit: cover;
+.header-logo {
+  width: 140px;
+  object-fit: contain;
+  display: block;
 }
 
-ion-action-sheet.my-custom-class {
-  --background: #f8f6f5;
-  --font-size: 1.5em;
-  --border-radius: 3em;
-  --backdrop-opacity: 0.6;
-  --button-background-selected: #e97223;
-  --button-color: #012f63;
-  --color: #201616;
-  /* role: "destructive" button iOS styling override */
-  --ion-color-danger: #000000;
+/* ── Nav links desktop — oculto ── */
+.desktop-nav {
+  display: none;
+}
+
+.nav-link {
+  --color: rgba(255, 255, 255, 0.85);
+  --background-hover: rgba(255, 255, 255, 0.1);
+  font-size: 0.88rem;
+
+  &.logout-link {
+    --color: rgba(255, 140, 140, 0.9);
+  }
+}
+
+/* ── Botón hamburguesa — oculto en desktop ── */
+.menu-toggle {
+  display: none;
+  --color: #ffffff;
+  --background-hover: rgba(255, 255, 255, 0.1);
+
+  ion-icon {
+    font-size: 26px;
+  }
+}
+
+/* ── Mobile: ocultar nav inline, mostrar hamburguesa ── */
+@media (max-width: 768px) {
+  .desktop-nav {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
 }

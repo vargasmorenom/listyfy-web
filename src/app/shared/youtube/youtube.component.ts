@@ -1,3 +1,4 @@
+import { ClickHintComponent } from 'src/app/shared/click-hint/click-hint.component';
 import { Component, OnInit, Input } from '@angular/core';
 import { SlicePipe } from '@angular/common';
 import { PopupService } from 'src/app/services/popup.service';
@@ -10,7 +11,7 @@ import { IonCard, IonCardContent } from '@ionic/angular/standalone';
   selector: 'app-youtube',
   templateUrl: './youtube.component.html',
   styleUrls: ['./youtube.component.scss'],
-  imports: [SlicePipe, TranslatePipe, IonCard, IonCardContent, DeleteContentComponent],
+  imports: [ClickHintComponent, SlicePipe, TranslatePipe, IonCard, IonCardContent, DeleteContentComponent],
   standalone: true,
 })
 export class YoutubeComponent implements OnInit {

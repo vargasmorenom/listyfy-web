@@ -4,6 +4,7 @@ import { takeUntil, filter } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { MenuStateService } from 'src/app/services/menu-state.service';
 import { ProfileFollowService } from 'src/app/services/profile-follow.service';
 import { ProfileLikeService } from 'src/app/services/profile-like.service';
 import { SocketLikeService } from 'src/app/services/socket-like.service';
@@ -36,6 +37,7 @@ export class SidebarLeftComponent implements OnInit, OnDestroy {
 
   constructor(
     private authService: AuthService,
+    private menuState: MenuStateService,
     private profileFollowService: ProfileFollowService,
     private profileLikeService: ProfileLikeService,
     private socketService: SocketLikeService,
@@ -122,12 +124,14 @@ export class SidebarLeftComponent implements OnInit, OnDestroy {
 
   verSeguidores() {
     if (this.myProfileId) {
+      this.menuState.closeSideMenu();
       this.router.navigate(['/seguidores'], { queryParams: { profileId: this.myProfileId } });
     }
   }
 
   verSiguiendo() {
     if (this.myProfileId) {
+      this.menuState.closeSideMenu();
       this.router.navigate(['/siguiendo'], { queryParams: { profileId: this.myProfileId } });
     }
   }
@@ -138,10 +142,12 @@ export class SidebarLeftComponent implements OnInit, OnDestroy {
   }
 
   navigate(path: string, queryParams?: any) {
+    this.menuState.closeSideMenu();
     this.router.navigate([path], queryParams ? { queryParams } : {});
   }
 
   logout() {
+    this.menuState.closeSideMenu();
     this.authService.logout();
     this.router.navigate(['/login']);
   }

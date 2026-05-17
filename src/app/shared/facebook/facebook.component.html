@@ -8,6 +8,7 @@
       </app-delete-content>
       <ion-card class="contentFb" (click)="viewcontent(item)">
         <div class="preview-banner">
+          <app-click-hint [itemId]="item.listas?.id ?? item.id"></app-click-hint>
           <img src="assets/fondos/facebook.jpg" alt="Facebook" />
         </div>
         <ion-card-content>

@@ -1,5 +1,16 @@
 {"en":[
     {
+        "menu":{
+            "home": "Home",
+            "buscar": "Search",
+            "listan": "New List",
+            "tendencia": "Trends",
+            "perfil": "Profile",
+            "inscripcion": "Sign Up",
+            "ingreso": "Sign In",
+            "salir": "Sign Out",
+            "abrir": "Open menu"
+        },
         "menuloueado":{
             "buscar": "Searcher",
             "listan": "New List",
@@ -21,9 +32,96 @@
             "contrasena" : "Password",
             "confirmar" : "Confirm Password",
             "Terminos" : "Terms and Conditions",
-            "boton" : "Registration" 
+            "boton" : "Registration"
+        },
+        "perfil":{
+            "info": "Profile Information",
+            "contenido": "My Lists",
+            "editar": "Edit profile",
+            "cargando": "Loading..."
+        },
+        "terminos":{
+            "toolbar": "Terms and Conditions",
+            "titulo": "Terms and Conditions of Use",
+            "actualizacion": "Last updated",
+            "intro": "Welcome to {{appName}}. By accessing and using our platform, you agree to comply with these Terms and Conditions. If you do not agree with any of these conditions, we ask that you do not use our services.",
+            "s1":{
+                "titulo": "Acceptance of Terms",
+                "contenido": "By registering, accessing, or using {{appName}}, you declare that you are at least 13 years of age and have legal capacity to accept these terms in your jurisdiction. If you use the platform on behalf of an organization, you declare that you have authority to bind that organization to these terms."
+            },
+            "s2":{
+                "titulo": "Description of the Service",
+                "contenido": "{{appName}} is a social platform that allows users to create, share, and discover content lists. We reserve the right to modify, suspend, or discontinue the service at any time, with or without prior notice."
+            },
+            "s3":{
+                "titulo": "Prohibited Content",
+                "intro": "It is strictly prohibited to publish, share, transmit, or store on our platform any content that:",
+                "p1_titulo": "Pornography and Explicit Sexual Content",
+                "p1_texto": "All content of a pornographic or sexually explicit nature is prohibited, including images, videos, texts, or any material showing explicit sexual acts or nudity for sexual purposes. This especially applies to any content that involves minors in any sexual way, which constitutes a serious crime prosecuted by law.",
+                "p2_titulo": "Violence Against Minors",
+                "p2_texto": "Any content that shows, promotes, glorifies, or incites physical, psychological, sexual, or any other form of violence against minors is absolutely prohibited. All material representing abuse, exploitation, or mistreatment of children will be immediately removed and reported to the competent authorities. The comprehensive protection of children and adolescents is a non-negotiable priority on our platform.",
+                "p3_titulo": "Violence and Disturbing Content",
+                "p3_texto": "Sharing content that shows extreme graphic violence, torture, executions, or cruel acts with the purpose of intimidating, threatening, or causing emotional harm to other users is prohibited. The use of the platform to make direct or indirect threats against individuals or groups is not permitted.",
+                "p4_titulo": "Hate Speech",
+                "p4_texto": "All content that promotes, incites, or glorifies hatred, discrimination, or violence against persons or groups based on their race, ethnicity, nationality, religion, gender, sexual orientation, gender identity, disability, or any other protected characteristic is prohibited. Insults, denigrating stereotypes, and dehumanizing language directed at groups or individuals are not permitted.",
+                "p5_titulo": "False Information and Disinformation",
+                "p5_texto": "The deliberate publication of false, misleading, or manipulated information that could cause real harm to individuals, communities, or institutions is prohibited. This includes fabricated news, unfounded conspiracy theories, false medical information, and manipulated content (deepfakes) intended to deceive. {{appName}} may label, restrict, or remove content that has been verified as disinformation by reliable sources.",
+                "p6_titulo": "Scams and Economic Fraud",
+                "p6_texto": "Using the platform to carry out or promote financial fraud schemes, pyramid schemes, phishing, identity theft for financial purposes, sale of fraudulent products or services, or any activity intended to obtain money or personal data from other users in a deceptive manner is prohibited. Affected users can report these behaviors directly to the competent authorities and our security team.",
+                "p7_titulo": "Illegal Activities",
+                "p7_texto": "The use of the platform to promote, facilitate, or carry out illegal activities is prohibited, including the sale or distribution of controlled substances, weapons, counterfeit products, pirated copyrighted material, or other activities contrary to the law."
+            },
+            "s4":{
+                "titulo": "User Responsibility for Content",
+                "intro": "You are solely responsible for the content you publish on {{appName}}. By publishing content, you guarantee that:",
+                "li1": "You have all necessary rights and licenses for said content.",
+                "li2": "The content does not infringe third-party rights or violate any applicable law.",
+                "li3": "The content complies with all standards established in these Terms.",
+                "li4": "You have obtained the consent of the persons who appear or are mentioned in the content."
+            },
+            "s5":{
+                "titulo": "Moderation and Reporting System",
+                "intro": "{{appName}} has a content moderation system that operates as follows:",
+                "li1": "<strong>User reporting:</strong> any user can report content they consider to be in violation of these terms using the report option available on each post.",
+                "li2": "<strong>Review:</strong> our team will review the reports received and take the corresponding measures as quickly as possible.",
+                "li3": "<strong>Immediate removal:</strong> content that inappropriately involves minors or illegal material will be immediately removed without prior notice.",
+                "li4": "<strong>Cooperation with authorities:</strong> we will cooperate with the competent authorities when content that may constitute a crime is detected."
+            },
+            "s6":{
+                "titulo": "Consequences for Non-Compliance",
+                "intro": "Failure to comply with these Terms may result in:",
+                "li1": "Removal of the infringing content.",
+                "li2": "Formal warning to the responsible user.",
+                "li3": "Temporary or permanent suspension of the account.",
+                "li4": "Report to the competent police or judicial authorities in cases of illegal activity.",
+                "li5": "Legal action for damages caused to third parties or the platform."
+            },
+            "s7":{
+                "titulo": "Privacy and Data Protection",
+                "contenido": "The processing of your personal data is governed by our Privacy Policy, which forms an integral part of these Terms. By using {{appName}}, you consent to the collection and processing of your data in accordance with said policy and applicable data protection legislation."
+            },
+            "s8":{
+                "titulo": "Intellectual Property",
+                "contenido": "{{appName}} and its elements (logo, design, software, own content) are protected by intellectual property rights. By publishing content on the platform, you grant {{appName}} a non-exclusive, worldwide, royalty-free license to display, distribute, and promote said content within the service. You retain ownership of your content."
+            },
+            "s9":{
+                "titulo": "Limitation of Liability",
+                "contenido": "{{appName}} shall not be liable for content published by its users. The platform acts as an intermediary and takes reasonable measures to prevent prohibited content, but cannot guarantee real-time review of all published material. Users assume full responsibility for their actions within the platform."
+            },
+            "s10":{
+                "titulo": "Modifications to the Terms",
+                "contenido": "We reserve the right to modify these Terms at any time. We will notify significant changes through the platform or by email. Continued use of the service after notification implies acceptance of the new terms."
+            },
+            "s11":{
+                "titulo": "Contact",
+                "contenido": "If you have questions about these Terms, wish to report inappropriate content, or need assistance, you can contact our team through the channels available on the platform or through our help section."
+            },
+            "footer":{
+                "texto": "By using <strong>{{appName}}</strong>, you confirm that you have read, understood, and accept all the terms and conditions set forth in this document.",
+                "volver": "Back"
+            }
         }
-    }    
+    }
 
 ]
 }

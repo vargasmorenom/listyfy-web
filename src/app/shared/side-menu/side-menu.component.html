@@ -1,0 +1,14 @@
+<!-- Backdrop -->
+<div class="side-backdrop" [class.open]="isOpen" (click)="close()"></div>
+
+<!-- Panel lateral izquierdo -->
+<div class="side-panel" [class.open]="isOpen">
+  <div class="side-panel-header">
+    <span class="side-panel-title">{{ appName }}</span>
+    <button class="side-close-btn" (click)="close()">✕</button>
+  </div>
+    <aside class="sidebar sidebar-left">
+    <app-sidebar-left></app-sidebar-left>
+  </aside>
+
+</div>

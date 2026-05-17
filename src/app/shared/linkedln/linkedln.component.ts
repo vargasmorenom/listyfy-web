@@ -1,3 +1,4 @@
+import { ClickHintComponent } from 'src/app/shared/click-hint/click-hint.component';
 import { Component, OnInit, Input } from '@angular/core';
 import { PopupService } from 'src/app/services/popup.service';
 import { ViewLinkedinComponent } from '../view-linkedin/view-linkedin.component';
@@ -10,7 +11,7 @@ import { IonCard, IonCardContent } from '@ionic/angular/standalone';
   templateUrl: './linkedln.component.html',
   styleUrls: ['./linkedln.component.scss'],
   standalone: true,
-  imports: [TranslatePipe, IonCard, IonCardContent, DeleteContentComponent],
+  imports: [ClickHintComponent, TranslatePipe, IonCard, IonCardContent, DeleteContentComponent],
 })
 export class LinkedlnComponent implements OnInit {
   @Input() contenido: any;

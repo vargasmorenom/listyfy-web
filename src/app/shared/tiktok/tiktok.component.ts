@@ -1,3 +1,4 @@
+import { ClickHintComponent } from 'src/app/shared/click-hint/click-hint.component';
 import { Component, OnInit, Input, AfterViewInit, OnDestroy } from '@angular/core';
 import { PopupService } from 'src/app/services/popup.service';
 import { ViewTiktokComponent } from '../view-tiktok/view-tiktok.component';
@@ -11,7 +12,7 @@ import { IonCard, IonCardContent } from '@ionic/angular/standalone';
   templateUrl: './tiktok.component.html',
   styleUrls: ['./tiktok.component.scss'],
   standalone: true,
-  imports: [
+  imports: [ClickHintComponent, 
     SlicePipe,
     TranslatePipe,
     IonCard,

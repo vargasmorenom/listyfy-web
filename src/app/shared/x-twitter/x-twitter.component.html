@@ -3,6 +3,7 @@
     <app-delete-content [idContent]="item.id" [idpost]="idpost" [session]="session"></app-delete-content>
     <ion-card class="contentTwitter" (click)="viewcontent(item)">
       <div class="preview-banner">
+        <app-click-hint [itemId]="item.id"></app-click-hint>
         <img src="assets/fondos/x-twitter.jpg" alt="X / Twitter" />
       </div>
       <ion-card-content>

@@ -1,3 +1,4 @@
+import { ClickHintComponent } from 'src/app/shared/click-hint/click-hint.component';
 import { Component, OnInit, Input } from '@angular/core';
 import { PopupService } from 'src/app/services/popup.service';
 import { ViewFacebookComponent } from '../view-facebook/view-facebook.component';
@@ -9,7 +10,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   selector: 'app-facebook',
   templateUrl: './facebook.component.html',
   styleUrls: ['./facebook.component.scss'],
-  imports: [TranslatePipe, IonCard, IonCardContent, DeleteContentComponent],
+  imports: [ClickHintComponent, TranslatePipe, IonCard, IonCardContent, DeleteContentComponent],
   standalone: true,
 })
 export class FacebookComponent implements OnInit {

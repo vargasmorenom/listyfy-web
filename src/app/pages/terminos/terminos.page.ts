@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { TranslatePipe } from '@ngx-translate/core';
 import {
   IonContent,
   IonHeader,
@@ -24,6 +25,7 @@ import {
     IonButtons,
     IonButton,
     IonIcon,
+    TranslatePipe,
   ],
 })
 export class TerminosPage {

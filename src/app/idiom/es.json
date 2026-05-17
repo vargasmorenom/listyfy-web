@@ -1,13 +1,15 @@
 {"es":[
     {
         "menu":{
+            "home": "Inicio",
             "buscar": "Buscar",
             "listan": "Nueva Lista",
-            "tendencia": "tendencia",
+            "tendencia": "Tendencias",
             "perfil": "Perfil",
-            "inscripcion": "Inscripcion",
-            "ingreso": "Ingreso"
-
+            "inscripcion": "Registrarse",
+            "ingreso": "Iniciar sesión",
+            "salir": "Cerrar sesión",
+            "abrir": "Abrir menú"
         },
         "menunoloueado":{
             "inscripcion": "inscripcion",
@@ -21,9 +23,96 @@
             "contrasena" : "Contraseña",
             "confirmar" : "Confirmas Contraseña",
             "Terminos" : "Termino y Condiciones",
-            "boton" : "Inscripćion" 
+            "boton" : "Inscripćion"
+        },
+        "perfil":{
+            "info": "Información de perfil",
+            "contenido": "Mis Listas",
+            "editar": "Editar perfil",
+            "cargando": "Cargando..."
+        },
+        "terminos":{
+            "toolbar": "Términos y Condiciones",
+            "titulo": "Términos y Condiciones de Uso",
+            "actualizacion": "Última actualización",
+            "intro": "Bienvenido a {{appName}}. Al acceder y utilizar nuestra plataforma, usted acepta cumplir estos Términos y Condiciones. Si no está de acuerdo con alguna de estas condiciones, le pedimos que no utilice nuestros servicios.",
+            "s1":{
+                "titulo": "Aceptación de los Términos",
+                "contenido": "Al registrarse, acceder o utilizar {{appName}}, usted declara tener al menos 13 años de edad y capacidad legal para aceptar estos términos en su jurisdicción. Si utiliza la plataforma en nombre de una organización, declara tener autoridad para vincular a dicha organización con estos términos."
+            },
+            "s2":{
+                "titulo": "Descripción del Servicio",
+                "contenido": "{{appName}} es una plataforma social que permite a los usuarios crear, compartir y descubrir listas de contenido. Nos reservamos el derecho de modificar, suspender o discontinuar el servicio en cualquier momento, con o sin previo aviso."
+            },
+            "s3":{
+                "titulo": "Contenido Prohibido",
+                "intro": "Queda estrictamente prohibido publicar, compartir, transmitir o almacenar en nuestra plataforma cualquier contenido que:",
+                "p1_titulo": "Pornografía y Contenido Sexual Explícito",
+                "p1_texto": "Se prohíbe todo contenido de naturaleza pornográfica o sexualmente explícito, incluyendo imágenes, videos, textos o cualquier material que muestre actos sexuales explícitos o desnudez con fines sexuales. Esto aplica especialmente a cualquier contenido que involucre a menores de edad de cualquier forma sexual, lo cual constituye un delito grave perseguido por la ley.",
+                "p2_titulo": "Violencia contra Menores de Edad",
+                "p2_texto": "Se prohíbe absolutamente cualquier contenido que muestre, promueva, glorifique o incite a la violencia física, psicológica, sexual o de cualquier otra índole contra menores de edad. Todo material que represente abuso, explotación o maltrato infantil será eliminado de inmediato y reportado a las autoridades competentes. La protección integral de niños, niñas y adolescentes es una prioridad no negociable en nuestra plataforma.",
+                "p3_titulo": "Violencia y Contenido Perturbador",
+                "p3_texto": "Se prohíbe compartir contenido que muestre violencia gráfica extrema, torturas, ejecuciones o actos crueles con el fin de intimidar, amenazar o causar daño emocional a otros usuarios. No se permite el uso de la plataforma para realizar amenazas directas o indirectas contra personas o grupos.",
+                "p4_titulo": "Discursos de Odio",
+                "p4_texto": "Se prohíbe todo contenido que promueva, incite o glorifique el odio, la discriminación o la violencia contra personas o grupos en razón de su raza, etnia, nacionalidad, religión, género, orientación sexual, identidad de género, discapacidad o cualquier otra característica protegida. No se permiten insultos, estereotipos denigrantes ni lenguaje deshumanizante dirigido a grupos o individuos.",
+                "p5_titulo": "Información Falsa y Desinformación",
+                "p5_texto": "Se prohíbe la publicación deliberada de información falsa, engañosa o manipulada que pueda causar daño real a personas, comunidades o instituciones. Esto incluye noticias fabricadas, teorías de conspiración sin fundamento, información médica falsa y contenido manipulado (deepfakes) destinados a engañar. {{appName}} podrá etiquetar, restringir o eliminar contenido que haya sido verificado como desinformación por fuentes confiables.",
+                "p6_titulo": "Estafas y Fraudes Económicos",
+                "p6_texto": "Se prohíbe utilizar la plataforma para realizar o promover esquemas de fraude financiero, estafas piramidales, phishing, suplantación de identidad con fines económicos, venta de productos o servicios fraudulentos, o cualquier actividad destinada a obtener dinero o datos personales de otros usuarios de forma engañosa. Los usuarios afectados pueden reportar estas conductas directamente a las autoridades competentes y a nuestro equipo de seguridad.",
+                "p7_titulo": "Actividades Ilegales",
+                "p7_texto": "Se prohíbe el uso de la plataforma para promover, facilitar o llevar a cabo actividades ilegales, incluyendo la venta o distribución de sustancias controladas, armas, productos falsificados, material con derechos de autor pirateado u otras actividades contrarias a la ley."
+            },
+            "s4":{
+                "titulo": "Responsabilidad del Usuario sobre el Contenido",
+                "intro": "Usted es el único responsable del contenido que publica en {{appName}}. Al publicar contenido, garantiza que:",
+                "li1": "Cuenta con todos los derechos y licencias necesarios sobre dicho contenido.",
+                "li2": "El contenido no infringe derechos de terceros ni viola ninguna ley aplicable.",
+                "li3": "El contenido cumple con todos los estándares establecidos en estos Términos.",
+                "li4": "Ha obtenido el consentimiento de las personas que aparecen o se mencionan en el contenido."
+            },
+            "s5":{
+                "titulo": "Sistema de Moderación y Reporte",
+                "intro": "{{appName}} cuenta con un sistema de moderación de contenido que opera de la siguiente manera:",
+                "li1": "<strong>Reporte de usuarios:</strong> cualquier usuario puede reportar contenido que considere violatorio de estos términos mediante la opción de reporte disponible en cada publicación.",
+                "li2": "<strong>Revisión:</strong> nuestro equipo revisará los reportes recibidos y tomará las medidas correspondientes en el menor tiempo posible.",
+                "li3": "<strong>Eliminación inmediata:</strong> el contenido que involucre a menores de edad de forma inapropiada o material ilegal será eliminado de inmediato sin previo aviso.",
+                "li4": "<strong>Cooperación con autoridades:</strong> colaboraremos con las autoridades competentes cuando se detecte contenido que pueda constituir un delito."
+            },
+            "s6":{
+                "titulo": "Consecuencias por Incumplimiento",
+                "intro": "El incumplimiento de estos Términos puede resultar en:",
+                "li1": "Eliminación del contenido infractor.",
+                "li2": "Advertencia formal al usuario responsable.",
+                "li3": "Suspensión temporal o permanente de la cuenta.",
+                "li4": "Reporte a las autoridades policiales o judiciales competentes en casos de actividad ilegal.",
+                "li5": "Acciones legales por daños y perjuicios causados a terceros o a la plataforma."
+            },
+            "s7":{
+                "titulo": "Privacidad y Protección de Datos",
+                "contenido": "El tratamiento de sus datos personales se rige por nuestra Política de Privacidad, la cual forma parte integral de estos Términos. Al usar {{appName}}, usted consiente la recopilación y procesamiento de sus datos conforme a dicha política y a la legislación aplicable en materia de protección de datos personales."
+            },
+            "s8":{
+                "titulo": "Propiedad Intelectual",
+                "contenido": "{{appName}} y sus elementos (logo, diseño, software, contenido propio) están protegidos por derechos de propiedad intelectual. Al publicar contenido en la plataforma, usted otorga a {{appName}} una licencia no exclusiva, mundial y libre de regalías para mostrar, distribuir y promover dicho contenido dentro del servicio. Usted conserva la titularidad de su contenido."
+            },
+            "s9":{
+                "titulo": "Limitación de Responsabilidad",
+                "contenido": "{{appName}} no será responsable por el contenido publicado por sus usuarios. La plataforma actúa como intermediaria y adopta medidas razonables para prevenir el contenido prohibido, pero no puede garantizar la revisión en tiempo real de todo el material publicado. Los usuarios asumen plena responsabilidad por sus acciones dentro de la plataforma."
+            },
+            "s10":{
+                "titulo": "Modificaciones a los Términos",
+                "contenido": "Nos reservamos el derecho de modificar estos Términos en cualquier momento. Notificaremos los cambios significativos a través de la plataforma o por correo electrónico. El uso continuado del servicio después de la notificación implica la aceptación de los nuevos términos."
+            },
+            "s11":{
+                "titulo": "Contacto",
+                "contenido": "Si tiene preguntas sobre estos Términos, desea reportar contenido inapropiado o necesita asistencia, puede comunicarse con nuestro equipo a través de los canales disponibles en la plataforma o a través de nuestra sección de ayuda."
+            },
+            "footer":{
+                "texto": "Al utilizar <strong>{{appName}}</strong>, usted confirma que ha leído, comprendido y acepta todos los términos y condiciones establecidos en este documento.",
+                "volver": "Volver"
+            }
         }
-    }    
+    }
 
 ]
 }

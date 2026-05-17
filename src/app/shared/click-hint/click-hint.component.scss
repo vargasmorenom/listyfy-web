@@ -1,0 +1,26 @@
+:host {
+  position: static;
+}
+
+.click-hint {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #f39c12;
+  color: #ffffff;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 0.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+  z-index: 50;
+  white-space: nowrap;
+  pointer-events: auto;
+  animation: hint-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes hint-pulse {
+  0%, 100% { transform: scale(1);    box-shadow: 0 2px 8px  rgba(0,0,0,0.35); }
+  50%       { transform: scale(1.08); box-shadow: 0 4px 14px rgba(0,0,0,0.45); }
+}

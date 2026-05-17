@@ -3,6 +3,7 @@
     <app-delete-content [idContent]="item.id" [idpost]="idpost" [session]="session"></app-delete-content>
     <ion-card class="contentTelegram" (click)="viewcontent(item)">
       <div class="preview-banner">
+        <app-click-hint [itemId]="item.id"></app-click-hint>
         <ion-icon name="paper-plane"></ion-icon>
       </div>
       <ion-card-content>

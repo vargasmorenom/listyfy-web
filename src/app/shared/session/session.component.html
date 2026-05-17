@@ -1,3 +1,33 @@
 <ion-header>
-  <ion-img [src]="logoHeader" alt="{{appName}}"></ion-img>
+  <ion-toolbar class="app-toolbar">
+
+    <!-- Logo — izquierda -->
+    <ion-buttons slot="start">
+      <ion-img [src]="logoHeader" [attr.alt]="appName" class="header-logo"></ion-img>
+    </ion-buttons>
+
+    <!-- Nav links — derecha, solo desktop -->
+    <div slot="end" class="desktop-nav">
+      @for (item of menuItems; track item.url) {
+        <ion-button fill="clear" class="nav-link" (click)="navigate(item.url)">
+          <ion-icon [name]="item.icon" slot="start"></ion-icon>
+          {{ 'menu.' + item.name | translate }}
+        </ion-button>
+      }
+      @if (isLoggedIn) {
+        <ion-button fill="clear" class="nav-link logout-link" (click)="doLogout()">
+          <ion-icon name="log-out-outline" slot="start"></ion-icon>
+          {{ 'menu.salir' | translate }}
+        </ion-button>
+      }
+    </div>
+
+    <!-- Botón menú — derecha, siempre visible -->
+    <ion-buttons slot="end">
+      <ion-button fill="clear" class="menu-toggle" (click)="abrirMenu()">
+        <ion-icon name="menu-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
 </ion-header>

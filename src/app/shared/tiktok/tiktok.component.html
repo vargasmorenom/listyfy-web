@@ -3,6 +3,7 @@
     <app-delete-content [idContent]="item.id" [idpost]="idpost" [session]="session"></app-delete-content>
     <ion-card class="contentTiktok" (click)="viewcontent(item)">
       <div class="preview-banner">
+        <app-click-hint [itemId]="item.id"></app-click-hint>
         <img alt="TikTok" src="assets/fondos/tiktok.jpg" />
       </div>
       <ion-card-content>

@@ -1,3 +1,4 @@
+import { ClickHintComponent } from 'src/app/shared/click-hint/click-hint.component';
 import { Component, OnInit, Input } from '@angular/core';
 import { SlicePipe } from '@angular/common';
 import { PopupService } from 'src/app/services/popup.service';
@@ -11,7 +12,7 @@ import { IonCard, IonCardContent } from '@ionic/angular/standalone';
   templateUrl: './instagram.component.html',
   styleUrls: ['./instagram.component.scss'],
   standalone: true,
-  imports: [SlicePipe, TranslatePipe, IonCard, IonCardContent, DeleteContentComponent],
+  imports: [ClickHintComponent, SlicePipe, TranslatePipe, IonCard, IonCardContent, DeleteContentComponent],
 })
 export class InstagramComponent implements OnInit {
   @Input() contenido!: any;
