@@ -79,7 +79,7 @@
                 [indeterminate]="false"
                 labelPlacement="end"
               >
-                <a [href]="item.link" target="_blank" rel="noopener noreferrer" class="checkbox-link">{{ item.label | translate }}</a>
+                <a [href]="item.link" target="_blank" rel="noopener noreferrer" class="checkbox-link" (click)="$event.stopPropagation()">{{ item.label | translate }}</a>
               </ion-checkbox>
               @if (form.get(item.name)?.touched && form.get(item.name)?.errors?.['required']) {
                 <p class="error-msg">{{ 'inscripcion.error.requerido' | translate }}</p>
