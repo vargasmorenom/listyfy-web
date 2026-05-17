@@ -14,7 +14,7 @@ export const environment = {
       urlfiles: 'http://localhost:8080/files/',
       urlimages: 'http://localhost:8080/images/',
       appUrl: 'http://localhost:8080',
-      termsUrl: 'http://terminosycondiciones',
+      termsUrl: '/terminos',
       recaptchaSiteKey: '6Le9OpAsAAAAAEBabC1joHvAxIJQL5XV96qM-tyV',
       recaptchaEnabled: false,
       defaultAvatar: 'assets/logo/perfil02.png',

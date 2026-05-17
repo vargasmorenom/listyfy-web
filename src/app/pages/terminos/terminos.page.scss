@@ -1,0 +1,166 @@
+ion-toolbar {
+  --background: var(--ion-color-primary);
+  --color: #fff;
+}
+
+.terms-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 16px 8px 32px;
+}
+
+.terms-header {
+  text-align: center;
+  padding: 24px 16px 16px;
+  border-bottom: 2px solid var(--ion-color-primary);
+  margin-bottom: 24px;
+
+  h1 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--ion-color-primary);
+    margin-bottom: 4px;
+  }
+
+  .app-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--ion-color-medium);
+    text-transform: capitalize;
+    margin: 4px 0;
+  }
+
+  .last-updated {
+    font-size: 0.8rem;
+    color: var(--ion-color-medium);
+    margin: 0;
+  }
+}
+
+.terms-intro {
+  background: var(--ion-color-light);
+  border-left: 4px solid var(--ion-color-primary);
+  border-radius: 0 8px 8px 0;
+  padding: 16px;
+  margin-bottom: 24px;
+
+  p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--ion-color-dark);
+  }
+}
+
+.terms-section {
+  margin-bottom: 28px;
+
+  h2 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--ion-color-dark);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border-bottom: 1px solid var(--ion-color-light-shade);
+    padding-bottom: 6px;
+  }
+
+  .section-num {
+    color: var(--ion-color-primary);
+    font-size: 1.15rem;
+  }
+
+  p {
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: var(--ion-color-dark-tint);
+    margin-bottom: 10px;
+  }
+
+  ul {
+    padding-left: 20px;
+    margin: 8px 0;
+
+    li {
+      font-size: 0.92rem;
+      line-height: 1.65;
+      color: var(--ion-color-dark-tint);
+      margin-bottom: 6px;
+    }
+  }
+}
+
+.terms-section.prohibited {
+  h2 {
+    color: var(--ion-color-danger);
+    border-bottom-color: var(--ion-color-danger-tint);
+
+    .section-num {
+      color: var(--ion-color-danger);
+    }
+  }
+
+  > p {
+    font-weight: 500;
+    margin-bottom: 16px;
+  }
+}
+
+.prohibition-card {
+  display: flex;
+  gap: 14px;
+  background: var(--ion-color-light);
+  border: 1px solid var(--ion-color-light-shade);
+  border-left: 4px solid var(--ion-color-danger);
+  border-radius: 0 10px 10px 0;
+  padding: 14px;
+  margin-bottom: 14px;
+  align-items: flex-start;
+
+  .prohibition-icon {
+    font-size: 1.8rem;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+
+  .prohibition-body {
+    flex: 1;
+
+    h3 {
+      font-size: 0.97rem;
+      font-weight: 700;
+      color: var(--ion-color-dark);
+      margin: 0 0 6px;
+    }
+
+    p {
+      font-size: 0.88rem;
+      line-height: 1.6;
+      color: var(--ion-color-dark-tint);
+      margin: 0;
+    }
+  }
+}
+
+.terms-footer {
+  margin-top: 32px;
+  padding: 20px 16px;
+  background: var(--ion-color-light);
+  border-radius: 12px;
+  text-align: center;
+
+  p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--ion-color-dark-tint);
+    margin-bottom: 16px;
+  }
+
+  .back-btn {
+    --border-radius: 10px;
+    max-width: 200px;
+    margin: 0 auto;
+  }
+}

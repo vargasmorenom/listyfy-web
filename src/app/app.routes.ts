@@ -43,6 +43,10 @@ export const routes: Routes = [
     path: 'error',
     loadComponent: () => import('./pages/error/error.page').then((m) => m.ErrorPage),
   },
+  {
+    path: 'terminos',
+    loadComponent: () => import('./pages/terminos/terminos.page').then((m) => m.TerminosPage),
+  },
   // Páginas CON layout (con menú inferior)
   {
     path: '',
