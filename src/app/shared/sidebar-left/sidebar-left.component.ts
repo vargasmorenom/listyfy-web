@@ -133,7 +133,6 @@ export class SidebarLeftComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.socketService.off('follow:updated');
     this.destroy$.next();
     this.destroy$.complete();
   }
