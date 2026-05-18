@@ -73,16 +73,12 @@ export class SidebarLeftComponent implements OnInit, OnDestroy {
       });
 
     // Actualización en tiempo real desde otros usuarios vía socket
+    // El backend emite solo al usuario destinatario, no se necesita filtrar por ID
     this.socketService.on<any>('follow:updated')
       .pipe(takeUntil(this.destroy$))
       .subscribe(data => {
-        if (!this.myProfileId) return;
-        if (data.idprofile === this.myProfileId) {
-          this.followersCount = data.countFollowers;
-        }
-        if (data.followerid === this.myProfileId) {
-          this.followingCount += data.action === 'follow' ? 1 : -1;
-        }
+        this.followersCount = data.countFollowers;
+        this.followingCount = data.countFollowing;
       });
   }
 
@@ -137,6 +133,7 @@ export class SidebarLeftComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.socketService.off('follow:updated');
     this.destroy$.next();
     this.destroy$.complete();
   }

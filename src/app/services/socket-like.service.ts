@@ -37,13 +37,17 @@ export class SocketLikeService {
 
   on<T>(event: string): Observable<T> {
     return new Observable<T>(observer => {
-      console.log('[Socket] Escuchando evento:', event);
-      this.socket.on(event, (data: T) => {
+      const handler = (data: T) => {
         console.log('[Socket] Recibido:', event, data);
-        // Ejecutar dentro del NgZone para que Angular detecte el cambio
         this.ngZone.run(() => observer.next(data));
-      });
-      return () => this.socket.off(event);
+      };
+      console.log('[Socket] Escuchando evento:', event);
+      this.socket.on(event, handler);
+      return () => this.socket.off(event, handler);
     });
+  }
+
+  off(event: string): void {
+    this.socket.off(event);
   }
 }
