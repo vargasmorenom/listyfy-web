@@ -50,8 +50,8 @@ export const erroresInterceptor: HttpInterceptorFn = (req, next) => {
         );
       }
 
-      // No mostrar toast cuando es el propio refresh el que falla (el logout ya maneja la navegación)
-      if (isAuthUrl && error.status === 401) {
+      // Login y refresh manejan sus propios errores — no mostrar toast genérico aquí
+      if (isAuthUrl) {
         return throwError(() => error);
       }
 

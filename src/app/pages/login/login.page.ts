@@ -5,12 +5,13 @@ import { takeUntil } from 'rxjs/operators';
 import { FormsModule, ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-import * as CryptoJS from 'crypto-js';
+import CryptoJS from 'crypto-js';
 import { DynamicFormService } from 'src/app/services/dynamicFormService';
 import { login } from 'src/app/configs/login';
 import { LoginService } from 'src/app/services/login.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { SocketLikeService } from 'src/app/services/socket-like.service';
 import { GoogleAuthService, GoogleUser } from 'src/app/services/google-auth.service';
 import { RecaptchaComponent } from 'src/app/shared/recaptcha/recaptcha.component';
 
@@ -65,6 +66,7 @@ export class LoginPage implements OnInit, OnDestroy, AfterViewInit {
     public loginservice: LoginService,
     public storage: StorageService,
     private auth: AuthService,
+    private socketService: SocketLikeService,
     private googleAuth: GoogleAuthService,
   ) {
     this.formCreate = login;
@@ -130,6 +132,7 @@ export class LoginPage implements OnInit, OnDestroy, AfterViewInit {
           const usuario = { user: datos.body.usuario, id: datos.body.id, valores: token };
           this.storage.set('usuario', usuario);
           this.auth.login(token);
+          this.socketService.reconnectWithToken();
           this.storage.set(datos.body.id, datos.body.perfil);
           this.messToast.success('Bienvenido a ListyFy : ' + ' ' + this.form.value.username);
           setTimeout(() => {
@@ -140,8 +143,13 @@ export class LoginPage implements OnInit, OnDestroy, AfterViewInit {
           this.messToast.warning('Tu cuenta aún no ha sido activada. Revisa tu correo.');
         }
       },
-      error: () => {
+      error: (err) => {
         this.recaptchaRef?.reset();
+        if (err.status === 0) {
+          this.messToast.error('Sin conexión. Verifica tu red e intenta de nuevo.');
+        } else {
+          this.messToast.error('Usuario o contraseña incorrectos. Intenta de nuevo.');
+        }
       },
     });
   }
@@ -154,6 +162,7 @@ export class LoginPage implements OnInit, OnDestroy, AfterViewInit {
           const usuario = { user: datos.body.usuario, id: datos.body.id, valores: token };
           this.storage.set('usuario', usuario);
           this.auth.login(token);
+          this.socketService.reconnectWithToken();
           this.storage.set(datos.body.id, datos.body.perfil);
           this.messToast.success('Bienvenido a mylistys: ' + user.name);
           setTimeout(() => {

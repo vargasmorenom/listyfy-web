@@ -2,6 +2,7 @@ import { Injectable, NgZone } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +12,11 @@ export class SocketLikeService {
   private socket: Socket;
   private url: string = new URL(environment.servicio[0].url).origin;
 
-  constructor(private ngZone: NgZone) {
+  constructor(private ngZone: NgZone, private authService: AuthService) {
     this.socket = io(this.url, {
       transports: ['websocket'],
       withCredentials: true,
+      auth: (cb) => cb({ token: this.authService.getToken() ?? '' }),
     });
 
     this.socket.on('connect', () => {
@@ -28,6 +30,11 @@ export class SocketLikeService {
     this.socket.on('connect_error', (err) => {
       console.error('[Socket] Error de conexión:', err.message);
     });
+  }
+
+  // Llamar tras login para que el handshake incluya el token recién adquirido
+  reconnectWithToken(): void {
+    this.socket.disconnect().connect();
   }
 
   emit(event: string, data: any): void {
