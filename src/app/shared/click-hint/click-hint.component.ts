@@ -17,8 +17,7 @@ export class ClickHintComponent {
     return !ClickHintComponent.seenIds.has(this.itemId);
   }
 
-  dismiss(event: Event) {
-    event.stopPropagation();
+  dismiss() {
     ClickHintComponent.seenIds.add(this.itemId);
   }
 }
