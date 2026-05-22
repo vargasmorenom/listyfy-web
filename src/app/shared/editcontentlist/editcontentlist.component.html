@@ -18,7 +18,8 @@
           item.type !== 'textarea' &&
           item.type !== 'checkbox' &&
           item.type !== 'file' &&
-          item.type !== 'radio'
+          item.type !== 'radio' &&
+          item.type !== 'tag-input'
         ) {
           <div class="input-group">
             <ion-item>
@@ -31,6 +32,11 @@
               >
               </ion-input>
             </ion-item>
+          </div>
+        }
+        @if (item.type === 'tag-input') {
+          <div class="input-group">
+            <app-tag-input [label]="item.label" [formControlName]="item.name"></app-tag-input>
           </div>
         }
         @if (item.type === 'textarea') {

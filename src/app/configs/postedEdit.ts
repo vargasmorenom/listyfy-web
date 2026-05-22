@@ -28,8 +28,8 @@ export const postedEdit = [
   {
     name: 'tags',
     label: 'Tags',
-    type: 'text',
-    validations: [{ type: 'pattern', value: /^[A-Za-z-ZñÑáéíóúÁÉÍÓÚ0,@#-9\s]{2,300}$/ }],
+    type: 'tag-input',
+    validations: [],
   },
   {
     name: 'access',

@@ -21,6 +21,7 @@ import {
   IonRadio, IonRadioGroup, IonList, IonCheckbox, IonPopover,
 } from '@ionic/angular/standalone';
 import { TranslatePipe } from '@ngx-translate/core';
+import { TagInputComponent } from 'src/app/shared/tag-input/tag-input.component';
 
 @Component({
   selector: 'app-adminposted',
@@ -31,7 +32,7 @@ import { TranslatePipe } from '@ngx-translate/core';
     IonContent, IonItem, IonInput, IonButton, IonLabel, IonIcon,
     FormsModule, ReactiveFormsModule, IonSelect, IonSelectOption,
     IonTextarea, BackComponent, IonRadioGroup, IonRadio, IonList, IonCheckbox, IonPopover,
-    TranslatePipe, CommonModule, SidebarLeftComponent, SidebarRightComponent,
+    TranslatePipe, CommonModule, SidebarLeftComponent, SidebarRightComponent, TagInputComponent,
   ],
 })
 export class AdminpostedPage implements OnInit, OnDestroy {
@@ -115,7 +116,7 @@ export class AdminpostedPage implements OnInit, OnDestroy {
         this.form.reset();
         this.imagenCarga = '';
         setTimeout(() => {
-          this.router.navigate(['/newlist']);
+          this.router.navigate(['adminlist'], { queryParams: { id: data.body._id } });
         }, 1000);
       } else {
         this.messToast.error(data.body.message, 'Error');

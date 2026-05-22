@@ -1,0 +1,109 @@
+.tag-input-wrapper {
+  position: relative;
+  padding: 8px 0 4px;
+
+  .tag-label {
+    display: block;
+    font-size: 12px;
+    color: var(--ion-color-medium);
+    margin-bottom: 6px;
+    font-weight: 500;
+    padding-left: 2px;
+  }
+
+  .tags-field {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+    min-height: 48px;
+    padding: 6px 12px;
+    background: var(--ion-item-background, var(--ion-background-color, #fff));
+    border-radius: 8px;
+    border: 1.5px solid var(--ion-color-light-shade);
+    cursor: text;
+    transition: border-color 0.2s;
+
+    &:focus-within {
+      border-color: var(--ion-color-primary);
+    }
+
+    .selected-chip {
+      margin: 2px 0;
+      --background: var(--ion-color-tertiary);
+      --color: var(--ion-color-tertiary-contrast);
+
+      ion-icon {
+        cursor: pointer;
+        opacity: 0.7;
+        &:hover { opacity: 1; }
+      }
+    }
+
+    .tag-text-input {
+      border: none;
+      outline: none;
+      background: transparent;
+      min-width: 130px;
+      flex: 1;
+      font-size: 14px;
+      color: var(--ion-color-dark);
+      padding: 4px 0;
+
+      &::placeholder {
+        color: var(--ion-color-medium);
+      }
+    }
+  }
+
+  .suggestions-list {
+    position: absolute;
+    left: 0;
+    right: 0;
+    background: var(--ion-background-color, #fff);
+    border: 1px solid var(--ion-color-light-shade);
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.14);
+    z-index: 9999;
+    max-height: 220px;
+    overflow-y: auto;
+    margin-top: 2px;
+
+    .suggestion-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.15s;
+
+      ion-icon {
+        font-size: 16px;
+        color: var(--ion-color-medium);
+        flex-shrink: 0;
+      }
+
+      &:hover {
+        background: var(--ion-color-light);
+      }
+
+      &.create-item {
+        color: var(--ion-color-primary);
+        border-top: 1px solid var(--ion-color-light-shade);
+
+        ion-icon {
+          color: var(--ion-color-primary);
+        }
+      }
+    }
+  }
+
+  .tag-hint {
+    font-size: 11px;
+    color: var(--ion-color-medium);
+    text-align: right;
+    margin-top: 4px;
+    padding-right: 2px;
+  }
+}

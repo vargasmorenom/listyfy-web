@@ -12,7 +12,7 @@
             <h1>{{ 'newlist.titulo_pagina' | translate }}</h1>
           </div>
           @for (item of formCreate; track $index; ) {
-            @if(item.type !== 'select' && item.type !=='textarea' && item.type !=='checkbox' && item.type !=='file' && item.type !=='radio') {
+            @if(item.type !== 'select' && item.type !=='textarea' && item.type !=='checkbox' && item.type !=='file' && item.type !=='radio' && item.type !== 'tag-input') {
               <div class="input-group">
                 <ion-item>
                   <ion-input
@@ -22,20 +22,12 @@
                     [label]="item.label | translate"
                     formControlName="{{item.name}}"
                   ></ion-input>
-                  @if(item.name === 'tags') {
-                    <ion-button id="tags-help" slot="end" fill="clear" class="help-btn">
-                      <ion-icon name="help-circle-outline"></ion-icon>
-                    </ion-button>
-                    <ion-popover trigger="tags-help" triggerAction="click" [dismissOnSelect]="true">
-                      <ng-template>
-                        <div class="tags-help-content">
-                          <p>El <strong>TAG</strong> debe ser una palabra y para agregar un TAG más debe ser separada por comas. Un contenido tiene como máximo <strong>5 TAGS</strong>.</p>
-                          <p class="tags-example">Ej: <em>tecnología, música, deporte</em></p>
-                        </div>
-                      </ng-template>
-                    </ion-popover>
-                  }
                 </ion-item>
+              </div>
+            }
+            @if(item.type === 'tag-input') {
+              <div class="input-group">
+                <app-tag-input [label]="item.label" [formControlName]="item.name"></app-tag-input>
               </div>
             }
             @if(item.type === 'file'){

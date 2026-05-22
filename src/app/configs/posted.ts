@@ -33,8 +33,8 @@ export const posted = [
   {
     name: 'tags',
     label: 'newlist.tags',
-    type: 'text',
-    validations: [{ type: 'pattern', value: /^[A-Za-z-ZñÑáéíóúÁÉÍÓÚ0,@#-9\s]{2,300}$/ }],
+    type: 'tag-input',
+    validations: [],
   },
   {
     name: 'forKids',

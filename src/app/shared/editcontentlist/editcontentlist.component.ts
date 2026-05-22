@@ -33,6 +33,7 @@ import {
   IonRadio,
   IonCheckbox,
 } from '@ionic/angular/standalone';
+import { TagInputComponent } from 'src/app/shared/tag-input/tag-input.component';
 
 @Component({
   selector: 'app-editcontentlist',
@@ -59,6 +60,7 @@ import {
     ReactiveFormsModule,
     TranslatePipe,
     IonCheckbox,
+    TagInputComponent,
   ],
   standalone: true,
 })

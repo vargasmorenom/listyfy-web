@@ -1,0 +1,42 @@
+<div class="tag-input-wrapper">
+  <label class="tag-label">{{ label | translate }}</label>
+
+  <div class="tags-field" (click)="focusInput()">
+    @for (tag of selectedTags; track tag) {
+      <ion-chip color="tertiary" class="selected-chip">
+        <ion-label>#{{ tag }}</ion-label>
+        <ion-icon name="close-circle" (click)="$event.stopPropagation(); removeTag(tag)"></ion-icon>
+      </ion-chip>
+    }
+    @if (selectedTags.length < MAX_TAGS) {
+      <input
+        #inputEl
+        class="tag-text-input"
+        [(ngModel)]="inputValue"
+        (input)="onInput()"
+        (keydown)="onKeydown($event)"
+        (blur)="onTouched()"
+        [placeholder]="selectedTags.length === 0 ? 'Buscar o crear tag...' : '+ tag'"
+      />
+    }
+  </div>
+
+  @if (showDropdown) {
+    <div class="suggestions-list">
+      @for (suggestion of filteredSuggestions; track suggestion) {
+        <div class="suggestion-item" (mousedown)="selectTag(suggestion)">
+          <ion-icon name="pricetag-outline"></ion-icon>
+          <span>#{{ suggestion }}</span>
+        </div>
+      }
+      @if (filteredSuggestions.length === 0 && inputValue.trim().length > 0) {
+        <div class="suggestion-item create-item" (mousedown)="createTag()">
+          <ion-icon name="add-circle-outline"></ion-icon>
+          <span>Crear <strong>#{{ inputValue.trim() }}</strong></span>
+        </div>
+      }
+    </div>
+  }
+
+  <div class="tag-hint">{{ selectedTags.length }}/{{ MAX_TAGS }} tags</div>
+</div>
