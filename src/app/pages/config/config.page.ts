@@ -16,7 +16,7 @@ import { environment } from 'src/environments/environment';
 import CryptoJS from 'crypto-js';
 import { IonAccordion,IonAccordionGroup,IonItem,
   IonInput,IonLabel,IonIcon,IonButton,IonInputPasswordToggle,IonCard,IonCardHeader,IonCardTitle,
-  IonList,IonRadio,IonRadioGroup,IonToggle } from '@ionic/angular/standalone';
+  IonList,IonRadio,IonRadioGroup,IonToggle,IonSpinner } from '@ionic/angular/standalone';
 import { BackComponent } from 'src/app/shared/back/back.component';
 
 @Component({
@@ -26,7 +26,7 @@ import { BackComponent } from 'src/app/shared/back/back.component';
   standalone: true,
   imports: [CommonModule, FormsModule, IonAccordion,
     ReactiveFormsModule,IonAccordionGroup,IonItem,IonLabel,IonIcon,IonButton,IonInputPasswordToggle,
-  IonInput,IonCard,IonCardHeader,IonCardTitle,IonList,IonRadio,IonRadioGroup,IonToggle,BackComponent,
+  IonInput,IonCard,IonCardHeader,IonCardTitle,IonList,IonRadio,IonRadioGroup,IonToggle,IonSpinner,BackComponent,
   PasswordRulesComponent]
 })
 export class ConfigPage implements OnInit, OnDestroy {
@@ -36,6 +36,7 @@ export class ConfigPage implements OnInit, OnDestroy {
   public langua!: FormGroup;
   public language: any;
   public languageSaved = false;
+  loading = false;
   private encryptKey = environment.servicio[0].key;
   private destroy$ = new Subject<void>();
 
@@ -73,12 +74,15 @@ export class ConfigPage implements OnInit, OnDestroy {
       passwordActual: CryptoJS.AES.encrypt(this.form.value.passwordActual, this.encryptKey).toString(),
       password: CryptoJS.AES.encrypt(this.form.value.password, this.encryptKey).toString(),
     };
+    this.loading = true;
     this.configService.changePassword(data).pipe(takeUntil(this.destroy$)).subscribe({
       next: () => {
+        this.loading = false;
         this.toast.success('Contraseña actualizada correctamente.');
         this.form.reset();
       },
       error: (err) => {
+        this.loading = false;
         const msg = err.error?.message || 'Error al cambiar la contraseña.';
         this.toast.error(msg);
       }

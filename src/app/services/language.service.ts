@@ -6,18 +6,20 @@ import { StorageService } from './storage.service';
 export type AppLanguage = 'en' | 'es';
 
 const LANGUAGE_KEY = 'app_language';
-const DEFAULT_LANGUAGE: AppLanguage = 'es';
 
 @Injectable({ providedIn: 'root' })
 export class LanguageService {
-  private _language$ = new BehaviorSubject<AppLanguage>(DEFAULT_LANGUAGE);
+  private _language$ = new BehaviorSubject<AppLanguage>('en');
   readonly language$ = this._language$.asObservable();
 
   constructor(private storage: StorageService, private translate: TranslateService) {}
 
   init(): void {
     const saved = this.storage.get(LANGUAGE_KEY) as AppLanguage | null;
-    const lang = saved === 'en' || saved === 'es' ? saved : DEFAULT_LANGUAGE;
+    const lang: AppLanguage =
+      saved === 'en' || saved === 'es'
+        ? saved
+        : navigator.language.startsWith('es') ? 'es' : 'en';
     this._language$.next(lang);
     this.translate.use(lang);
   }

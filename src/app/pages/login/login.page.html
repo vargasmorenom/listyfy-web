@@ -37,9 +37,13 @@
           <app-recaptcha #recaptchaRef (resolved)="onRecaptchaResolved($event)"></app-recaptcha>
         }
 
-        <ion-button class="submit-btn" expand="block" (click)="enviar()" [disabled]="form.invalid || (recaptchaEnabled && !recaptchaToken)">
-          <ion-icon name="arrow-forward-outline" slot="start"></ion-icon>
-          {{ 'login.boton' | translate }}
+        <ion-button class="submit-btn" expand="block" (click)="enviar()" [disabled]="loading || form.invalid || (recaptchaEnabled && !recaptchaToken)">
+          @if (loading) {
+            <ion-spinner name="crescent"></ion-spinner>
+          } @else {
+            <ion-icon name="arrow-forward-outline" slot="start"></ion-icon>
+            {{ 'login.boton' | translate }}
+          }
         </ion-button>
       </form>
 

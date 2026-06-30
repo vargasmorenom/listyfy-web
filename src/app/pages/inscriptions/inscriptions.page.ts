@@ -20,6 +20,7 @@ import {
   IonIcon,
   IonCheckbox,
   IonInputPasswordToggle,
+  IonSpinner,
 } from '@ionic/angular/standalone';
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -36,6 +37,7 @@ import { TranslatePipe } from '@ngx-translate/core';
     ReactiveFormsModule,
     IonCheckbox,
     IonInputPasswordToggle,
+    IonSpinner,
     TranslatePipe,
     RecaptchaComponent,
     PasswordRulesComponent,
@@ -59,6 +61,7 @@ export class InscriptionsPage implements OnInit, OnDestroy {
   private bgInterval!: ReturnType<typeof setInterval>;
   recaptchaToken: string | null = null;
   recaptchaEnabled = environment.servicio[0].recaptchaEnabled;
+  loading = false;
 
   countries: any[] = [];
   filtered: any[] = [];
@@ -155,8 +158,10 @@ export class InscriptionsPage implements OnInit, OnDestroy {
 
     console.log('[Inscripcion] Payload enviado:', data);
 
+    this.loading = true;
     this.register.increptionUser(data).pipe(takeUntil(this.destroy$)).subscribe({
       next: (datos) => {
+        this.loading = false;
         console.log('[Inscripcion] Respuesta:', datos.status, datos.body);
         if (datos.status === 201) {
           this.messToast.success('Revisa tu correo para activar tu cuenta: ' + this.form.value.email);
@@ -168,6 +173,7 @@ export class InscriptionsPage implements OnInit, OnDestroy {
         }
       },
       error: (err) => {
+        this.loading = false;
         console.error('[Inscripcion] Error:', err.status, err.error);
         this.recaptchaRef?.reset();
         this.recaptchaToken = null;

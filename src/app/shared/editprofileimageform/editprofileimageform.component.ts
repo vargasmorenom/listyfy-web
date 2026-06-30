@@ -22,6 +22,7 @@ import {
   IonButtons,
   IonButton,
   IonContent,
+  IonSpinner,
 } from '@ionic/angular/standalone';
 
 @Component({
@@ -36,6 +37,7 @@ import {
     IonButtons,
     IonButton,
     IonContent,
+    IonSpinner,
     FormsModule,
     ReactiveFormsModule,
   ],
@@ -47,6 +49,7 @@ export class EditprofileimageformComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
   public form!: FormGroup;
   public formCreateImg: any;
+  loading = false;
   public fileData: any;
   public imagenCarga: any;
   public perfilId: any;
@@ -112,15 +115,23 @@ export class EditprofileimageformComponent implements OnInit, OnDestroy {
       dataForm.append('imagen', this.fileData);
     }
     if (this.fileData) {
-      this.perfil.updateImage(dataForm).pipe(takeUntil(this.destroy$)).subscribe((data: any) => {
-        if (data) {
-          this.messToast.success(data.message);
-          this.storage.set(user.id, data.perfilCreate.perfilUpdated);
-          this.authService.isUser();
-          setTimeout(() => {
-            this.modalCtrl.dismiss({ success: true, profile: data.perfilCreate.perfilUpdated });
-          }, 1500);
-        }
+      this.loading = true;
+      this.perfil.updateImage(dataForm).pipe(takeUntil(this.destroy$)).subscribe({
+        next: (data: any) => {
+          this.loading = false;
+          if (data) {
+            this.messToast.success(data.message);
+            this.storage.set(user.id, data.perfilCreate.perfilUpdated);
+            this.authService.isUser();
+            setTimeout(() => {
+              this.modalCtrl.dismiss({ success: true, profile: data.perfilCreate.perfilUpdated });
+            }, 1500);
+          }
+        },
+        error: () => {
+          this.loading = false;
+          this.messToast.error('Error al actualizar la imagen');
+        },
       });
     }
   }

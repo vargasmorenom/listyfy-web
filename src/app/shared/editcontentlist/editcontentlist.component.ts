@@ -32,6 +32,7 @@ import {
   IonRadioGroup,
   IonRadio,
   IonCheckbox,
+  IonSpinner,
 } from '@ionic/angular/standalone';
 import { TagInputComponent } from 'src/app/shared/tag-input/tag-input.component';
 
@@ -60,6 +61,7 @@ import { TagInputComponent } from 'src/app/shared/tag-input/tag-input.component'
     ReactiveFormsModule,
     TranslatePipe,
     IonCheckbox,
+    IonSpinner,
     TagInputComponent,
   ],
   standalone: true,
@@ -73,6 +75,7 @@ export class EditcontentlistComponent implements OnInit, OnDestroy {
   public perfilId: any;
   public postId: any;
   @Input() onComplete!: (postId: string) => void;
+  loading = false;
   private destroy$ = new Subject<void>();
 
   constructor(
@@ -142,8 +145,10 @@ export class EditcontentlistComponent implements OnInit, OnDestroy {
         formData.append('imagen', this.fileData, this.fileData.name);
       }
 
-      this.posteded.updatePosted(formData).pipe(takeUntil(this.destroy$)).subscribe(
-        (res: any) => {
+      this.loading = true;
+      this.posteded.updatePosted(formData).pipe(takeUntil(this.destroy$)).subscribe({
+        next: (res: any) => {
+          this.loading = false;
           if (res.status === 200) {
             this.messToast.success('Contenido actualizado correctamente');
             this.modalCtrl.dismiss().then(() => {
@@ -157,11 +162,12 @@ export class EditcontentlistComponent implements OnInit, OnDestroy {
             this.messToast.error('Error al actualizar el contenido');
           }
         },
-        (error) => {
+        error: (error) => {
+          this.loading = false;
           console.error(error);
           this.messToast.error('Error al actualizar el contenido');
-        }
-      );
+        },
+      });
     } else {
       this.messToast.error('Formulario inválido');
     }

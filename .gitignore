@@ -55,3 +55,7 @@ coverage/
 
 # Documento informativo local (no se versiona)
 BACKEND.md
+
+
+# IA
+.claude/

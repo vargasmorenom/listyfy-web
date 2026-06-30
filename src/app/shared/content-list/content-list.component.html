@@ -20,10 +20,26 @@
     <div class="card-background" (click)="seeContent(item._id)">
       @if (item.imagen && item.imagen.length > 0) {
         @for (itemA of item.imagen; track $index) {
-          <img [src]="resolveImg(itemA.small)" />
+          <div class="img-wrap">
+            @if (!isImgLoaded(item._id + '_' + $index)) {
+              <div class="img-skeleton"></div>
+            }
+            <img [src]="resolveImg(itemA.small)"
+                 [class.img-hidden]="!isImgLoaded(item._id + '_' + $index)"
+                 (load)="markImgLoaded(item._id + '_' + $index)" />
+          </div>
         }
       } @else {
-        <img class="tipo-fondo-img" [src]="getTipoImg(item.typePostName)" [alt]="item.typePostName" />
+        <div class="img-wrap">
+          @if (!isImgLoaded(item._id + '_bg')) {
+            <div class="img-skeleton tipo-fondo-img"></div>
+          }
+          <img class="tipo-fondo-img"
+               [src]="getTipoImg(item.typePostName)"
+               [alt]="item.typePostName"
+               [class.img-hidden]="!isImgLoaded(item._id + '_bg')"
+               (load)="markImgLoaded(item._id + '_bg')" />
+        </div>
       }
       <img class="tipo-badge" [src]="getTipoImg(item.typePostName)" [alt]="item.typePostName" />
       <div class="card-content">

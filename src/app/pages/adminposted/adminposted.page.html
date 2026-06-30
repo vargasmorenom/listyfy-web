@@ -127,9 +127,13 @@
               <ion-icon name="refresh-outline" style="margin-right: 5px"></ion-icon>
               {{ 'newlist.boton_limpiar' | translate }}
             </ion-button>
-            <ion-button expand="block" (click)="enviar()" [disabled]="form.invalid">
-              <ion-icon name="arrow-forward-outline" style="margin-right: 5px"></ion-icon>
-              {{ 'newlist.boton_crear' | translate }}
+            <ion-button expand="block" (click)="enviar()" [disabled]="loading || form.invalid">
+              @if (loading) {
+                <ion-spinner name="crescent"></ion-spinner>
+              } @else {
+                <ion-icon name="arrow-forward-outline" style="margin-right: 5px"></ion-icon>
+                {{ 'newlist.boton_crear' | translate }}
+              }
             </ion-button>
           </div>
         </form>

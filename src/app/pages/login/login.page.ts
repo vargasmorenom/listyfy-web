@@ -21,6 +21,7 @@ import {
   IonButton,
   IonIcon,
   IonInputPasswordToggle,
+  IonSpinner,
 } from '@ionic/angular/standalone';
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -37,6 +38,7 @@ import { TranslatePipe } from '@ngx-translate/core';
     FormsModule,
     ReactiveFormsModule,
     IonInputPasswordToggle,
+    IonSpinner,
     TranslatePipe,
     RecaptchaComponent,
   ],
@@ -58,6 +60,7 @@ export class LoginPage implements OnInit, OnDestroy, AfterViewInit {
   appName = environment.servicio[0].appName;
   recaptchaToken: string | null = null;
   recaptchaEnabled = environment.servicio[0].recaptchaEnabled;
+  loading = false;
 
   constructor(
     public router: Router,
@@ -124,8 +127,10 @@ export class LoginPage implements OnInit, OnDestroy, AfterViewInit {
       recaptchaToken: this.recaptchaToken,
     };
 
+    this.loading = true;
     this.loginservice.LoginUser(data).pipe(takeUntil(this.destroy$)).subscribe({
       next: (datos) => {
+        this.loading = false;
         console.log('[Login] Response body completo:', datos.body);
         if (datos.status === 200) {
           const token = datos.body.token;
@@ -144,6 +149,7 @@ export class LoginPage implements OnInit, OnDestroy, AfterViewInit {
         }
       },
       error: (err) => {
+        this.loading = false;
         this.recaptchaRef?.reset();
         if (err.status === 0) {
           this.messToast.error('Sin conexión. Verifica tu red e intenta de nuevo.');

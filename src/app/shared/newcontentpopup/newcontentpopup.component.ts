@@ -20,6 +20,7 @@ import {
   IonToolbar,
   IonTitle,
   IonContent,
+  IonSpinner,
 } from '@ionic/angular/standalone';
 
 @Component({
@@ -32,6 +33,7 @@ import {
     IonButtons,
     IonInput,
     IonIcon,
+    IonSpinner,
     FormsModule,
     ReactiveFormsModule,
     IonContent,
@@ -44,6 +46,7 @@ import {
 export class NewcontentpopupComponent implements OnInit, OnDestroy {
   public form!: FormGroup;
   public content: any = [];
+  loading = false;
   private destroy$ = new Subject<void>();
   title: any;
   message: any;
@@ -89,8 +92,10 @@ enviar() {
     postId: this.id._id,
   };
 
+  this.loading = true;
   this.posted.addContent(dataContenido).pipe(takeUntil(this.destroy$)).subscribe({
     next: (response) => {
+      this.loading = false;
       const message = response?.body?.message || 'Sin mensaje del servidor';
 
       switch (response.status) {
@@ -115,6 +120,7 @@ enviar() {
     },
 
     error: (error) => {
+      this.loading = false;
       console.error('Error en la solicitud', error);
       this.messToast.error('Error en la solicitud', 'Error');
     }

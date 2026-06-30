@@ -18,7 +18,7 @@ import { PopupService } from 'src/app/services/popup.service';
 import { EditprofileformComponent } from 'src/app/shared/editprofileform/editprofileform.component';
 import {
   IonContent, IonButton, IonSegment, IonSegmentButton,
-  IonLabel, IonInfiniteScroll, IonInfiniteScrollContent,
+  IonLabel, IonInfiniteScroll, IonInfiniteScrollContent, IonSpinner,
 } from '@ionic/angular/standalone';
 import { TranslatePipe } from '@ngx-translate/core';
 import { addIcons } from 'ionicons';
@@ -34,7 +34,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./perfil.page.scss'],
   standalone: true,
   imports: [
-    IonInfiniteScrollContent, IonInfiniteScroll, IonButton, IonContent,
+    IonInfiniteScrollContent, IonInfiniteScroll, IonButton, IonContent, IonSpinner,
     CommonModule, FormsModule, BackComponent, ContentListComponent,
     InfoPerfilComponent, IonLabel, ReactiveFormsModule, ProfileComponent,
     IonSegment, IonSegmentButton, TranslatePipe,
@@ -58,6 +58,7 @@ export class PerfilPage implements OnInit, OnDestroy {
   public ini = 1;
   public fin = 3;
   public noMoreItems = false;
+  public loadingPerfil = true;
   public urlfiles = environment.servicio[0].urlfiles;
   private destroy$ = new Subject<void>();
 
@@ -114,15 +115,22 @@ export class PerfilPage implements OnInit, OnDestroy {
 
   dataPerfil(id: any) {
     this.idConsult = id;
-    this.perfil.seachProfile(id).pipe(takeUntil(this.destroy$)).subscribe((data: any) => {
-      if (data?._id) {
-        this.perfilSession = data;
-        this.likeCount = data.likeNumber ?? 0;
-        if (this.session) {
-          this.loadProfileLikeStatus(data._id);
-          this.loadFollowStatus(data._id);
+    this.loadingPerfil = true;
+    this.perfil.seachProfile(id).pipe(takeUntil(this.destroy$)).subscribe({
+      next: (data: any) => {
+        this.loadingPerfil = false;
+        if (data?._id) {
+          this.perfilSession = data;
+          this.likeCount = data.likeNumber ?? 0;
+          if (this.session) {
+            this.loadProfileLikeStatus(data._id);
+            this.loadFollowStatus(data._id);
+          }
         }
-      }
+      },
+      error: () => {
+        this.loadingPerfil = false;
+      },
     });
     this.loadItems();
   }

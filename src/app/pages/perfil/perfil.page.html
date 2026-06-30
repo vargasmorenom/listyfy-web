@@ -2,6 +2,12 @@
 
   <ion-content class="feed-center" [fullscreen]="true">
     <app-back></app-back>
+
+    @if (loadingPerfil) {
+      <div class="perfil-loading">
+        <ion-spinner name="crescent"></ion-spinner>
+      </div>
+    } @else {
       <app-profile
         [info]="perfilSession"
         [session]="session"
@@ -17,6 +23,7 @@
         (followingClicked)="verSiguiendo()"
         (profileImageUpdated)="dataPerfil(idConsult)"
       ></app-profile>
+    }
 
       <div class="contenidoapp">
         <ion-segment [(ngModel)]="selectedTab" value="info">

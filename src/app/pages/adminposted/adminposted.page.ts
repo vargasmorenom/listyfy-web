@@ -18,7 +18,7 @@ import { refreshOutline, arrowForwardOutline, helpCircleOutline } from 'ionicons
 import {
   IonContent, IonItem, IonInput, IonButton, IonIcon,
   IonSelect, IonLabel, IonSelectOption, IonTextarea,
-  IonRadio, IonRadioGroup, IonList, IonCheckbox, IonPopover,
+  IonRadio, IonRadioGroup, IonList, IonCheckbox, IonPopover, IonSpinner,
 } from '@ionic/angular/standalone';
 import { TranslatePipe } from '@ngx-translate/core';
 import { TagInputComponent } from 'src/app/shared/tag-input/tag-input.component';
@@ -29,7 +29,7 @@ import { TagInputComponent } from 'src/app/shared/tag-input/tag-input.component'
   styleUrls: ['./adminposted.page.scss'],
   standalone: true,
   imports: [
-    IonContent, IonItem, IonInput, IonButton, IonLabel, IonIcon,
+    IonContent, IonItem, IonInput, IonButton, IonLabel, IonIcon, IonSpinner,
     FormsModule, ReactiveFormsModule, IonSelect, IonSelectOption,
     IonTextarea, BackComponent, IonRadioGroup, IonRadio, IonList, IonCheckbox, IonPopover,
     TranslatePipe, CommonModule, SidebarLeftComponent, SidebarRightComponent, TagInputComponent,
@@ -43,6 +43,7 @@ export class AdminpostedPage implements OnInit, OnDestroy {
   public fileData: any;
   public imagenCarga: any;
   public imagenRequerida = false;
+  loading = false;
 
   constructor(
     public router: Router,
@@ -110,17 +111,25 @@ export class AdminpostedPage implements OnInit, OnDestroy {
       dataForm.append('imagen', this.fileData);
     }
 
-    this.adminPosted.createPosted(dataForm).pipe(takeUntil(this.destroy$)).subscribe((data: any) => {
-      if (data.status === 200) {
-        this.messToast.success(data.body.message, 'Success');
-        this.form.reset();
-        this.imagenCarga = '';
-        setTimeout(() => {
-          this.router.navigate(['adminlist'], { queryParams: { id: data.body._id } });
-        }, 1000);
-      } else {
-        this.messToast.error(data.body.message, 'Error');
-      }
+    this.loading = true;
+    this.adminPosted.createPosted(dataForm).pipe(takeUntil(this.destroy$)).subscribe({
+      next: (data: any) => {
+        this.loading = false;
+        if (data.status === 200) {
+          this.messToast.success(data.body.message, 'Success');
+          this.form.reset();
+          this.imagenCarga = '';
+          setTimeout(() => {
+            this.router.navigate(['adminlist'], { queryParams: { id: data.body._id } });
+          }, 1000);
+        } else {
+          this.messToast.error(data.body.message, 'Error');
+        }
+      },
+      error: () => {
+        this.loading = false;
+        this.messToast.error('Error al crear la lista.', 'Error');
+      },
     });
   }
 }

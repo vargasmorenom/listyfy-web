@@ -53,8 +53,12 @@
                 }
               } -->
     }
-    <ion-button expand="block" (click)="enviarImagen()" [disabled]="!fileData">
-      <ion-icon name="arrow-forward-outline" style="margin-right: 5px"></ion-icon>Editar Imagen
+    <ion-button expand="block" (click)="enviarImagen()" [disabled]="loading || !fileData">
+      @if (loading) {
+        <ion-spinner name="crescent"></ion-spinner>
+      } @else {
+        <ion-icon name="arrow-forward-outline" style="margin-right: 5px"></ion-icon>Editar Imagen
+      }
     </ion-button>
   </form>
 </ion-content>

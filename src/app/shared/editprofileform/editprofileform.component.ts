@@ -21,6 +21,7 @@ import {
   IonInput,
   IonTextarea,
   IonItem,
+  IonSpinner,
 } from '@ionic/angular/standalone';
 
 const ARRAY_FIELDS = ['linksString', 'socialMediaString', 'instantMessagesString'];
@@ -44,6 +45,7 @@ const IM_REGEX = /^(whatsapp|telegram|signal|viber|line|wechat|skype|discord|sna
     IonItem,
     IonTextarea,
     IonContent,
+    IonSpinner,
     FormsModule,
     ReactiveFormsModule,
   ],
@@ -57,6 +59,7 @@ export class EditprofileformComponent implements OnInit, OnDestroy {
   public touchedMap: Record<string, boolean[]> = {};
   readonly messagingApps = ['WhatsApp', 'Telegram', 'Signal', 'Line', 'WeChat', 'Snapchat', 'Viber'];
 
+  loading = false;
   public fileData: File | null = null;
   public imagenCarga: string | ArrayBuffer | null = null;
   public currentImageUrl: string = 'assets/logo/perfil02.png';
@@ -225,14 +228,22 @@ export class EditprofileformComponent implements OnInit, OnDestroy {
       userBy: iddata.id,
     };
 
+    this.loading = true;
     imageUpload$.pipe(
       switchMap(() => this.perfil.updateProfile(profileData)),
       takeUntil(this.destroy$)
-    ).subscribe((datos: any) => {
-      if (datos) {
-        this.messToast.success(datos.message);
-        setTimeout(() => this.modalCtrl.dismiss({ updated: true }), 1000);
-      }
+    ).subscribe({
+      next: (datos: any) => {
+        this.loading = false;
+        if (datos) {
+          this.messToast.success(datos.message);
+          setTimeout(() => this.modalCtrl.dismiss({ updated: true }), 1000);
+        }
+      },
+      error: () => {
+        this.loading = false;
+        this.messToast.error('Error al guardar el perfil');
+      },
     });
   }
 }

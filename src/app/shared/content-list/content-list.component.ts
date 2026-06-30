@@ -24,6 +24,7 @@ export class ContentListComponent implements OnInit, OnChanges, OnDestroy {
 
   followStatus: Map<string, boolean> = new Map();
   followLoading: Map<string, boolean> = new Map();
+  imgLoadedSet: Set<string> = new Set();
   isLoggedIn = false;
   myProfileId: string | null = null;
   private destroy$ = new Subject<void>();
@@ -113,6 +114,14 @@ export class ContentListComponent implements OnInit, OnChanges, OnDestroy {
       'LinkedIn': 'assets/fondos/lin.jpg',
     };
     return map[typePostName] ?? 'assets/fondos/fondo1.jpg';
+  }
+
+  markImgLoaded(key: string): void {
+    this.imgLoadedSet.add(key);
+  }
+
+  isImgLoaded(key: string): boolean {
+    return this.imgLoadedSet.has(key);
   }
 
   seeContent(id: string) {
