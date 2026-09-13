@@ -86,7 +86,7 @@
                     formControlName="{{ item.name }}"
                     [maxlength]="300"
                     [counter]="true"
-                    counterFormatter="remaining"
+                    [counterFormatter]="counterFormatter"
                     [autoGrow]="true"
                     [rows]="6"
                   ></ion-textarea>

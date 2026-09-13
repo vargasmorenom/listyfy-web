@@ -244,6 +244,15 @@ ion-popover.submenu ion-item {
   justify-content: center;
 }
 
+/* ── Popup / Modal Carrusel de contenido ── */
+.carousel-viewer-modal {
+  --width: 30%;
+  --height: 100%;
+  --border-radius: 0;
+  align-items: center;
+  justify-content: center;
+}
+
 /* ── Popup / Modal dinámico ── */
 .custom-popup-modal {
   --width: 90%;

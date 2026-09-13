@@ -11,6 +11,7 @@ import {
   IonSpinner,
   IonIcon
 } from '@ionic/angular/standalone';
+import { EmbedUrlService } from 'src/app/services/embed-url.service';
 
 @Component({
   selector: 'app-view-tiktok',
@@ -30,7 +31,8 @@ export class ViewTiktokComponent implements OnInit {
   constructor(
     private navParams: NavParams,
     private modalCtrl: ModalController,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private embedUrl: EmbedUrlService
   ) {}
 
   ngOnInit() {
@@ -38,9 +40,7 @@ export class ViewTiktokComponent implements OnInit {
     this.autor = this.id.autorlink.split('@');
     console.log(this.id);
     this.tiktokId = this.id.id;
-    this.safeTikTokUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-      `https://www.tiktok.com/embed/v2/${this.tiktokId}`
-    );
+    this.safeTikTokUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.embedUrl.tiktok(this.id));
   }
 
   close() {

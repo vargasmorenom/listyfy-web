@@ -103,6 +103,13 @@
         }
       </ion-card>
 
+      @if (data.content?.length) {
+        <ion-button expand="block" fill="outline" class="carousel-btn" (click)="abrirCarrusel()">
+          <ion-icon slot="start" name="play-circle-outline"></ion-icon>
+          {{ 'content.view_all' | translate }}
+        </ion-button>
+      }
+
       <app-showcontent [content]="data.content" [idpost]="data._id" [typecontent]="data.typePost" [isOwner]="usuario?.id == data.postedBy"></app-showcontent>
   </ion-content>
 

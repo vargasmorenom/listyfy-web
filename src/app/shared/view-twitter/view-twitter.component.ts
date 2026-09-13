@@ -11,6 +11,7 @@ import {
   IonSpinner,
   IonIcon,
 } from '@ionic/angular/standalone';
+import { EmbedUrlService } from 'src/app/services/embed-url.service';
 
 @Component({
   selector: 'app-view-twitter',
@@ -29,16 +30,15 @@ export class ViewTwitterComponent implements OnInit {
   constructor(
     private navParams: NavParams,
     private modalCtrl: ModalController,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private embedUrl: EmbedUrlService
   ) {}
 
   ngOnInit() {
     this.id = this.navParams.get('id');
     this.tweetId = this.id.id;
     this.username = this.id.username ?? '';
-    this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-      `https://platform.twitter.com/embed/Tweet.html?id=${this.tweetId}`
-    );
+    this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.embedUrl.twitter(this.id));
   }
 
   close() {

@@ -11,6 +11,7 @@ import {
   IonSpinner,
   IonIcon,
 } from '@ionic/angular/standalone';
+import { EmbedUrlService } from 'src/app/services/embed-url.service';
 
 @Component({
   selector: 'app-view-youtube',
@@ -28,15 +29,14 @@ export class ViewYoutubeComponent implements OnInit {
   constructor(
     private navParams: NavParams,
     private modalCtrl: ModalController,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private embedUrl: EmbedUrlService
   ) {}
 
   ngOnInit() {
     this.id = this.navParams.get('id');
     this.videoId = this.id.id;
-    this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-      `https://www.youtube.com/embed/${this.videoId}?autoplay=1`
-    );
+    this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.embedUrl.youtube(this.id));
   }
 
   close() {

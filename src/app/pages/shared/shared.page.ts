@@ -7,9 +7,14 @@ import { CommonModule } from '@angular/common';
 import { SharedLinkService } from 'src/app/services/shared-link.service';
 import { ShowcontentComponent } from 'src/app/shared/showcontent/showcontent.component';
 import { environment } from 'src/environments/environment';
+import { PopupService } from 'src/app/services/popup.service';
+import { CarouselViewerComponent } from 'src/app/shared/carousel-viewer/carousel-viewer.component';
+import { addIcons } from 'ionicons';
+import { playCircleOutline } from 'ionicons/icons';
+import { TranslatePipe } from '@ngx-translate/core';
 import {
   IonContent, IonCard, IonCardHeader, IonCardTitle,
-  IonCardContent, IonImg, IonChip, IonSpinner, IonButton,
+  IonCardContent, IonImg, IonChip, IonSpinner, IonButton, IonIcon,
 } from '@ionic/angular/standalone';
 
 @Component({
@@ -19,7 +24,8 @@ import {
   standalone: true,
   imports: [
     CommonModule, IonContent, IonCard, IonCardHeader, IonCardTitle,
-    IonCardContent, IonImg, IonChip, IonSpinner, IonButton, ShowcontentComponent,
+    IonCardContent, IonImg, IonChip, IonSpinner, IonButton, IonIcon,
+    ShowcontentComponent, TranslatePipe,
   ],
 })
 export class SharedPage implements OnInit, OnDestroy {
@@ -34,7 +40,20 @@ export class SharedPage implements OnInit, OnDestroy {
     private sharedLinkService: SharedLinkService,
     private meta: Meta,
     private titleService: Title,
-  ) {}
+    public popUp: PopupService,
+  ) {
+    addIcons({ playCircleOutline });
+  }
+
+  async abrirCarrusel() {
+    if (!(this.data?.content?.length > 0)) return;
+    const result = await CarouselViewerComponent.open(this.popUp, {
+      content: this.data.content,
+      typePost: this.data.typePost,
+      idpost: this.data._id,
+    });
+    if (result?.cancelled) console.warn('Modal no se abrió porque ya existía uno');
+  }
 
   ngOnInit() {
     const token = this.route.snapshot.paramMap.get('token');

@@ -1,0 +1,54 @@
+<ion-header [class]="'modal-header ' + themeClass">
+  <ion-toolbar>
+    <ion-title>{{ currentIndex + 1 }} / {{ content.length }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button class="close-btn" (click)="close()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [class]="'ion-padding carousel-content ' + themeClass">
+
+  @if (loading) {
+    <div class="loading-container">
+      <ion-spinner name="crescent"></ion-spinner>
+      <p>Cargando...</p>
+    </div>
+  }
+
+  <ion-card class="carousel-card">
+    <div class="iframe-wrapper">
+      @if (isYoutube) {
+        <div #ytContainer class="yt-player-host" [class.hidden]="loading"></div>
+      } @else if (safeUrl) {
+        <iframe
+          [src]="safeUrl"
+          [class.hidden]="loading"
+          frameborder="0"
+          allowfullscreen
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          title="Contenido"
+          (load)="onIframeLoad()">
+        </iframe>
+      } @else if (loadError) {
+        <div class="error-container">
+          <p>No se pudo cargar este contenido.</p>
+        </div>
+      }
+    </div>
+  </ion-card>
+
+</ion-content>
+
+<ion-footer [class]="'controls-footer ' + themeClass">
+  <ion-toolbar>
+    <ion-button fill="clear" [disabled]="isFirst" (click)="goPrevious()">
+      <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+    </ion-button>
+    <ion-button fill="clear" slot="end" (click)="goNext()">
+      <ion-icon slot="icon-only" [name]="isLast ? 'checkmark-outline' : 'chevron-forward-outline'"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

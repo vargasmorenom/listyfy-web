@@ -1,0 +1,161 @@
+/* ── Tema por defecto (fallback si no hay red reconocida) ── */
+ion-header ion-toolbar {
+  --background: #000000;
+  --border-color: transparent;
+  --color: #ffffff;
+}
+
+ion-header ion-title {
+  font-weight: 600;
+  font-size: 16px;
+  color: #ffffff;
+}
+
+.close-btn {
+  --background: #e53935;
+  --background-hover: #c62828;
+  --color: #ffffff;
+  --border-radius: 50%;
+  --padding-start: 0;
+  --padding-end: 0;
+  width: 36px;
+  height: 36px;
+  margin-right: 8px;
+
+  ion-icon {
+    font-size: 20px;
+  }
+}
+
+ion-content {
+  --background: #f6f8fc;
+}
+
+:host-context(.ion-palette-dark) ion-content {
+  --background: #121212;
+}
+
+.controls-footer ion-toolbar {
+  --background: #000000;
+  --border-color: transparent;
+
+  ion-button {
+    --color: #ffffff;
+
+    ion-icon {
+      font-size: 26px;
+    }
+  }
+}
+
+/* ── Layout: tarjeta tipo preview (igual look que las tarjetas de showcontent) ── */
+.carousel-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-card {
+  width: 100%;
+  max-width: 380px;
+  margin: 0 auto;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  gap: 12px;
+
+  p {
+    color: #6b7280;
+    font-size: 14px;
+  }
+}
+
+.error-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  padding: 24px;
+  text-align: center;
+
+  p {
+    color: #6b7280;
+    font-size: 14px;
+  }
+}
+
+.iframe-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+iframe,
+.yt-player-host {
+  display: block;
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  max-height: 78vh;
+}
+
+.hidden {
+  opacity: 0;
+}
+
+/* ── Temas por red (misma cabecera/footer que cada view-*.component.scss) ── */
+
+/* Twitter/X */
+ion-header.theme-twitter ion-toolbar,
+ion-footer.theme-twitter ion-toolbar {
+  --background: #000000;
+}
+
+/* Facebook */
+ion-header.theme-facebook ion-toolbar,
+ion-footer.theme-facebook ion-toolbar {
+  --background: #1877f2;
+}
+
+/* Instagram */
+ion-header.theme-instagram ion-toolbar,
+ion-footer.theme-instagram ion-toolbar {
+  --background: #833ab4;
+}
+
+/* TikTok */
+ion-header.theme-tiktok ion-toolbar,
+ion-footer.theme-tiktok ion-toolbar {
+  --background: #303d5c;
+}
+
+/* YouTube */
+ion-header.theme-youtube ion-toolbar,
+ion-footer.theme-youtube ion-toolbar {
+  --background: #ff0000;
+}
+ion-header.theme-youtube .close-btn {
+  --background: #cc0000;
+  --background-hover: #990000;
+}
+
+/* LinkedIn */
+ion-header.theme-linkedin ion-toolbar,
+ion-footer.theme-linkedin ion-toolbar {
+  --background: #0a66c2;
+}
+
+/* Telegram */
+ion-header.theme-telegram ion-toolbar,
+ion-footer.theme-telegram ion-toolbar {
+  --background: #2aabee;
+}

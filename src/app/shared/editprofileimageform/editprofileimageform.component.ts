@@ -14,6 +14,7 @@ import { NavController } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
 import { addIcons } from 'ionicons';
 import { imageOutline } from 'ionicons/icons';
+import { MAX_IMAGE_SIZE_BYTES, MAX_IMAGE_SIZE_MB } from 'src/app/configs/fileValidation';
 import {
   IonHeader,
   IonIcon,
@@ -93,6 +94,11 @@ export class EditprofileimageformComponent implements OnInit, OnDestroy {
     if (event.target.files && event.target.files.length > 0) {
       const file = event.target.files[0];
       if (file.type.includes('image')) {
+        if (file.size > MAX_IMAGE_SIZE_BYTES) {
+          this.messToast.error(`La imagen supera el peso máximo permitido de ${MAX_IMAGE_SIZE_MB}MB`, 'Error');
+          event.target.value = '';
+          return;
+        }
         this.fileData = file;
         const reader = new FileReader();
         reader.readAsDataURL(file);

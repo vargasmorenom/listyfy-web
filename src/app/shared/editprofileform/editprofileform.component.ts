@@ -10,6 +10,7 @@ import { StorageService } from 'src/app/services/storage.service';
 import { ProfileService } from 'src/app/services/profile.service';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
+import { MAX_IMAGE_SIZE_BYTES, MAX_IMAGE_SIZE_MB } from 'src/app/configs/fileValidation';
 import {
   IonHeader,
   IonIcon,
@@ -119,6 +120,11 @@ export class EditprofileformComponent implements OnInit, OnDestroy {
     if (!input.files?.length) return;
     const file = input.files[0];
     if (!file.type.startsWith('image/')) return;
+    if (file.size > MAX_IMAGE_SIZE_BYTES) {
+      this.messToast.error(`La imagen supera el peso máximo permitido de ${MAX_IMAGE_SIZE_MB}MB`, 'Error');
+      input.value = '';
+      return;
+    }
     this.fileData = file;
     const reader = new FileReader();
     reader.onload = () => { this.imagenCarga = reader.result; };

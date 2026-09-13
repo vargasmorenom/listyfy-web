@@ -88,7 +88,8 @@
     }
   },
   "content": {
-    "click_to_view": "Click para ver"
+    "click_to_view": "Click para ver",
+    "view_all": "Ver todo el contenido"
   },
   "adminlist": {
     "tipo_contenido": "Tipo de Contenido",

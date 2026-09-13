@@ -11,6 +11,7 @@ import {
   IonSpinner,
   IonIcon,
 } from '@ionic/angular/standalone';
+import { EmbedUrlService } from 'src/app/services/embed-url.service';
 
 @Component({
   selector: 'app-view-telegram',
@@ -28,15 +29,14 @@ export class ViewTelegramComponent implements OnInit {
   constructor(
     private navParams: NavParams,
     private modalCtrl: ModalController,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private embedUrl: EmbedUrlService
   ) {}
 
   ngOnInit() {
     this.id = this.navParams.get('id');
     this.postRef = this.id.id;
-    this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-      `https://t.me/${this.postRef}?embed=1&color=2AABEE`
-    );
+    this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.embedUrl.telegram(this.id));
   }
 
   close() {

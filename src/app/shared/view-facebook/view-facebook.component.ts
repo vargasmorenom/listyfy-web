@@ -3,6 +3,7 @@ import { NavParams, ModalController } from '@ionic/angular';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { addIcons } from 'ionicons';
 import { closeOutline, informationCircleOutline, openOutline } from 'ionicons/icons';
+import { EmbedUrlService } from 'src/app/services/embed-url.service';
 import {
   IonButton,
   IonHeader,
@@ -33,7 +34,8 @@ export class ViewFacebookComponent implements OnInit {
   constructor(
     private navParams: NavParams,
     private modalCtrl: ModalController,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private embedUrl: EmbedUrlService
   ) {
     addIcons({ closeOutline, informationCircleOutline, openOutline });
   }
@@ -48,33 +50,9 @@ export class ViewFacebookComponent implements OnInit {
     this.postId = this.id.listas?.id ?? this.id.id;
     this.postId1 = this.id.listas?.id1 ?? this.id.id1;
 
-    const rawUrl = this.buildEmbedUrl();
+    const rawUrl = this.embedUrl.facebook(this.id);
     this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(rawUrl);
     this.externalUrl = this.buildExternalUrl();
-  }
-
-  private buildEmbedUrl(): string {
-    switch (this.tipo) {
-      case 'videos':
-        // video/embed es más permisivo que el plugin para videos públicos
-        return `https://www.facebook.com/video/embed?video_id=${this.postId}`;
-      case 'reel': {
-        const href = encodeURIComponent(`https://www.facebook.com/reel/${this.postId}/`);
-        return `https://www.facebook.com/plugins/video.php?href=${href}&show_text=false&height=476&width=267`;
-      }
-      case 'photo': {
-        const href = encodeURIComponent(
-          `https://www.facebook.com/photo.php?fbid=${this.postId}&set=${this.postId1}&type=3`
-        );
-        return `https://www.facebook.com/plugins/post.php?href=${href}&show_text=true&width=500`;
-      }
-      default: {
-        const href = encodeURIComponent(
-          `https://www.facebook.com/watch?v=${this.postId}`
-        );
-        return `https://www.facebook.com/plugins/video.php?href=${href}&show_text=false&width=500`;
-      }
-    }
   }
 
   private buildExternalUrl(): string {

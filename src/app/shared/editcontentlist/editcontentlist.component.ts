@@ -35,6 +35,7 @@ import {
   IonSpinner,
 } from '@ionic/angular/standalone';
 import { TagInputComponent } from 'src/app/shared/tag-input/tag-input.component';
+import { MAX_IMAGE_SIZE_BYTES, MAX_IMAGE_SIZE_MB } from 'src/app/configs/fileValidation';
 
 @Component({
   selector: 'app-editcontentlist',
@@ -108,10 +109,19 @@ export class EditcontentlistComponent implements OnInit, OnDestroy {
     this.modalCtrl.dismiss();
   }
 
+  counterFormatter(inputLength: number, maxLength: number): string {
+    return `${maxLength - inputLength} caracteres restantes`;
+  }
+
   onfile(event: any) {
     if (event.target.files && event.target.files.length > 0) {
       const file = event.target.files[0];
       if (file.type.includes('image')) {
+        if (file.size > MAX_IMAGE_SIZE_BYTES) {
+          this.messToast.error(`La imagen supera el peso máximo permitido de ${MAX_IMAGE_SIZE_MB}MB`, 'Error');
+          event.target.value = '';
+          return;
+        }
         this.fileData = file;
         const reader = new FileReader();
         reader.readAsDataURL(file);

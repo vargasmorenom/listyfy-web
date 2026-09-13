@@ -21,10 +21,11 @@ import { SidebarRightComponent } from 'src/app/shared/sidebar-right/sidebar-righ
 import { Subscription, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { addIcons } from 'ionicons';
-import { addCircle, menuOutline, layersOutline, heartOutline, heart, personAddOutline, personRemoveOutline } from 'ionicons/icons';
+import { addCircle, menuOutline, layersOutline, heartOutline, heart, personAddOutline, personRemoveOutline, playCircleOutline } from 'ionicons/icons';
 import { environment } from 'src/environments/environment';
 import { EditcontentlistComponent } from 'src/app/shared/editcontentlist/editcontentlist.component';
 import { NewcontentpopupComponent } from 'src/app/shared/newcontentpopup/newcontentpopup.component';
+import { CarouselViewerComponent } from 'src/app/shared/carousel-viewer/carousel-viewer.component';
 import { TranslatePipe } from '@ngx-translate/core';
 import {
   IonContent, IonImg, IonChip, IonCard, IonCol, IonRow, IonGrid,
@@ -77,7 +78,7 @@ export class AdminlistPage implements OnInit, OnDestroy {
     private titleService: Title,
     private sharedLink: SharedLinkService,
   ) {
-    addIcons({ addCircle, menuOutline, layersOutline, heartOutline, heart, personAddOutline, personRemoveOutline });
+    addIcons({ addCircle, menuOutline, layersOutline, heartOutline, heart, personAddOutline, personRemoveOutline, playCircleOutline });
   }
 
   resolveImg(path: string): string {
@@ -120,6 +121,16 @@ export class AdminlistPage implements OnInit, OnDestroy {
         this.navegar.navigate(['adminlist'], { queryParams: { id: this.id } });
       });
     }
+  }
+
+  async abrirCarrusel() {
+    if (!(this.data?.content?.length > 0)) return;
+    const result = await CarouselViewerComponent.open(this.popUp, {
+      content: this.data.content,
+      typePost: this.data.typePost,
+      idpost: this.data._id,
+    });
+    if (result?.cancelled) console.warn('Modal no se abrió porque ya existía uno');
   }
 
   private suscribirFacade() {
