@@ -14,7 +14,7 @@ import {
   IonCard,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { closeOutline, chevronBackOutline, chevronForwardOutline, checkmarkOutline } from 'ionicons/icons';
+import { closeOutline, chevronBackOutline, chevronForwardOutline, checkmarkOutline, volumeMuteOutline, volumeHighOutline } from 'ionicons/icons';
 import { EmbedUrlService } from 'src/app/services/embed-url.service';
 import { PopupService } from 'src/app/services/popup.service';
 
@@ -77,6 +77,7 @@ export class CarouselViewerComponent implements OnInit, OnDestroy {
   loading = true;
   loadError = false;
   isYoutube = false;
+  isMuted = true;
   safeUrl: SafeResourceUrl | null = null;
 
   @ViewChild('ytContainer') ytContainer?: ElementRef<HTMLDivElement>;
@@ -91,7 +92,7 @@ export class CarouselViewerComponent implements OnInit, OnDestroy {
     private sanitizer: DomSanitizer,
     private embedUrl: EmbedUrlService
   ) {
-    addIcons({ closeOutline, chevronBackOutline, chevronForwardOutline, checkmarkOutline });
+    addIcons({ closeOutline, chevronBackOutline, chevronForwardOutline, checkmarkOutline, volumeMuteOutline, volumeHighOutline });
   }
 
   ngOnInit() {
@@ -144,6 +145,16 @@ export class CarouselViewerComponent implements OnInit, OnDestroy {
     this.loading = false;
   }
 
+  toggleMute() {
+    if (!this.ytPlayer) return;
+    if (this.isMuted) {
+      this.ytPlayer.unMute();
+    } else {
+      this.ytPlayer.mute();
+    }
+    this.isMuted = !this.isMuted;
+  }
+
   private loadSlide(index: number) {
     this.destroyYoutubePlayer();
     const token = ++this.slideToken;
@@ -153,6 +164,7 @@ export class CarouselViewerComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.loadError = false;
     this.isYoutube = this.typePost === YOUTUBE_TYPE_POST;
+    this.isMuted = true;
     this.safeUrl = null;
 
     if (this.isYoutube) {
@@ -210,7 +222,7 @@ export class CarouselViewerComponent implements OnInit, OnDestroy {
       if (token !== this.slideToken || !this.ytContainer) return;
       this.ytPlayer = new window.YT.Player(this.ytContainer.nativeElement, {
         videoId: item.id,
-        playerVars: { autoplay: 1 },
+        playerVars: { autoplay: 1, mute: 1 },
         events: {
           onReady: () => {
             if (token === this.slideToken) this.loading = false;
