@@ -253,6 +253,12 @@ ion-popover.submenu ion-item {
   justify-content: center;
 }
 
+@media (max-width: 768px) {
+  .carousel-viewer-modal {
+    --width: 100%;
+  }
+}
+
 /* ── Popup / Modal dinámico ── */
 .custom-popup-modal {
   --width: 90%;
