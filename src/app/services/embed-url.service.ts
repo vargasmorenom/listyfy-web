@@ -17,7 +17,10 @@ export class EmbedUrlService {
   }
 
   tiktok(item: any): string {
-    return `https://www.tiktok.com/embed/v2/${item.id}`;
+    // embed/v2 falla (4xx/5xx) con algunos videos; player/v1 es el reproductor oficial,
+    // pero solo soporta videos, así que las publicaciones de fotos siguen en embed/v2.
+    if (item.tipo === 'photo') return `https://www.tiktok.com/embed/v2/${item.id}`;
+    return `https://www.tiktok.com/player/v1/${item.id}?rel=0&music_info=1&description=1`;
   }
 
   linkedin(item: any): string {
