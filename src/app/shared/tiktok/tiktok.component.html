@@ -14,7 +14,7 @@
         @if (item.titulocortado) {
           <p class="titulocortado">{{ item.titulocortado | slice:0:100 }}{{ item.titulocortado?.length > 100 ? '...' : '' }}</p>
         }
-        <p class="autor"><a [href]="item.autorlink">&#64;{{ item.autor }}</a></p>
+        <p class="autor"><a [href]="item.autorlink" target="_blank" rel="noopener noreferrer" (click)="$event.stopPropagation()">&#64;{{ item.autor }}</a></p>
         <div class="hover-slide">
           <span>{{ 'content.click_to_view' | translate }}</span>
         </div>
