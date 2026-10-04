@@ -45,7 +45,7 @@
         </div>
 
         <div class="galeria" *ngIf="selectedTab === 'galeria'">
-          <app-content-list [entityNames]="items"></app-content-list>
+          <app-content-list [entityNames]="items" [grid]="true"></app-content-list>
           <ion-infinite-scroll (ionInfinite)="loadMore($event)" [disabled]="noMoreItems">
             <ion-infinite-scroll-content loadingSpinner="bubbles" [loadingText]="'perfil.cargando' | translate">
             </ion-infinite-scroll-content>

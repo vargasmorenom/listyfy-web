@@ -9,6 +9,7 @@ import { MenuStateService } from '../services/menu-state.service';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { IonInfiniteScroll, IonInfiniteScrollContent, IonContent } from '@ionic/angular/standalone';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-home',
@@ -22,6 +23,7 @@ import { IonInfiniteScroll, IonInfiniteScrollContent, IonContent } from '@ionic/
     CommonModule,
     SidebarLeftComponent,
     SidebarRightComponent,
+    TranslatePipe,
   ],
 })
 export class HomePage implements OnInit, OnDestroy {

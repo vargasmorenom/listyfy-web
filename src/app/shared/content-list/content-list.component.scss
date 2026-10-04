@@ -1,102 +1,94 @@
-/* ── Hint flotante ── */
-.click-hint {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  background: #ffcc00;
-  color: #000;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-weight: bold;
-  font-size: 0.75rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-  cursor: pointer;
-  z-index: 50;
-  white-space: nowrap;
-  animation: hint-pulse 1.8s ease-in-out infinite;
-  pointer-events: auto;
+:host {
+  --card-bg: #f0f2f5;
+  --card-border: rgba(0, 0, 0, 0.06);
+  --card-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  --card-text: #1a1a1a;
+  --card-text-muted: #6b7280;
+  --card-chip-bg: rgba(48, 61, 92, 0.1);
+
+  display: block;
+  padding: 8px;
 }
 
-@keyframes hint-pulse {
-  0%, 100% { transform: scale(1);   box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
-  50%       { transform: scale(1.07); box-shadow: 0 4px 14px rgba(0,0,0,0.4); }
+:host-context(.ion-palette-dark) {
+  --card-bg: #1a2236;
+  --card-border: rgba(255, 255, 255, 0.06);
+  --card-shadow: 0 2px 16px rgba(0, 0, 0, 0.45);
+  --card-text: #e6e8ee;
+  --card-text-muted: #9aa3b5;
+  --card-chip-bg: rgba(255, 255, 255, 0.12);
 }
 
+/* ── Tarjeta tipo feed ── */
 .card-container {
-  width: 90%; /* Ajusta el ancho según necesites */
-  margin: 2px auto;
   position: relative;
-  padding-bottom: 5px;
-  border-radius: 15px;
-  border: 3px solid rgba(206, 206, 214, 0.39);
-  cursor: pointer;
-}
-.card-container:hover {
-  box-shadow: 0 4px 20px rgba(134, 135, 201, 0.1); /* Sombra al pasar el mouse */
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto 16px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--card-shadow);
+  color: var(--card-text);
+  transition: box-shadow 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 6px 22px rgba(48, 61, 92, 0.22);
+  }
 }
 
-.card-background {
-  position: relative;
-  width: 100%;
-  height: auto; /* Altura fija o ajustable */
-  overflow: hidden;
-  border-radius: 8px; /* Bordes redondeados */
-  box-shadow: 0 4px 8px rgba(155, 165, 185, 0.2); /* Sombra opcional */
-}
+/* ── Cabecera: usuario ── */
 .card-usuario {
-  position: absolute;
-  width: 100%;
   display: flex;
-  border-top-right-radius: .4em;
-  border-top-left-radius: .4em;
   align-items: center;
   justify-content: space-between;
-  height: auto;
-  background-color: rgba(115, 127, 231, 0.68);
-  z-index: 100;
+  gap: 8px;
+  padding: 10px 12px;
 }
-.card-usuario:hover {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  background: radial-gradient(circle, rgba(245, 197, 64, 0.623) 0%, rgba(236, 240, 14, 0) 100%);
-  text-shadow: 2px 2px 5px rgba(69, 59, 214, 0.5);
-  animation: shine 3s infinite;
-}
+
 .card-usuario-info {
   display: flex;
   align-items: center;
-  cursor: pointer;
+  gap: 10px;
   flex: 1;
-  overflow: hidden;
-}
-.card-usuario img {
-  width: 40px;
-  height: auto;
-  border-radius: 50%;
-  border: 2px solid rgb(195, 197, 188);
-  flex-shrink: 0;
-}
+  min-width: 0;
+  cursor: pointer;
 
-.card-usuario span {
-  margin-left: 0.8em;
-  font-weight: bold;
-  color: white;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  span {
+    font-weight: 600;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &:hover span {
+    text-decoration: underline;
+  }
 }
 
 .follow-btn {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 6px 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
-  border-radius: 0 1.4em 1.4em 0;
-  transition: background 0.2s;
   flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 50%;
+  background: var(--card-chip-bg);
+  color: var(--card-text);
+  cursor: pointer;
+  transition: background 0.2s;
 
   ion-icon {
     font-size: 18px;
@@ -104,7 +96,7 @@
   }
 
   &:hover:not(:disabled) {
-    background: rgba(255, 255, 255, 0.25);
+    background: rgba(58, 127, 243, 0.25);
   }
 
   &:disabled {
@@ -113,21 +105,28 @@
   }
 
   &.following ion-icon {
-    color: #ff9d9d;
+    color: #e5484d;
   }
 }
 
-.card-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+/* ── Imagen ── */
+.card-background {
+  position: relative;
+  cursor: pointer;
 }
 
 .img-wrap {
   position: relative;
   width: 100%;
-  min-height: 200px;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
 }
 
 .img-skeleton {
@@ -136,7 +135,6 @@
   background: linear-gradient(90deg, #d0d0d0 25%, #e8e8e8 50%, #d0d0d0 75%);
   background-size: 200% 100%;
   animation: shimmer 1.4s infinite;
-  min-height: 200px;
 }
 
 @keyframes shimmer {
@@ -148,107 +146,140 @@
   opacity: 0;
 }
 
-.tipo-fondo-img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  display: block;
-}
-
+/* El tipo ya se muestra como etiqueta bajo la imagen; el icono solo en cuadrícula */
 .tipo-badge {
-  position: absolute;
-  bottom: 40px;
-  right: 10px;
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
-  object-fit: cover;
-  border: 2px solid rgba(255, 255, 255, 0.7);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-  z-index: 10;
+  display: none;
 }
 
+/* ── Pie: título y datos ── */
 .card-content {
-  position: absolute;
-  width: 100%;
-  display: flex;
-  display: block;
-  line-height: 1px;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 6px;
-
-  background: linear-gradient(to top, rgba(84, 86, 105, 0.8), #00000075); /* Degradado para mejor legibilidad */
-  color: white; /* Color del texto */
-  text-align: center; /* Alineación del texto */
+  padding: 10px 12px 12px;
+  cursor: pointer;
 }
 
 .card-title {
   margin: 0;
-  display: table-header-group;
-  font-size: 0.8em;
+  font-size: 1rem;
   font-weight: 600;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
 }
 
-.card-description {
-  margin: 10px 0;
-  font-size: 0.7em;
-  text-align: justify;
+.card-tipo {
+  margin: 2px 0 0;
+  font-size: 0.8rem;
+  color: var(--card-text-muted);
 }
+
 .card-items {
   display: flex;
-  align-items: center; /* 👈 los mantiene en la misma altura */
-  width: 100%;
-  gap: 8px; /* 👈 espacio entre el corazón y el número */
-}
-.card-items ion-icon {
-  font-size: 18px;
-  color: #ffffff;
-  transition: color 0.2s ease;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  font-size: 0.8rem;
+  color: var(--card-text-muted);
+
+  ion-icon {
+    font-size: 18px;
+  }
 }
 
-.card-items ion-icon:hover {
-  color: #ff6b6b;
-}
-.card-items span {
-  // font-size: 18px;
-  // float: left;
-  font-size: 13px;
-  font-weight: 500;
-}
 .content-count {
   display: flex;
   align-items: center;
   gap: 3px;
-  background: rgba(255, 255, 255, 0.15);
-  padding: 4px 8px;
-  border-radius: 12px;
-  font-size: 11px;
-  font-weight: 600;
-  color: #fff;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  margin-left: 8px;
 
   ion-icon {
-    font-size: 12px;
+    font-size: 16px;
   }
 }
 
 .card-items .tipo {
-  // font-size: .8em;
-  // background: red;
-  // padding: 1px 6px;
-  // border-radius: 8px;
-  // margin-right: 5px;
-  // align-items: center;
-  // height: 100%;
   margin-left: auto;
-  background: rgba(255, 255, 255, 0.2);
-  padding: 9px 12px;
+  padding: 4px 10px;
   border-radius: 12px;
-  font-size: 11px !important;
+  background: var(--card-chip-bg);
+  color: var(--card-text);
+  font-size: 0.72rem;
   font-weight: 500;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ── Modo cuadrícula (perfil) ── */
+:host(.grid) {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  padding: 6px;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @media (min-width: 1100px) {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  .card-container {
+    max-width: none;
+    min-width: 0;
+    margin: 0;
+    border-radius: 8px;
+  }
+
+  .card-usuario,
+  .card-tipo,
+  .card-items .tipo {
+    display: none;
+  }
+
+  .img-wrap {
+    aspect-ratio: 1 / 1;
+  }
+
+  .tipo-badge {
+    display: block;
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 22px;
+    height: 22px;
+    border-radius: 5px;
+    object-fit: cover;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  }
+
+  .card-content {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 14px 6px 4px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.75), transparent);
+    color: #fff;
+    text-align: left;
+  }
+
+  .card-title {
+    font-size: 0.7rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .card-items {
+    gap: 4px;
+    margin-top: 2px;
+    font-size: 11px;
+    color: #fff;
+
+    ion-icon {
+      font-size: 12px;
+    }
+  }
+
+  .content-count {
+    margin-left: auto;
+  }
 }

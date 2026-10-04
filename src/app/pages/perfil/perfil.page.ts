@@ -56,7 +56,7 @@ export class PerfilPage implements OnInit, OnDestroy {
   public items: any[] = [];
   public idConsult!: string;
   public ini = 1;
-  public fin = 3;
+  public fin = 15;
   public noMoreItems = false;
   public loadingPerfil = true;
   public urlfiles = environment.servicio[0].urlfiles;

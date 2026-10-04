@@ -18,44 +18,43 @@
     }
 
     <div class="card-background" (click)="seeContent(item._id)">
-      @if (item.imagen && item.imagen.length > 0) {
-        @for (itemA of item.imagen; track $index) {
-          <div class="img-wrap">
-            @if (!isImgLoaded(item._id + '_' + $index)) {
-              <div class="img-skeleton"></div>
-            }
-            <img [src]="resolveImg(itemA.small)"
-                 [class.img-hidden]="!isImgLoaded(item._id + '_' + $index)"
-                 (load)="markImgLoaded(item._id + '_' + $index)" />
-          </div>
-        }
-      } @else {
-        <div class="img-wrap">
-          @if (!isImgLoaded(item._id + '_bg')) {
-            <div class="img-skeleton tipo-fondo-img"></div>
+      <div class="img-wrap">
+        @if (item.imagen && item.imagen.length > 0) {
+          @if (!isImgLoaded(item._id + '_0')) {
+            <div class="img-skeleton"></div>
           }
-          <img class="tipo-fondo-img"
-               [src]="getTipoImg(item.typePostName)"
+          <img [src]="resolveImg(item.imagen[0].small)"
+               [alt]="item.name"
+               [class.img-hidden]="!isImgLoaded(item._id + '_0')"
+               (load)="markImgLoaded(item._id + '_0')" />
+        } @else {
+          @if (!isImgLoaded(item._id + '_bg')) {
+            <div class="img-skeleton"></div>
+          }
+          <img [src]="getTipoImg(item.typePostName)"
                [alt]="item.typePostName"
                [class.img-hidden]="!isImgLoaded(item._id + '_bg')"
                (load)="markImgLoaded(item._id + '_bg')" />
-        </div>
-      }
+        }
+      </div>
       <img class="tipo-badge" [src]="getTipoImg(item.typePostName)" [alt]="item.typePostName" />
-      <div class="card-content">
-        <div class="card-info">
-          <h2 class="card-title">{{ item.name }}</h2>
+    </div>
+
+    <div class="card-content" (click)="seeContent(item._id)">
+      <div class="card-info">
+        <h2 class="card-title">{{ item.name }}</h2>
+        @if (item.tipo) {
           <p class="card-tipo">{{ item.tipo }}</p>
-        </div>
-        <div class="card-items">
-          <ion-icon name="heart-outline"></ion-icon>
-           <span>{{ item.likeNumber }}</span>
-          <span class="content-count">
-            <ion-icon name="layers-outline"></ion-icon>
-            {{ item.content?.length ?? 0 }}/10
-          </span>
-          <span class="tipo">{{ item.typePostName }}</span>
-        </div>
+        }
+      </div>
+      <div class="card-items">
+        <ion-icon name="heart-outline"></ion-icon>
+        <span>{{ item.likeNumber }}</span>
+        <span class="content-count">
+          <ion-icon name="layers-outline"></ion-icon>
+          {{ item.content?.length ?? 0 }}/10
+        </span>
+        <span class="tipo">{{ item.typePostName }}</span>
       </div>
     </div>
   </div>

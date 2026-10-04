@@ -12,7 +12,14 @@
   },
   "sidebar": {
     "mas_vistos": "Más vistos",
-    "mas_reacciones": "Más Reacciones"
+    "mas_reacciones": "Más Reacciones",
+    "seguidores": "Seguidores",
+    "siguiendo": "Siguiendo",
+    "likes": "Likes",
+    "tendencias": "Tendencias",
+    "administracion": "Administración",
+    "iniciar_sesion": "Iniciar sesión",
+    "registrarse": "Registrarse"
   },
   "perfil": {
     "info": "Información",

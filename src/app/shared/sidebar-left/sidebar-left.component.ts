@@ -16,13 +16,14 @@ import {
   addCircleOutline, analyticsOutline, logOutOutline,
 } from 'ionicons/icons';
 import { IonIcon } from '@ionic/angular/standalone';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-sidebar-left',
   templateUrl: './sidebar-left.component.html',
   styleUrls: ['./sidebar-left.component.scss'],
   standalone: true,
-  imports: [CommonModule, IonIcon],
+  imports: [CommonModule, IonIcon, TranslatePipe],
 })
 export class SidebarLeftComponent implements OnInit, OnDestroy {
   userSession: any = null;

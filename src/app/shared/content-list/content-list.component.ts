@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
+import { Component, HostBinding, Input, OnInit, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { addIcons } from 'ionicons';
@@ -19,6 +19,7 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class ContentListComponent implements OnInit, OnChanges, OnDestroy {
   @Input() entityNames: Array<any> = [];
+  @HostBinding('class.grid') @Input() grid = false;
   urlfiles = environment.servicio[0].urlfiles;
   defaultAvatar = environment.servicio[0].defaultAvatar;
 
