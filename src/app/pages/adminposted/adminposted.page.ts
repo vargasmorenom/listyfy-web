@@ -125,7 +125,9 @@ export class AdminpostedPage implements OnInit, OnDestroy {
     this.adminPosted.createPosted(dataForm).pipe(takeUntil(this.destroy$)).subscribe({
       next: (data: any) => {
         this.loading = false;
-        if (data.status === 200) {
+          
+        if (data.status === 200 || data.status === 201) {
+     
           this.messToast.success(data.body.message, 'Success');
           this.form.reset();
           this.imagenCarga = '';
