@@ -11,6 +11,7 @@ import { ProfileService } from 'src/app/services/profile.service';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
 import { MAX_IMAGE_SIZE_BYTES, MAX_IMAGE_SIZE_MB } from 'src/app/configs/fileValidation';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import {
   IonHeader,
   IonIcon,
@@ -49,6 +50,7 @@ const IM_REGEX = /^(whatsapp|telegram|signal|viber|line|wechat|skype|discord|sna
     IonSpinner,
     FormsModule,
     ReactiveFormsModule,
+    TranslatePipe,
   ],
   standalone: true,
 })
@@ -75,6 +77,7 @@ export class EditprofileformComponent implements OnInit, OnDestroy {
     private modalCtrl: ModalController,
     private perfil: ProfileService,
     private storage: StorageService,
+    private translate: TranslateService,
   ) {
     this.formCreate = profile;
     const id = this.navParams.get('id');
@@ -171,10 +174,10 @@ export class EditprofileformComponent implements OnInit, OnDestroy {
     if (!this.touchedMap[fieldName]?.[index]) return null;
     if (!value) return null;
     if (fieldName === 'linksString' || fieldName === 'socialMediaString') {
-      return URL_REGEX.test(value) ? null : 'URL inválida. Debe iniciar con http:// o https://';
+      return URL_REGEX.test(value) ? null : this.translate.instant('editprofile.url_invalida');
     }
     if (fieldName === 'instantMessagesString') {
-      return IM_REGEX.test(value) ? null : 'Formato: app:número  (ej: whatsapp:3201234567)';
+      return IM_REGEX.test(value) ? null : this.translate.instant('editprofile.formato_im');
     }
     return null;
   }
@@ -213,7 +216,7 @@ export class EditprofileformComponent implements OnInit, OnDestroy {
           dataForm.append('imagen', this.fileData!);
           return this.perfil.updateImage(dataForm).pipe(
             catchError(() => {
-              this.messToast.warning('No se pudo actualizar la imagen, pero el perfil se guardará.');
+              this.messToast.warning(this.translate.instant('editprofile.error_imagen'));
               return of(null);
             })
           );
@@ -248,7 +251,7 @@ export class EditprofileformComponent implements OnInit, OnDestroy {
       },
       error: () => {
         this.loading = false;
-        this.messToast.error('Error al guardar el perfil');
+        this.messToast.error(this.translate.instant('editprofile.error_guardar'));
       },
     });
   }

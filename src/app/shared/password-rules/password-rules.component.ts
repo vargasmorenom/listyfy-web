@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 import { getPasswordChecks } from 'src/app/utils/password.utils';
 
 @Component({
@@ -7,7 +8,7 @@ import { getPasswordChecks } from 'src/app/utils/password.utils';
   templateUrl: './password-rules.component.html',
   styleUrls: ['./password-rules.component.scss'],
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslatePipe],
 })
 export class PasswordRulesComponent {
   @Input() value: string = '';

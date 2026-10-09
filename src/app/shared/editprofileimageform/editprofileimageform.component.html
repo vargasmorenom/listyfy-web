@@ -13,7 +13,7 @@
       @if (itema.type === 'file') {
         <div class="upload-area" (click)="fileInput.click()">
           <ion-icon name="image-outline"></ion-icon>
-          <span>{{ imagenCarga ? 'Cambiar imagen' : 'Seleccionar imagen' }}</span>
+          <span>{{ imagenCarga ? ('editprofileimage.cambiar' | translate) : ('editprofileimage.seleccionar' | translate) }}</span>
         </div>
         <input
           #fileInput
@@ -57,7 +57,7 @@
       @if (loading) {
         <ion-spinner name="crescent"></ion-spinner>
       } @else {
-        <ion-icon name="arrow-forward-outline" style="margin-right: 5px"></ion-icon>Editar Imagen
+        <ion-icon name="arrow-forward-outline" style="margin-right: 5px"></ion-icon>{{ 'editprofileimage.editar' | translate }}
       }
     </ion-button>
   </form>

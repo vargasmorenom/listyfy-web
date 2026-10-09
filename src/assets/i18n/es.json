@@ -46,6 +46,7 @@
     "tags": "Tags",
     "acceso": "Nivel de Acceso",
     "boton_crear": "Crear Lista",
+    "boton_editar": "Editar Lista",
     "boton_limpiar": "Limpiar Formulario",
     "para_ninos": "Para Niños",
     "publico": "Público",
@@ -109,6 +110,147 @@
     "copiar": "Copiar",
     "agregar_contenido": "Agregar Contenido",
     "limite_alcanzado": "Límite de 10 artículos alcanzado",
-    "contador_limite": "/10"
+    "contador_limite": "/10",
+    "admin_titulo": "Administración de Contenido",
+    "agregar_titulo": "Agregar Nuevo Contenido",
+    "nuevo_contenido_msg": "Nuevo Contenido",
+    "login_like": "Debes iniciar sesión para dar like",
+    "aviso": "Aviso",
+    "limite_msg": "Has alcanzado el límite de 10 artículos por publicación",
+    "limite_titulo": "Límite alcanzado",
+    "confirmar_eliminar": "¿Estás seguro de eliminar este contenido?",
+    "eliminado_ok": "Contenido eliminado correctamente",
+    "error_eliminar": "Error al eliminar el contenido",
+    "eliminacion_cancelada": "Eliminación cancelada",
+    "cancelado": "Cancelado",
+    "error_enlace": "Error al generar el enlace",
+    "enlace_copiado": "Enlace copiado al portapapeles",
+    "copiado": "Copiado"
+  },
+  "clickhint": {
+    "text": "👆 ¡Da click aquí!"
+  },
+  "tags": {
+    "placeholder": "Buscar o crear tag...",
+    "placeholder_add": "+ tag",
+    "crear": "Crear",
+    "contador": "{{count}}/{{max}} tags"
+  },
+  "editprofile": {
+    "guardar": "Guardar Cambios",
+    "cambiar_foto": "Cambiar foto",
+    "agregar": "Agregar",
+    "eliminar": "Eliminar",
+    "error_requerido": "Este campo es obligatorio",
+    "error_minlength": "Mínimo 8 caracteres",
+    "error_patron": "Formato inválido",
+    "url_invalida": "URL inválida. Debe iniciar con http:// o https://",
+    "formato_im": "Formato: app:número (ej: whatsapp:3201234567)",
+    "error_imagen": "No se pudo actualizar la imagen, pero el perfil se guardará.",
+    "error_guardar": "Error al guardar el perfil",
+    "label_chanelName": "Nombre del Canal",
+    "label_description": "Descripción",
+    "label_firstName": "Nombres",
+    "label_lastName": "Apellidos",
+    "label_email": "Correo Electrónico",
+    "label_phoneNumber": "Teléfono",
+    "label_location": "Ubicación",
+    "label_linksString": "Links Externos",
+    "label_socialMediaString": "Redes Sociales",
+    "label_instantMessagesString": "Mensajería Instantánea"
+  },
+  "editprofileimage": {
+    "seleccionar": "Seleccionar imagen",
+    "cambiar": "Cambiar imagen",
+    "editar": "Editar Imagen",
+    "error_peso": "La imagen supera el peso máximo permitido de {{max}}MB",
+    "error_actualizar": "Error al actualizar la imagen"
+  },
+  "menuapp": {
+    "abrir": "Abrir",
+    "acciones": "Acciones",
+    "eliminar": "Eliminar",
+    "cancelar": "Cancelar",
+    "ok": "OK"
+  },
+  "newcontent": {
+    "hint": "Pega la URL del contenido que quieres agregar a esta lista.",
+    "placeholder_url": "https://...",
+    "placeholder_titulo": "Ej: Mi video favorito",
+    "campo_obligatorio": "Campo obligatorio",
+    "form_invalido": "Formulario inválido",
+    "exito": "Éxito",
+    "alerta": "Alerta",
+    "error": "Error",
+    "respuesta_inesperada": "Respuesta inesperada",
+    "error_solicitud": "Error en la solicitud",
+    "sin_mensaje": "Sin mensaje del servidor"
+  },
+  "password": {
+    "mayuscula": "Una mayúscula",
+    "minuscula": "Una minúscula",
+    "numero": "Un número",
+    "especial": "Un carácter especial",
+    "min": "Mínimo 8 caracteres"
+  },
+  "share": {
+    "sin_contenido": "Agrega contenido para poder compartir",
+    "facebook": "Compartir en Facebook",
+    "whatsapp": "Compartir en WhatsApp",
+    "twitter": "Compartir en Twitter / X",
+    "telegram": "Compartir en Telegram"
+  },
+  "instagram": {
+    "post": "Post:"
+  },
+  "viewer": {
+    "cargando_publicacion": "Cargando publicación...",
+    "cargando_mensaje": "Cargando mensaje...",
+    "cargando_video": "Cargando video...",
+    "cargando_tweet": "Cargando tweet...",
+    "ver_en_instagram": "Ver en Instagram",
+    "ver_en_linkedin": "Ver en LinkedIn",
+    "ver_en_telegram": "Ver en Telegram",
+    "ver_en_youtube": "Ver en YouTube",
+    "ver_en_twitter": "Ver en X / Twitter",
+    "abrir_facebook": "Abrir en Facebook",
+    "ver_video_tiktok": "Ver video en TikTok",
+    "aviso_facebook": "Si el contenido no se muestra, puede ser privado o pertenecer a un perfil personal. Solo el contenido público de Páginas de Facebook es embebible.",
+    "tipo_video": "Video",
+    "tipo_foto": "Foto",
+    "tipo_reel": "Reel",
+    "tipo_post": "Post",
+    "title_tiktok": "Ver Contenido TikTok"
+  },
+  "carousel": {
+    "cargando": "Cargando...",
+    "contenido": "Contenido",
+    "error_carga": "No se pudo cargar este contenido."
+  },
+  "common": {
+    "form_invalido": "Formulario inválido",
+    "contenido_actualizado": "Contenido actualizado correctamente",
+    "error_actualizar": "Error al actualizar el contenido",
+    "caracteres_restantes": "{{count}} caracteres restantes",
+    "exito": "Éxito",
+    "error": "Error",
+    "error_crear_lista": "Error al crear la lista."
+  },
+  "config": {
+    "titulo": "Configuración de Cuenta",
+    "cambio_password": "Cambio de Contraseña",
+    "idioma": "Idioma",
+    "apariencia": "Apariencia",
+    "modo_oscuro": "Modo oscuro",
+    "enviar_datos": "Enviar Datos",
+    "guardar_idioma": "Guardar Idioma",
+    "guardado": "Guardado",
+    "no_coinciden": "Las contraseñas no coinciden.",
+    "campo_obligatorio": "Este campo es obligatorio.",
+    "pass_actualizada": "Contraseña actualizada correctamente.",
+    "error_password": "Error al cambiar la contraseña.",
+    "label_password_actual": "Contraseña Actual",
+    "label_password_nueva": "Nueva Contraseña",
+    "label_confirmar_password": "Confirmar Contraseña"
   }
 }

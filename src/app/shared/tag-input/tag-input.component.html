@@ -16,7 +16,7 @@
         (input)="onInput()"
         (keydown)="onKeydown($event)"
         (blur)="onTouched()"
-        [placeholder]="selectedTags.length === 0 ? 'Buscar o crear tag...' : '+ tag'"
+        [placeholder]="selectedTags.length === 0 ? ('tags.placeholder' | translate) : ('tags.placeholder_add' | translate)"
       />
     }
   </div>
@@ -32,11 +32,11 @@
       @if (filteredSuggestions.length === 0 && inputValue.trim().length > 0) {
         <div class="suggestion-item create-item" (mousedown)="createTag()">
           <ion-icon name="add-circle-outline"></ion-icon>
-          <span>Crear <strong>#{{ inputValue.trim() }}</strong></span>
+          <span>{{ 'tags.crear' | translate }} <strong>#{{ inputValue.trim() }}</strong></span>
         </div>
       }
     </div>
   }
 
-  <div class="tag-hint">{{ selectedTags.length }}/{{ MAX_TAGS }} tags</div>
+  <div class="tag-hint">{{ 'tags.contador' | translate: { count: selectedTags.length, max: MAX_TAGS } }}</div>
 </div>

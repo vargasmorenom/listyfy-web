@@ -12,12 +12,13 @@ import {
   IonIcon,
 } from '@ionic/angular/standalone';
 import { EmbedUrlService } from 'src/app/services/embed-url.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-view-linkedin',
   templateUrl: './view-linkedin.component.html',
   styleUrls: ['./view-linkedin.component.scss'],
-  imports: [IonButton, IonButtons, IonContent, IonHeader, IonToolbar, IonTitle, IonSpinner, IonIcon],
+  imports: [IonButton, IonButtons, IonContent, IonHeader, IonToolbar, IonTitle, IonSpinner, IonIcon, TranslatePipe],
   standalone: true,
 })
 export class ViewLinkedinComponent implements OnInit {

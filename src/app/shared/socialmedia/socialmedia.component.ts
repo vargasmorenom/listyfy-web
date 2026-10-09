@@ -2,12 +2,13 @@ import { Component, Input } from '@angular/core';
 import { IonIcon } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { logoFacebook, logoWhatsapp, logoTwitter } from 'ionicons/icons';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-socialmedia',
   templateUrl: './socialmedia.component.html',
   styleUrls: ['./socialmedia.component.scss'],
-  imports: [IonIcon],
+  imports: [IonIcon, TranslatePipe],
   standalone: true,
 })
 export class SocialmediaComponent {

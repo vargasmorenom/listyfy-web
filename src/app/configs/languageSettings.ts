@@ -1,7 +1,7 @@
 export const languageSettings = [
   {
     name: 'typePost',
-    label: 'Idioma',
+    label: 'config.idioma',
     type: 'select',
     content: [
       { id: 'en', dato: 'English', icono: 'language-outline' },

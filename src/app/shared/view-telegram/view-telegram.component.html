@@ -14,7 +14,7 @@
   @if (loading) {
     <div class="loading-container">
       <ion-spinner name="crescent"></ion-spinner>
-      <p>Cargando mensaje...</p>
+      <p>{{ 'viewer.cargando_mensaje' | translate }}</p>
     </div>
   }
 
@@ -31,7 +31,7 @@
   </div>
 
   <div class="urlexterna">
-    <a href="https://t.me/{{ postRef }}" target="_blank">Ver en Telegram</a>
+    <a href="https://t.me/{{ postRef }}" target="_blank">{{ 'viewer.ver_en_telegram' | translate }}</a>
   </div>
 
 </ion-content>

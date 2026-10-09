@@ -3,7 +3,7 @@ import { PASSWORD_PATTERN } from 'src/app/utils/password.utils';
 export const cambioPassword = [
     {
     name: 'passwordActual',
-    label: 'Password Actual',
+    label: 'config.label_password_actual',
     type: 'password',
     validations: [
       { type: 'required' }
@@ -11,12 +11,12 @@ export const cambioPassword = [
   },
   {
     name: 'password',
-    label: 'Nuevo Password',
+    label: 'config.label_password_nueva',
     type: 'password',
     validations: [
       { type: 'required' },
       { type: 'pattern', value: PASSWORD_PATTERN },
     ],
   },
-  { name: 'confirmPassword', label: 'Confirmar Password', type: 'password', validations: [{ type: 'required' }] },
+  { name: 'confirmPassword', label: 'config.label_confirmar_password', type: 'password', validations: [{ type: 'required' }] },
 ];

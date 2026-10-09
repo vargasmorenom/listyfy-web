@@ -1,6 +1,6 @@
-<div class="share-bar" [class.disabled]="!hasContent" [title]="!hasContent ? 'Agrega contenido para poder compartir' : ''">
-  <ion-icon class="face" name="logo-facebook" (click)="shareOnFacebook()" title="Compartir en Facebook"></ion-icon>
-  <ion-icon class="waps" name="logo-whatsapp" (click)="shareOnWhatsApp()" title="Compartir en WhatsApp"></ion-icon>
-  <ion-icon class="twit" name="logo-twitter" (click)="shareOnTwitter()" title="Compartir en Twitter / X"></ion-icon>
-  <ion-icon class="tele" src="assets/icon/telegram.svg" (click)="shareOnTelegram()" title="Compartir en Telegram"></ion-icon>
+<div class="share-bar" [class.disabled]="!hasContent" [title]="!hasContent ? ('share.sin_contenido' | translate) : ''">
+  <ion-icon class="face" name="logo-facebook" (click)="shareOnFacebook()" [title]="'share.facebook' | translate"></ion-icon>
+  <ion-icon class="waps" name="logo-whatsapp" (click)="shareOnWhatsApp()" [title]="'share.whatsapp' | translate"></ion-icon>
+  <ion-icon class="twit" name="logo-twitter" (click)="shareOnTwitter()" [title]="'share.twitter' | translate"></ion-icon>
+  <ion-icon class="tele" src="assets/icon/telegram.svg" (click)="shareOnTelegram()" [title]="'share.telegram' | translate"></ion-icon>
 </div>

@@ -12,12 +12,13 @@ import {
   IonIcon,
 } from '@ionic/angular/standalone';
 import { EmbedUrlService } from 'src/app/services/embed-url.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-view-telegram',
   templateUrl: './view-telegram.component.html',
   styleUrls: ['./view-telegram.component.scss'],
-  imports: [IonButton, IonButtons, IonContent, IonHeader, IonToolbar, IonTitle, IonSpinner, IonIcon],
+  imports: [IonButton, IonButtons, IonContent, IonHeader, IonToolbar, IonTitle, IonSpinner, IonIcon, TranslatePipe],
   standalone: true,
 })
 export class ViewTelegramComponent implements OnInit {

@@ -17,6 +17,7 @@ import { addIcons } from 'ionicons';
 import { closeOutline, chevronBackOutline, chevronForwardOutline, checkmarkOutline, volumeMuteOutline, volumeHighOutline } from 'ionicons/icons';
 import { EmbedUrlService } from 'src/app/services/embed-url.service';
 import { PopupService } from 'src/app/services/popup.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 declare global {
   interface Window {
@@ -50,6 +51,7 @@ export interface CarouselViewerData {
   imports: [
     IonHeader, IonToolbar, IonTitle, IonButtons, IonButton,
     IonContent, IonIcon, IonSpinner, IonFooter, IonCard,
+    TranslatePipe,
   ],
   standalone: true,
 })

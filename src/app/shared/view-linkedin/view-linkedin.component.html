@@ -14,7 +14,7 @@
   @if (loading) {
     <div class="loading-container">
       <ion-spinner name="crescent"></ion-spinner>
-      <p>Cargando publicación...</p>
+      <p>{{ 'viewer.cargando_publicacion' | translate }}</p>
     </div>
   }
 
@@ -31,7 +31,7 @@
   </div>
 
   <div class="urlexterna">
-    <a href="https://www.linkedin.com/feed/update/urn:li:ugcPost:{{ postId }}" target="_blank">Ver en LinkedIn</a>
+    <a href="https://www.linkedin.com/feed/update/urn:li:ugcPost:{{ postId }}" target="_blank">{{ 'viewer.ver_en_linkedin' | translate }}</a>
   </div>
 
 </ion-content>

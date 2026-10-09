@@ -26,7 +26,7 @@ import { environment } from 'src/environments/environment';
 import { EditcontentlistComponent } from 'src/app/shared/editcontentlist/editcontentlist.component';
 import { NewcontentpopupComponent } from 'src/app/shared/newcontentpopup/newcontentpopup.component';
 import { CarouselViewerComponent } from 'src/app/shared/carousel-viewer/carousel-viewer.component';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import {
   IonContent, IonImg, IonChip, IonCard, IonCol, IonRow, IonGrid,
   IonCardHeader, IonList, IonItem, IonPopover, IonCardTitle,
@@ -77,6 +77,7 @@ export class AdminlistPage implements OnInit, OnDestroy {
     private meta: Meta,
     private titleService: Title,
     private sharedLink: SharedLinkService,
+    private translate: TranslateService,
   ) {
     addIcons({ addCircle, menuOutline, layersOutline, heartOutline, heart, personAddOutline, personRemoveOutline, playCircleOutline });
   }
@@ -100,7 +101,7 @@ export class AdminlistPage implements OnInit, OnDestroy {
   toggleLike() {
     const userId = this.usuario?.id;
     if (!userId) {
-      this.messToast.warning('Debes iniciar sesión para dar like', 'Aviso');
+      this.messToast.warning(this.translate.instant('adminlist.login_like'), this.translate.instant('adminlist.aviso'));
       return;
     }
     this.facade.toggleLike(this.data._id, userId);
@@ -108,11 +109,11 @@ export class AdminlistPage implements OnInit, OnDestroy {
 
   async Addcontent(id: any) {
     if ((this.data.content?.length ?? 0) >= 10) {
-      this.messToast.warning('Has alcanzado el límite de 10 artículos por publicación', 'Límite alcanzado');
+      this.messToast.warning(this.translate.instant('adminlist.limite_msg'), this.translate.instant('adminlist.limite_titulo'));
       return;
     }
     const result = await this.popUp.showPopupDinamic(
-      { title: 'Agregar Nuevo Contenido', message: 'Nuevo Contenido', confirmText: '', id: id },
+      { title: this.translate.instant('adminlist.agregar_titulo'), message: this.translate.instant('adminlist.nuevo_contenido_msg'), confirmText: '', id: id },
       NewcontentpopupComponent
     );
     if (result?.data) {
@@ -245,7 +246,7 @@ export class AdminlistPage implements OnInit, OnDestroy {
   async editarContenido(id: any) {
     const result = await this.popUp.showPopupDinamic(
       {
-        title: 'Administración de Contenido', message: 'Editar Contenido', confirmText: '', id: id,
+        title: this.translate.instant('adminlist.admin_titulo'), message: this.translate.instant('adminlist.editar_contenido'), confirmText: '', id: id,
         onComplete: (postId: string) => { this.facade.loadPost(postId, this.usuario?.id); },
       },
       EditcontentlistComponent
@@ -255,23 +256,23 @@ export class AdminlistPage implements OnInit, OnDestroy {
   }
 
   borrarContent(id: any) {
-    const confirmacion = window.confirm('¿Estás seguro de eliminar este contenido?');
+    const confirmacion = window.confirm(this.translate.instant('adminlist.confirmar_eliminar'));
     if (confirmacion) {
       const datoUser = this.storage.get('usuario');
       this.posted.deletePosted({ postId: id, postedBy: datoUser.id }).subscribe({
         next: (data) => {
           if (data.status === 200) {
-            this.messToast.success('Contenido eliminado correctamente', 'Éxito');
+            this.messToast.success(this.translate.instant('adminlist.eliminado_ok'), this.translate.instant('common.exito'));
             this.popoverCtrl.dismiss();
             this.navegar.navigate(['/']);
           } else {
-            this.messToast.error('Error al eliminar el contenido', 'Error');
+            this.messToast.error(this.translate.instant('adminlist.error_eliminar'), this.translate.instant('common.error'));
           }
         },
-        error: () => this.messToast.error('Error al eliminar el contenido', 'Error'),
+        error: () => this.messToast.error(this.translate.instant('adminlist.error_eliminar'), this.translate.instant('common.error')),
       });
     } else {
-      this.messToast.warning('Eliminación cancelada', 'Cancelado');
+      this.messToast.warning(this.translate.instant('adminlist.eliminacion_cancelada'), this.translate.instant('adminlist.cancelado'));
       this.popoverCtrl.dismiss();
     }
   }
@@ -308,7 +309,7 @@ export class AdminlistPage implements OnInit, OnDestroy {
       },
       error: () => {
         this.generandoEnlace = false;
-        this.messToast.error('Error al generar el enlace', 'Error');
+        this.messToast.error(this.translate.instant('adminlist.error_enlace'), this.translate.instant('common.error'));
       },
     });
   }
@@ -316,7 +317,7 @@ export class AdminlistPage implements OnInit, OnDestroy {
   copiarEnlace() {
     if (!this.shareUrl) return;
     navigator.clipboard.writeText(this.shareUrl);
-    this.messToast.success('Enlace copiado al portapapeles', 'Copiado');
+    this.messToast.success(this.translate.instant('adminlist.enlace_copiado'), this.translate.instant('adminlist.copiado'));
   }
 
 }

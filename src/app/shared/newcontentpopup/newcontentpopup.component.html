@@ -15,7 +15,7 @@
 <ion-content class="ion-padding">
   <form [formGroup]="form" class="content-form">
 
-    <p class="form-hint">Pega la URL del contenido que quieres agregar a esta lista.</p>
+    <p class="form-hint">{{ 'newcontent.hint' | translate }}</p>
 
     @for (item of content; track $index) {
       <div class="field-group">
@@ -25,13 +25,13 @@
             type="{{ item.type }}"
             name="{{ item.name }}"
             formControlName="{{ item.name }}"
-            [placeholder]="item.name === 'contenid' ? 'https://...' : 'Ej: Mi video favorito'"
+            [placeholder]="item.name === 'contenid' ? ('newcontent.placeholder_url' | translate) : ('newcontent.placeholder_titulo' | translate)"
           ></ion-input>
         </ion-item>
         @if (form.get(item.name)?.touched && form.get(item.name)?.errors?.['required']) {
           <p class="error-message">
             <ion-icon name="alert-circle-outline"></ion-icon>
-            Campo obligatorio
+            {{ 'newcontent.campo_obligatorio' | translate }}
           </p>
         }
       </div>

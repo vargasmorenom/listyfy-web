@@ -15,6 +15,7 @@ import { environment } from 'src/environments/environment';
 import { addIcons } from 'ionicons';
 import { imageOutline } from 'ionicons/icons';
 import { MAX_IMAGE_SIZE_BYTES, MAX_IMAGE_SIZE_MB } from 'src/app/configs/fileValidation';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import {
   IonHeader,
   IonIcon,
@@ -41,6 +42,7 @@ import {
     IonSpinner,
     FormsModule,
     ReactiveFormsModule,
+    TranslatePipe,
   ],
   standalone: true,
 })
@@ -63,7 +65,8 @@ export class EditprofileimageformComponent implements OnInit, OnDestroy {
     private modalCtrl: ModalController,
     private perfil: ProfileService,
     private storage: StorageService,
-    private authService: AuthService
+    private authService: AuthService,
+    private translate: TranslateService
   ) {
     addIcons({ imageOutline });
     this.formCreateImg = imagen;
@@ -95,7 +98,7 @@ export class EditprofileimageformComponent implements OnInit, OnDestroy {
       const file = event.target.files[0];
       if (file.type.includes('image')) {
         if (file.size > MAX_IMAGE_SIZE_BYTES) {
-          this.messToast.error(`La imagen supera el peso máximo permitido de ${MAX_IMAGE_SIZE_MB}MB`, 'Error');
+          this.messToast.error(this.translate.instant('editprofileimage.error_peso', { max: MAX_IMAGE_SIZE_MB }), 'Error');
           event.target.value = '';
           return;
         }
@@ -136,7 +139,7 @@ export class EditprofileimageformComponent implements OnInit, OnDestroy {
         },
         error: () => {
           this.loading = false;
-          this.messToast.error('Error al actualizar la imagen');
+          this.messToast.error(this.translate.instant('editprofileimage.error_actualizar'));
         },
       });
     }

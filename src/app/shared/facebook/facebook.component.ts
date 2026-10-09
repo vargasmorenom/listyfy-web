@@ -4,7 +4,7 @@ import { PopupService } from 'src/app/services/popup.service';
 import { ViewFacebookComponent } from '../view-facebook/view-facebook.component';
 import { DeleteContentComponent } from '../delete-content/delete-content.component';
 import { IonCard, IonCardContent } from '@ionic/angular/standalone';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-facebook',
@@ -18,18 +18,18 @@ export class FacebookComponent implements OnInit {
   @Input() idpost!: any;
   @Input() session: boolean = false;
 
-  constructor(public popUp: PopupService) {}
+  constructor(public popUp: PopupService, private translate: TranslateService) {}
 
   ngOnInit() {}
 
   getTipoLabel(tipo: string): string {
-    const labels: Record<string, string> = {
-      videos: 'Video',
-      photo: 'Foto',
-      reel: 'Reel',
-      posts: 'Post',
+    const map: Record<string, string> = {
+      videos: 'viewer.tipo_video',
+      photo: 'viewer.tipo_foto',
+      reel: 'viewer.tipo_reel',
+      posts: 'viewer.tipo_post',
     };
-    return labels[tipo] ?? tipo;
+    return map[tipo] ? this.translate.instant(map[tipo]) : tipo;
   }
 
   async viewcontent(data: any) {

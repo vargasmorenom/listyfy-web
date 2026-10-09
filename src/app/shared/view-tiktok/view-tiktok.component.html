@@ -18,7 +18,7 @@
   @if (loading) {
     <div class="loading-container">
       <ion-spinner name="crescent"></ion-spinner>
-      <p>Cargando video...</p>
+      <p>{{ 'viewer.cargando_video' | translate }}</p>
     </div>
   }
 
@@ -36,6 +36,6 @@
   </div>
 
   <div class="urlexterna">
-    <a [href]="externalUrl" target="_blank" rel="noopener noreferrer"> ver video en tiktok</a>
+    <a [href]="externalUrl" target="_blank" rel="noopener noreferrer"> {{ 'viewer.ver_video_tiktok' | translate }}</a>
   </div>
 </ion-content>

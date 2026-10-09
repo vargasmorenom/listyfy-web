@@ -20,7 +20,7 @@ import {
   IonSelect, IonLabel, IonSelectOption, IonTextarea,
   IonRadio, IonRadioGroup, IonList, IonCheckbox, IonPopover, IonSpinner,
 } from '@ionic/angular/standalone';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { TagInputComponent } from 'src/app/shared/tag-input/tag-input.component';
 import { MAX_IMAGE_SIZE_BYTES, MAX_IMAGE_SIZE_MB } from 'src/app/configs/fileValidation';
 
@@ -52,6 +52,7 @@ export class AdminpostedPage implements OnInit, OnDestroy {
     public messToast: ToastrService,
     public adminPosted: PostedsService,
     private storage: StorageService,
+    private translate: TranslateService,
   ) {
     this.formCreate = posted;
     this.form = this.formUl.createForm(this.formCreate);
@@ -61,8 +62,8 @@ export class AdminpostedPage implements OnInit, OnDestroy {
 
   ngOnInit() {}
 
-  counterFormatter(inputLength: number, maxLength: number): string {
-    return `${maxLength - inputLength} caracteres restantes`;
+  counterFormatter = (inputLength: number, maxLength: number): string => {
+    return this.translate.instant('common.caracteres_restantes', { count: maxLength - inputLength });
   }
 
   ngOnDestroy() {
@@ -82,7 +83,7 @@ export class AdminpostedPage implements OnInit, OnDestroy {
       const file = event.target.files[0];
       if (file.type.includes('image')) {
         if (file.size > MAX_IMAGE_SIZE_BYTES) {
-          this.messToast.error(`La imagen supera el peso máximo permitido de ${MAX_IMAGE_SIZE_MB}MB`, 'Error');
+          this.messToast.error(this.translate.instant('editprofileimage.error_peso', { max: MAX_IMAGE_SIZE_MB }), 'Error');
           event.target.value = '';
           return;
         }
@@ -128,20 +129,20 @@ export class AdminpostedPage implements OnInit, OnDestroy {
           
         if (data.status === 200 || data.status === 201) {
      
-          this.messToast.success(data.body.message, 'Success');
+          this.messToast.success(data.body.message, this.translate.instant('common.exito'));
           this.form.reset();
           this.imagenCarga = '';
           setTimeout(() => {
             this.router.navigate(['adminlist'], { queryParams: { id: data.body._id } });
           }, 1000);
         } else {
-          this.messToast.error(data.body.message, 'Error');
+          this.messToast.error(data.body.message, this.translate.instant('common.error'));
         }
       },
       error: () => {
         this.loading = false;
       
-        this.messToast.error('Error al crear la lista.', 'Error');
+        this.messToast.error(this.translate.instant('common.error_crear_lista'), this.translate.instant('common.error'));
       },
     });
   }

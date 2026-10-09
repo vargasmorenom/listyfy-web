@@ -46,6 +46,7 @@
     "tags": "Tags",
     "acceso": "Access Level",
     "boton_crear": "Create List",
+    "boton_editar": "Edit List",
     "boton_limpiar": "Clear Form",
     "para_ninos": "For Kids",
     "publico": "Public",
@@ -109,6 +110,147 @@
     "copiar": "Copy",
     "agregar_contenido": "Add Content",
     "limite_alcanzado": "Limit of 10 articles reached",
-    "contador_limite": "/10"
+    "contador_limite": "/10",
+    "admin_titulo": "Content Management",
+    "agregar_titulo": "Add New Content",
+    "nuevo_contenido_msg": "New Content",
+    "login_like": "You must log in to like",
+    "aviso": "Notice",
+    "limite_msg": "You have reached the limit of 10 articles per post",
+    "limite_titulo": "Limit reached",
+    "confirmar_eliminar": "Are you sure you want to delete this content?",
+    "eliminado_ok": "Content deleted successfully",
+    "error_eliminar": "Error deleting the content",
+    "eliminacion_cancelada": "Deletion cancelled",
+    "cancelado": "Cancelled",
+    "error_enlace": "Error generating the link",
+    "enlace_copiado": "Link copied to clipboard",
+    "copiado": "Copied"
+  },
+  "clickhint": {
+    "text": "👆 Click here!"
+  },
+  "tags": {
+    "placeholder": "Search or create tag...",
+    "placeholder_add": "+ tag",
+    "crear": "Create",
+    "contador": "{{count}}/{{max}} tags"
+  },
+  "editprofile": {
+    "guardar": "Save Changes",
+    "cambiar_foto": "Change photo",
+    "agregar": "Add",
+    "eliminar": "Remove",
+    "error_requerido": "This field is required",
+    "error_minlength": "Minimum 8 characters",
+    "error_patron": "Invalid format",
+    "url_invalida": "Invalid URL. It must start with http:// or https://",
+    "formato_im": "Format: app:number (e.g. whatsapp:3201234567)",
+    "error_imagen": "The image could not be updated, but the profile will be saved.",
+    "error_guardar": "Error saving the profile",
+    "label_chanelName": "Channel Name",
+    "label_description": "Description",
+    "label_firstName": "First Name",
+    "label_lastName": "Last Name",
+    "label_email": "Email",
+    "label_phoneNumber": "Phone",
+    "label_location": "Location",
+    "label_linksString": "External Links",
+    "label_socialMediaString": "Social Networks",
+    "label_instantMessagesString": "Instant Messaging"
+  },
+  "editprofileimage": {
+    "seleccionar": "Select image",
+    "cambiar": "Change image",
+    "editar": "Edit Image",
+    "error_peso": "The image exceeds the maximum allowed size of {{max}}MB",
+    "error_actualizar": "Error updating the image"
+  },
+  "menuapp": {
+    "abrir": "Open",
+    "acciones": "Actions",
+    "eliminar": "Delete",
+    "cancelar": "Cancel",
+    "ok": "OK"
+  },
+  "newcontent": {
+    "hint": "Paste the URL of the content you want to add to this list.",
+    "placeholder_url": "https://...",
+    "placeholder_titulo": "E.g: My favorite video",
+    "campo_obligatorio": "Required field",
+    "form_invalido": "Invalid form",
+    "exito": "Success",
+    "alerta": "Warning",
+    "error": "Error",
+    "respuesta_inesperada": "Unexpected response",
+    "error_solicitud": "Error in the request",
+    "sin_mensaje": "No message from server"
+  },
+  "password": {
+    "mayuscula": "One uppercase letter",
+    "minuscula": "One lowercase letter",
+    "numero": "One number",
+    "especial": "One special character",
+    "min": "Minimum 8 characters"
+  },
+  "share": {
+    "sin_contenido": "Add content to be able to share",
+    "facebook": "Share on Facebook",
+    "whatsapp": "Share on WhatsApp",
+    "twitter": "Share on Twitter / X",
+    "telegram": "Share on Telegram"
+  },
+  "instagram": {
+    "post": "Post:"
+  },
+  "viewer": {
+    "cargando_publicacion": "Loading post...",
+    "cargando_mensaje": "Loading message...",
+    "cargando_video": "Loading video...",
+    "cargando_tweet": "Loading tweet...",
+    "ver_en_instagram": "View on Instagram",
+    "ver_en_linkedin": "View on LinkedIn",
+    "ver_en_telegram": "View on Telegram",
+    "ver_en_youtube": "View on YouTube",
+    "ver_en_twitter": "View on X / Twitter",
+    "abrir_facebook": "Open on Facebook",
+    "ver_video_tiktok": "View video on TikTok",
+    "aviso_facebook": "If the content does not display, it may be private or belong to a personal profile. Only public content from Facebook Pages is embeddable.",
+    "tipo_video": "Video",
+    "tipo_foto": "Photo",
+    "tipo_reel": "Reel",
+    "tipo_post": "Post",
+    "title_tiktok": "View TikTok Content"
+  },
+  "carousel": {
+    "cargando": "Loading...",
+    "contenido": "Content",
+    "error_carga": "This content could not be loaded."
+  },
+  "common": {
+    "form_invalido": "Invalid form",
+    "contenido_actualizado": "Content updated successfully",
+    "error_actualizar": "Error updating the content",
+    "caracteres_restantes": "{{count}} characters remaining",
+    "exito": "Success",
+    "error": "Error",
+    "error_crear_lista": "Error creating the list."
+  },
+  "config": {
+    "titulo": "Account Settings",
+    "cambio_password": "Change Password",
+    "idioma": "Language",
+    "apariencia": "Appearance",
+    "modo_oscuro": "Dark mode",
+    "enviar_datos": "Submit Data",
+    "guardar_idioma": "Save Language",
+    "guardado": "Saved",
+    "no_coinciden": "Passwords do not match.",
+    "campo_obligatorio": "This field is required.",
+    "pass_actualizada": "Password updated successfully.",
+    "error_password": "Error changing the password.",
+    "label_password_actual": "Current Password",
+    "label_password_nueva": "New Password",
+    "label_confirmar_password": "Confirm Password"
   }
 }

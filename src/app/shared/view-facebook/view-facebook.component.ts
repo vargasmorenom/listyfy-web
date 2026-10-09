@@ -14,12 +14,13 @@ import {
   IonSpinner,
   IonIcon,
 } from '@ionic/angular/standalone';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-view-facebook',
   templateUrl: './view-facebook.component.html',
   styleUrls: ['./view-facebook.component.scss'],
-  imports: [IonButton, IonButtons, IonContent, IonHeader, IonToolbar, IonTitle, IonSpinner, IonIcon],
+  imports: [IonButton, IonButtons, IonContent, IonHeader, IonToolbar, IonTitle, IonSpinner, IonIcon, TranslatePipe],
   standalone: true,
 })
 export class ViewFacebookComponent implements OnInit {

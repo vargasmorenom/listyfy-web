@@ -12,17 +12,18 @@ import {
   IonIcon
 } from '@ionic/angular/standalone';
 import { EmbedUrlService } from 'src/app/services/embed-url.service';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-view-tiktok',
   templateUrl: './view-tiktok.component.html',
   styleUrls: ['./view-tiktok.component.scss'],
-  imports: [IonButton, IonButtons, IonContent, IonHeader, IonToolbar, IonTitle, IonSpinner, IonIcon],
+  imports: [IonButton, IonButtons, IonContent, IonHeader, IonToolbar, IonTitle, IonSpinner, IonIcon, TranslatePipe],
   standalone: true,
 })
 export class ViewTiktokComponent implements OnInit {
   public id: any;
-  public title: String = 'Ver Contenido TikTok';
+  public title: String;
   tiktokId!: string;
   externalUrl!: string;
   loading = true;
@@ -32,8 +33,11 @@ export class ViewTiktokComponent implements OnInit {
     private navParams: NavParams,
     private modalCtrl: ModalController,
     private sanitizer: DomSanitizer,
-    private embedUrl: EmbedUrlService
-  ) {}
+    private embedUrl: EmbedUrlService,
+    private translate: TranslateService
+  ) {
+    this.title = this.translate.instant('viewer.title_tiktok');
+  }
 
   ngOnInit() {
     this.id = this.navParams.get('id');

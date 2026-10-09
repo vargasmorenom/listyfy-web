@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ModalController, ActionSheetButton } from '@ionic/angular';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import {
   IonButton,
   IonActionSheet,
@@ -12,6 +13,7 @@ import {
   imports: [
     IonButton,
     IonActionSheet,
+    TranslatePipe,
   ],
   standalone: true,
 })
@@ -20,7 +22,7 @@ export class MenuappComponent implements OnInit {
   @Input() message: string = '';
   @Input() confirmText: string = 'OK';
 
-  constructor(private modalCtrl: ModalController) {}
+  constructor(private modalCtrl: ModalController, private translate: TranslateService) {}
 
   ngOnInit() {}
 
@@ -30,12 +32,12 @@ export class MenuappComponent implements OnInit {
 
   actionSheetButtons: ActionSheetButton[] = [
     {
-      text: 'Eliminar',
+      text: this.translate?.instant('menuapp.eliminar') ?? 'Eliminar',
       role: 'destructive',
       handler: () => {},
     },
     {
-      text: 'Cancelar',
+      text: this.translate?.instant('menuapp.cancelar') ?? 'Cancelar',
       role: 'cancel',
     },
   ];

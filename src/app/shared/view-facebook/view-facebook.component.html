@@ -14,7 +14,7 @@
   @if (loading) {
     <div class="loading-container">
       <ion-spinner name="crescent"></ion-spinner>
-      <p>Cargando publicación...</p>
+      <p>{{ 'viewer.cargando_publicacion' | translate }}</p>
     </div>
   }
 
@@ -33,13 +33,13 @@
 
   <div class="aviso-privacidad">
     <ion-icon name="information-circle-outline"></ion-icon>
-    <span>Si el contenido no se muestra, puede ser privado o pertenecer a un perfil personal. Solo el contenido público de Páginas de Facebook es embebible.</span>
+    <span>{{ 'viewer.aviso_facebook' | translate }}</span>
   </div>
 
   <div class="urlexterna">
     <a [href]="externalUrl" target="_blank">
       <ion-icon name="open-outline"></ion-icon>
-      Abrir en Facebook
+      {{ 'viewer.abrir_facebook' | translate }}
     </a>
   </div>
 

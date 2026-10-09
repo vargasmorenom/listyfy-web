@@ -3,14 +3,14 @@
 <app-back></app-back>
 <ion-card>
   <ion-card-header>
-    <ion-card-title>Configuracion de Cuenta</ion-card-title>
+    <ion-card-title>{{ 'config.titulo' | translate }}</ion-card-title>
   </ion-card-header>
 </ion-card>
 <div class="configuracion">
   <ion-accordion-group>
   <ion-accordion value="first">
     <ion-item slot="header" color="light">
-      <ion-label>Cambio De contraseña</ion-label>
+      <ion-label>{{ 'config.cambio_password' | translate }}</ion-label>
     </ion-item>
     <div class="ion-padding" slot="content">
     <form [formGroup]="form" autocomplete="off">
@@ -21,7 +21,7 @@
           <ion-input
             type="{{item.type}}"
             name="{{item.name}}"
-            placeholder="{{item.label}}"
+            placeholder="{{ item.label | translate }}"
             formControlName="{{item.name}}"
             autocomplete="new-password"
           >
@@ -37,14 +37,14 @@
         @if (item.name === 'confirmPassword' && form.get('confirmPassword')?.touched && form.errors?.['passwordMismatch']) {
           <ion-item>
             <div class="error">
-              <span>Las contraseñas no coinciden.</span>
+              <span>{{ 'config.no_coinciden' | translate }}</span>
             </div>
           </ion-item>
         }
         @if(form.get(item.name)?.touched){ @if(form.get(item.name)?.errors?.['required']){
         <ion-item>
           <div class="error">
-            <span>Este campo es obligatorio.</span>
+            <span>{{ 'config.campo_obligatorio' | translate }}</span>
           </div>
         </ion-item>
         } }
@@ -56,7 +56,7 @@
             @if (loading) {
               <ion-spinner name="crescent"></ion-spinner>
             } @else {
-              <ion-icon name="arrow-forward-outline" style="margin-right: 5px"></ion-icon>Enviar Datos
+              <ion-icon name="arrow-forward-outline" style="margin-right: 5px"></ion-icon>{{ 'config.enviar_datos' | translate }}
             }
           </ion-button>
         </ion-item>
@@ -66,14 +66,14 @@
   </ion-accordion>
   <ion-accordion value="second">
     <ion-item slot="header" color="light">
-      <ion-label>Idioma</ion-label>
+      <ion-label>{{ 'config.idioma' | translate }}</ion-label>
     </ion-item>
     <div class="ion-padding" slot="content">
     <form [formGroup]="langua" autocomplete="off">
       @for (item of language; track $index; ) {
       <div class="input-group">
         <ion-list class="optioconten">
-          <ion-label>{{ item.label }}</ion-label>
+          <ion-label>{{ item.label | translate }}</ion-label>
           <ion-radio-group formControlName="{{item.name}}">
             @for(itema of item.content; track $index;){
             <ion-item>
@@ -91,7 +91,7 @@
         <ion-item>
           <ion-button (click)="guardarIdioma()" [disabled]="langua.invalid">
             <ion-icon name="arrow-forward-outline" style="margin-right: 5px"></ion-icon>
-            @if(languageSaved){ Guardado } @else { Guardar Idioma }
+            @if(languageSaved){ {{ 'config.guardado' | translate }} } @else { {{ 'config.guardar_idioma' | translate }} }
           </ion-button>
         </ion-item>
       </div>
@@ -101,12 +101,12 @@
   </ion-accordion>
   <ion-accordion value="third">
     <ion-item slot="header" color="light">
-      <ion-label>Apariencia</ion-label>
+      <ion-label>{{ 'config.apariencia' | translate }}</ion-label>
     </ion-item>
     <div class="ion-padding" slot="content">
       <ion-item>
         <ion-icon name="moon-outline" slot="start"></ion-icon>
-        <ion-label>Modo oscuro</ion-label>
+        <ion-label>{{ 'config.modo_oscuro' | translate }}</ion-label>
         <ion-toggle slot="end" [checked]="isDark" (ionChange)="toggleTheme()"></ion-toggle>
       </ion-item>
     </div>

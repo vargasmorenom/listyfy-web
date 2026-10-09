@@ -14,7 +14,7 @@
   @if (loading) {
     <div class="loading-container">
       <ion-spinner name="crescent"></ion-spinner>
-      <p>Cargando tweet...</p>
+      <p>{{ 'viewer.cargando_tweet' | translate }}</p>
     </div>
   }
 
@@ -31,7 +31,7 @@
   </div>
 
   <div class="urlexterna">
-    <a href="https://twitter.com/{{ username }}/status/{{ tweetId }}" target="_blank">Ver en X / Twitter</a>
+    <a href="https://twitter.com/{{ username }}/status/{{ tweetId }}" target="_blank">{{ 'viewer.ver_en_twitter' | translate }}</a>
   </div>
 
 </ion-content>

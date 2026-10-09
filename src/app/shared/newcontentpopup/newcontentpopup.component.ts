@@ -6,6 +6,7 @@ import { ModalController } from '@ionic/angular';
 import { DynamicFormService } from 'src/app/services/dynamicFormService';
 import { ToastrService } from 'ngx-toastr';
 import { PostedsService } from 'src/app/services/posteds.service';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { content } from '../../configs/content';
 import { NavParams } from '@ionic/angular';
 import { addIcons } from 'ionicons';
@@ -40,6 +41,7 @@ import {
     IonHeader,
     IonToolbar,
     IonTitle,
+    TranslatePipe,
   ],
   standalone: true,
 })
@@ -58,7 +60,8 @@ export class NewcontentpopupComponent implements OnInit, OnDestroy {
     private modalCtrl: ModalController,
     private navParams: NavParams,
     public messToast: ToastrService,
-    private posted: PostedsService
+    private posted: PostedsService,
+    private translate: TranslateService
   ) {
     addIcons({ closeOutline, addCircleOutline, alertCircleOutline, cloudUploadOutline });
     this.content = content;
@@ -81,7 +84,7 @@ export class NewcontentpopupComponent implements OnInit, OnDestroy {
 
 enviar() {
   if (!this.form.valid) {
-    this.messToast.error('Formulario inválido');
+    this.messToast.error(this.translate.instant('newcontent.form_invalido'));
     return;
   }
 
@@ -96,33 +99,33 @@ enviar() {
   this.posted.addContent(dataContenido).pipe(takeUntil(this.destroy$)).subscribe({
     next: (response) => {
       this.loading = false;
-      const message = response?.body?.message || 'Sin mensaje del servidor';
+      const message = response?.body?.message || this.translate.instant('newcontent.sin_mensaje');
 
       switch (response.status) {
         case 200:
-          this.messToast.success(message, 'Éxito');
+          this.messToast.success(message, this.translate.instant('newcontent.exito'));
           setTimeout(() => this.modalCtrl.dismiss({ updated: true }), 2000);
           break;
 
         case 201:
-          this.messToast.warning(message, 'Alerta');
+          this.messToast.warning(message, this.translate.instant('newcontent.alerta'));
           break;
 
         case 400:
         case 404:
         case 500:
-          this.messToast.error(message, 'Error');
+          this.messToast.error(message, this.translate.instant('newcontent.error'));
           break;
 
         default:
-          this.messToast.info('Respuesta inesperada');
+          this.messToast.info(this.translate.instant('newcontent.respuesta_inesperada'));
       }
     },
 
     error: (error) => {
       this.loading = false;
       console.error('Error en la solicitud', error);
-      this.messToast.error('Error en la solicitud', 'Error');
+      this.messToast.error(this.translate.instant('newcontent.error_solicitud'), this.translate.instant('newcontent.error'));
     }
   });
 }

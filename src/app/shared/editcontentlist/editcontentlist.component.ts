@@ -36,6 +36,7 @@ import {
 } from '@ionic/angular/standalone';
 import { TagInputComponent } from 'src/app/shared/tag-input/tag-input.component';
 import { MAX_IMAGE_SIZE_BYTES, MAX_IMAGE_SIZE_MB } from 'src/app/configs/fileValidation';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-editcontentlist',
@@ -88,7 +89,8 @@ export class EditcontentlistComponent implements OnInit, OnDestroy {
     private perfil: ProfileService,
     private storage: StorageService,
     private routes: Router,
-    private posteded: PostedsService
+    private posteded: PostedsService,
+    private translate: TranslateService
   ) {
     this.formData = posted;
     const id = this.navParams.get('id');
@@ -109,8 +111,8 @@ export class EditcontentlistComponent implements OnInit, OnDestroy {
     this.modalCtrl.dismiss();
   }
 
-  counterFormatter(inputLength: number, maxLength: number): string {
-    return `${maxLength - inputLength} caracteres restantes`;
+  counterFormatter = (inputLength: number, maxLength: number): string => {
+    return this.translate.instant('common.caracteres_restantes', { count: maxLength - inputLength });
   }
 
   onfile(event: any) {
@@ -118,7 +120,7 @@ export class EditcontentlistComponent implements OnInit, OnDestroy {
       const file = event.target.files[0];
       if (file.type.includes('image')) {
         if (file.size > MAX_IMAGE_SIZE_BYTES) {
-          this.messToast.error(`La imagen supera el peso máximo permitido de ${MAX_IMAGE_SIZE_MB}MB`, 'Error');
+          this.messToast.error(this.translate.instant('editprofileimage.error_peso', { max: MAX_IMAGE_SIZE_MB }), 'Error');
           event.target.value = '';
           return;
         }
@@ -160,7 +162,7 @@ export class EditcontentlistComponent implements OnInit, OnDestroy {
         next: (res: any) => {
           this.loading = false;
           if (res.status === 200) {
-            this.messToast.success('Contenido actualizado correctamente');
+            this.messToast.success(this.translate.instant('common.contenido_actualizado'));
             this.modalCtrl.dismiss().then(() => {
               if (this.onComplete) {
                 this.onComplete(this.postId);
@@ -169,17 +171,17 @@ export class EditcontentlistComponent implements OnInit, OnDestroy {
               }
             });
           } else {
-            this.messToast.error('Error al actualizar el contenido');
+            this.messToast.error(this.translate.instant('common.error_actualizar'));
           }
         },
         error: (error) => {
           this.loading = false;
           console.error(error);
-          this.messToast.error('Error al actualizar el contenido');
+          this.messToast.error(this.translate.instant('common.error_actualizar'));
         },
       });
     } else {
-      this.messToast.error('Formulario inválido');
+      this.messToast.error(this.translate.instant('common.form_invalido'));
     }
   }
 }

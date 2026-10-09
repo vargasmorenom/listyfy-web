@@ -18,6 +18,7 @@ import { IonAccordion,IonAccordionGroup,IonItem,
   IonInput,IonLabel,IonIcon,IonButton,IonInputPasswordToggle,IonCard,IonCardHeader,IonCardTitle,
   IonList,IonRadio,IonRadioGroup,IonToggle,IonSpinner } from '@ionic/angular/standalone';
 import { BackComponent } from 'src/app/shared/back/back.component';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-config',
@@ -27,7 +28,7 @@ import { BackComponent } from 'src/app/shared/back/back.component';
   imports: [CommonModule, FormsModule, IonAccordion,
     ReactiveFormsModule,IonAccordionGroup,IonItem,IonLabel,IonIcon,IonButton,IonInputPasswordToggle,
   IonInput,IonCard,IonCardHeader,IonCardTitle,IonList,IonRadio,IonRadioGroup,IonToggle,IonSpinner,BackComponent,
-  PasswordRulesComponent]
+  PasswordRulesComponent, TranslatePipe]
 })
 export class ConfigPage implements OnInit, OnDestroy {
 
@@ -50,7 +51,8 @@ export class ConfigPage implements OnInit, OnDestroy {
     private configService: ConfigService,
     private storage: StorageService,
     private themeService: ThemeService,
-    private toast: ToastrService
+    private toast: ToastrService,
+    private translate: TranslateService
   ) {}
 
   ngOnInit() {
@@ -78,12 +80,12 @@ export class ConfigPage implements OnInit, OnDestroy {
     this.configService.changePassword(data).pipe(takeUntil(this.destroy$)).subscribe({
       next: () => {
         this.loading = false;
-        this.toast.success('Contraseña actualizada correctamente.');
+        this.toast.success(this.translate.instant('config.pass_actualizada'));
         this.form.reset();
       },
       error: (err) => {
         this.loading = false;
-        const msg = err.error?.message || 'Error al cambiar la contraseña.';
+        const msg = err.error?.message || this.translate.instant('config.error_password');
         this.toast.error(msg);
       }
     });

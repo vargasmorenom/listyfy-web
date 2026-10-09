@@ -12,12 +12,13 @@ import {
   IonIcon,
 } from '@ionic/angular/standalone';
 import { EmbedUrlService } from 'src/app/services/embed-url.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-view-twitter',
   templateUrl: './view-twitter.component.html',
   styleUrls: ['./view-twitter.component.scss'],
-  imports: [IonButton, IonButtons, IonContent, IonHeader, IonToolbar, IonTitle, IonSpinner, IonIcon],
+  imports: [IonButton, IonButtons, IonContent, IonHeader, IonToolbar, IonTitle, IonSpinner, IonIcon, TranslatePipe],
   standalone: true,
 })
 export class ViewTwitterComponent implements OnInit {

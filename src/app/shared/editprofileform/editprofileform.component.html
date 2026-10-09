@@ -12,7 +12,7 @@
 
   <!-- IMAGEN DE PERFIL -->
   <div class="avatar-section">
-    <label class="avatar-wrapper" for="profile-pic-input" title="Cambiar foto">
+    <label class="avatar-wrapper" for="profile-pic-input" [title]="'editprofile.cambiar_foto' | translate">
       <img class="avatar-img" [src]="imagenCarga || currentImageUrl" alt="Foto de perfil" />
       <div class="avatar-overlay">
         <ion-icon name="camera-outline"></ion-icon>
@@ -30,7 +30,7 @@
         <ion-item lines="none" class="input-item">
           <ion-input
             [type]="item.type"
-            [label]="item.label"
+            [label]="item.label | translate"
             labelPlacement="stacked"
             [formControlName]="item.name">
           </ion-input>
@@ -41,7 +41,7 @@
       @if (item.type === 'textarea') {
         <ion-item lines="none" class="input-item">
           <ion-textarea
-            [label]="item.label"
+            [label]="item.label | translate"
             labelPlacement="stacked"
             autoGrow="true"
             [formControlName]="item.name">
@@ -54,9 +54,9 @@
         <div class="array-field">
 
           <div class="array-header">
-            <span class="array-label">{{ item.label }}</span>
+            <span class="array-label">{{ item.label | translate }}</span>
             @if (itemsMap[item.name].length < 3) {
-              <button type="button" class="add-icon-btn" (click)="addItem(item.name)" title="Agregar">
+              <button type="button" class="add-icon-btn" (click)="addItem(item.name)" [title]="'editprofile.agregar' | translate">
                 <ion-icon name="add-circle-outline"></ion-icon>
               </button>
             }
@@ -74,7 +74,7 @@
                 </ion-input>
               </ion-item>
               @if (itemsMap[item.name].length > 1) {
-                <button type="button" class="remove-icon-btn" (click)="removeItem(item.name, i)" title="Eliminar">
+                <button type="button" class="remove-icon-btn" (click)="removeItem(item.name, i)" [title]="'editprofile.eliminar' | translate">
                   <ion-icon name="close-circle-outline"></ion-icon>
                 </button>
               }
@@ -106,15 +106,15 @@
         <div class="error-message">
 
           @if (form.get(item.name)?.errors?.['required']) {
-            <span>Este campo es obligatorio</span>
+            <span>{{ 'editprofile.error_requerido' | translate }}</span>
           }
 
           @if (form.get(item.name)?.errors?.['minlength']) {
-            <span>Mínimo 8 caracteres</span>
+            <span>{{ 'editprofile.error_minlength' | translate }}</span>
           }
 
           @if (form.get(item.name)?.errors?.['pattern']) {
-            <span>Formato inválido</span>
+            <span>{{ 'editprofile.error_patron' | translate }}</span>
           }
 
         </div>
@@ -132,7 +132,7 @@
       <ion-spinner name="crescent"></ion-spinner>
     } @else {
       <ion-icon name="save-outline"></ion-icon>
-      Guardar Cambios
+      {{ 'editprofile.guardar' | translate }}
     }
   </ion-button>
 

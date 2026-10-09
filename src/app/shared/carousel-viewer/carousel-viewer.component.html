@@ -19,7 +19,7 @@
   @if (loading) {
     <div class="loading-container">
       <ion-spinner name="crescent"></ion-spinner>
-      <p>Cargando...</p>
+      <p>{{ 'carousel.cargando' | translate }}</p>
     </div>
   }
 
@@ -34,12 +34,12 @@
           frameborder="0"
           allowfullscreen
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          title="Contenido"
+          title="{{ 'carousel.contenido' | translate }}"
           (load)="onIframeLoad()">
         </iframe>
       } @else if (loadError) {
         <div class="error-container">
-          <p>No se pudo cargar este contenido.</p>
+          <p>{{ 'carousel.error_carga' | translate }}</p>
         </div>
       }
     </div>
